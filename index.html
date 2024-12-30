@@ -29,7 +29,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 1em;
+      padding: 0.5em; /* Reduced padding for mobile */
     }
 
     /*************************************************************
@@ -38,41 +38,41 @@
     #start-menu {
       text-align: center;
       width: 100%;
-      max-width: 600px;
+      max-width: 500px; /* Reduced max-width for mobile */
       margin: auto;
       background: #ed1b76; /* Bright pink background */
-      padding: 1.5em;
+      padding: 1em; /* Reduced padding */
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      box-shadow: 0 0 8px rgba(0,0,0,0.2); /* Slightly reduced shadow */
       position: relative;
     }
     #start-menu h1 {
-      margin-bottom: 0.5em;
-      font-size: 1.8em;
+      margin-bottom: 0.4em;
+      font-size: 1.5em; /* Reduced font size */
       color: #ffffff;
     }
     #start-menu p {
-      margin: 1em 0;
-      line-height: 1.5em;
+      margin: 0.8em 0;
+      line-height: 1.4em;
       color: #ffffff;
-      font-size: 0.9em; /* Reduced font size for mobile */
+      font-size: 0.85em; /* Further reduced font size */
     }
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 1em;
+      font-size: 0.9em; /* Adjusted font size */
     }
     #start-menu select,
     #start-menu input[type="range"] {
-      margin: 0.5em 0;
-      padding: 0.4em;
+      margin: 0.4em 0;
+      padding: 0.3em;
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 1em;
+      font-size: 0.9em; /* Adjusted font size */
       width: 100%;
-      max-width: 200px;
+      max-width: 180px; /* Slightly reduced max-width */
       display: block;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
       text-align: center;
     }
 
@@ -82,13 +82,13 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1em; /* Increased font size for readability */
-      padding: 0.6em 1em; /* Increased padding for touch */
+      font-size: 0.9em; /* Reduced font size */
+      padding: 0.5em 0.8em; /* Reduced padding */
       cursor: pointer;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
       transition: background 0.3s;
-      width: 100%; /* Full width on mobile */
-      max-width: 200px;
+      width: 100%;
+      max-width: 180px; /* Reduced max-width */
     }
     #sound-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -100,31 +100,32 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 2em;
+      gap: 1.5em; /* Reduced gap */
       flex-wrap: wrap;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
     }
     .setting-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
     }
     .setting-item label {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.4em;
     }
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
     }
     .slider-container input[type="range"] {
-      width: 150px;
+      width: 120px; /* Reduced width */
     }
     .slider-container span {
-      width: 30px;
+      width: 25px; /* Reduced width */
       text-align: center;
       font-weight: bold;
+      font-size: 0.9em; /* Adjusted font size */
     }
 
     #start-btn {
@@ -132,11 +133,11 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1.2em;
-      padding: 0.6em 1.2em;
+      font-size: 1em; /* Adjusted font size */
+      padding: 0.5em 1em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
-      width: 100%; /* Full width on mobile */
+      width: 100%;
       max-width: 200px;
     }
     #start-btn:hover {
@@ -148,12 +149,12 @@
      *************************************************************/
     #game-container {
       width: 100%;
-      max-width: 700px;
+      max-width: 500px; /* Reduced max-width for mobile */
       margin: 1em auto;
       background: #ed1b76; /* Pink background for game area */
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      padding: 1em;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2); /* Slightly reduced shadow */
+      padding: 0.8em; /* Reduced padding */
       display: none; /* Hidden until game starts */
       position: relative;
     }
@@ -163,25 +164,25 @@
      *************************************************************/
     #ai-section {
       text-align: center;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
     }
     #ai-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1.2em;
+      margin-bottom: 0.4em;
+      font-size: 1em; /* Reduced font size */
       color: #ffffff;
     }
     #ai-choices {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 45%; /* Adjust width for better fit on mobile */
     }
     .ai-choice-btn {
@@ -189,9 +190,9 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em; /* Increased padding for touch */
-      min-width: 80px;
+      font-size: 0.9em; /* Reduced font size */
+      padding: 0.4em; /* Reduced padding */
+      min-width: 60px; /* Reduced min-width */
       cursor: default;
       pointer-events: none; /* not clickable by user */
       display: flex;
@@ -199,11 +200,11 @@
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px; /* Limit max width */
+      max-width: 80px; /* Reduced max-width */
     }
     .ai-choice-btn img {
-      width: 40px;
-      height: 40px;
+      width: 30px; /* Reduced image size */
+      height: 30px; /* Reduced image size */
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -216,40 +217,40 @@
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.5em auto 1em;
-      font-size: 1.2em;
+      margin: 0.5em auto 0.8em;
+      font-size: 1em; /* Reduced font size */
       display: flex;
       justify-content: center;
-      gap: 2em;
+      gap: 1.5em; /* Reduced gap */
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     #scoreboard div {
       background: #249f9c; /* Teal scoreboard background */
       color: #ffffff;
-      padding: 0.5em 1em;
+      padding: 0.4em 0.8em; /* Reduced padding */
       border-radius: 4px;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced font size */
       width: 45%; /* Adjust width for better fit on mobile */
-      min-width: 120px;
+      min-width: 100px; /* Adjusted min-width */
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.2em;
+      margin-bottom: 0.8em;
+      font-size: 1em; /* Reduced font size */
       background: #249f9c;
       color: #ffffff;
-      padding: 0.5em;
+      padding: 0.4em;
       border-radius: 4px;
     }
     #status-message {
       text-align: center;
       font-weight: bold;
-      margin-bottom: 1em;
+      margin-bottom: 0.8em;
       min-height: 2em;
       color: #ffffff;
-      font-size: 1em; /* Adjusted for mobile */
+      font-size: 0.9em; /* Reduced font size */
     }
 
     /*************************************************************
@@ -257,26 +258,29 @@
      *************************************************************/
     #result-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.8em;
       display: none; /* shown after reveal */
     }
     #result-message {
       font-weight: bold;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
       color: #ffffff; 
-      font-size: 1em; /* Adjusted for mobile */
+      font-size: 0.9em; /* Reduced font size */
     }
+    /* Hide the Next Round button by default */
     #next-round-btn {
+      display: none;
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.6em 1.2em;
+      font-size: 0.9em; /* Reduced font size */
+      padding: 0.4em 0.8em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
-      width: 100%; /* Full width on mobile */
-      max-width: 200px;
+      max-width: 180px; /* Reduced max-width */
+      margin: 0 auto; /* Center the button */
+      display: block; /* Ensure it can be centered with auto margins */
     }
     #next-round-btn:hover {
       background: #249f9c;
@@ -288,31 +292,31 @@
     #roulette-visual {
       text-align: center;
       display: none;
-      margin: 1em auto;
-      font-size: 1em;
+      margin: 0.8em auto;
+      font-size: 0.9em; /* Reduced font size */
       border: 2px dashed #f44786;
-      padding: 1em;
+      padding: 0.8em; /* Reduced padding */
       border-radius: 8px;
       background: #ffffff;
       width: 100%;
-      max-width: 500px;
+      max-width: 400px; /* Reduced max-width */
       color: #ed1b76;
     }
     #roulette-visual h3 {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.4em;
       color: #ed1b76;
-      font-size: 1.2em; /* Adjusted for mobile */
+      font-size: 1em; /* Reduced font size */
     }
     #roulette-spin {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced font size */
     }
     #roulette-outcome {
-      margin-top: 0.5em;
+      margin-top: 0.4em;
       font-weight: bold;
-      font-size: 1em; /* Adjusted for mobile */
+      font-size: 0.9em; /* Reduced font size */
     }
     /* Simple spin animation for "spinning" text */
     .spin-animation {
@@ -329,11 +333,11 @@
      *************************************************************/
     #user-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.8em;
     }
     #user-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1.2em;
+      margin-bottom: 0.4em;
+      font-size: 1em; /* Reduced font size */
       color: #ffffff;
     }
 
@@ -342,15 +346,15 @@
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      margin-bottom: 1em;
-      gap: 2em;
+      margin-bottom: 0.8em;
+      gap: 1.5em; /* Reduced gap */
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 45%; /* Adjust width for better fit on mobile */
     }
     .choice-btn {
@@ -358,16 +362,16 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.6em; /* Increased padding for touch */
-      min-width: 80px;
+      font-size: 0.9em; /* Reduced font size */
+      padding: 0.4em; /* Reduced padding */
+      min-width: 60px; /* Reduced min-width */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px; /* Limit max width */
+      max-width: 80px; /* Reduced max-width */
     }
     .choice-btn:hover {
       background: #249f9c;
@@ -378,8 +382,8 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 40px;
-      height: 40px;
+      width: 30px; /* Reduced image size */
+      height: 30px; /* Reduced image size */
     }
 
     /*************************************************************
@@ -393,22 +397,22 @@
     /*************************************************************
      * MEDIA QUERIES FOR MOBILE OPTIMIZATION
      *************************************************************/
-    @media (max-width: 600px) {
-      /* Adjust font sizes */
+    @media (max-width: 480px) {
+      /* Further reduce font sizes */
       #start-menu h1 {
-        font-size: 1.5em;
+        font-size: 1.3em;
       }
       #ai-section h2,
       #user-section h2,
       #roulette-visual h3 {
-        font-size: 1em;
+        font-size: 0.95em;
       }
       #scoreboard div {
-        font-size: 0.9em;
+        font-size: 0.85em;
         width: 100%;
-        max-width: 300px;
+        max-width: 250px;
       }
-      /* Stack AI choice columns vertically */
+      /* Stack AI and User choice columns vertically */
       .ai-choice-column,
       .user-choice-column {
         width: 100%;
@@ -417,18 +421,18 @@
       /* Ensure buttons and images are appropriately sized */
       .ai-choice-btn,
       .choice-btn {
-        max-width: 80px;
-        padding: 0.5em;
+        max-width: 70px;
+        padding: 0.3em;
       }
       .ai-choice-btn img,
       .choice-btn img {
-        width: 35px;
-        height: 35px;
+        width: 25px;
+        height: 25px;
       }
       /* Adjust scoreboard layout */
       #scoreboard {
         flex-direction: column;
-        gap: 1em;
+        gap: 0.8em;
       }
       /* Ensure sliders fit within the screen */
       .slider-container input[type="range"] {
@@ -436,13 +440,13 @@
       }
       /* Adjust roulette visual */
       #roulette-visual {
-        padding: 0.8em;
+        padding: 0.6em;
       }
       /* Adjust status message font size */
       #status-message,
       #result-message,
       #roulette-outcome {
-        font-size: 0.9em;
+        font-size: 0.85em;
       }
       /* Adjust buttons to be full width */
       #sound-btn,
@@ -710,22 +714,45 @@
       if (bulletsInChamber < 1) bulletsInChamber = 1;
       if (bulletsInChamber > 6) bulletsInChamber = 6;
 
+      // Reset scores and game state
+      playerScore = 0;
+      aiScore = 0;
+      playerScoreEl.textContent = playerScore;
+      aiScoreEl.textContent = aiScore;
+      gameOver = false;
+
+      // Setup chamber positions based on mode
       if (rouletteMode === 'no-reset') {
         setupNoResetChamber(bulletsInChamber);
+      } else {
+        chamberPositions = [false, false, false, false, false, false];
+        currentChamberIndex = 0;
       }
 
+      // Start the first round
       startRound();
     });
 
+    /****************************************************
+     * NEXT ROUND BUTTON - Handle Both 'Next Round' and 'Restart Game'
+     ****************************************************/
     nextRoundBtn.addEventListener('click', () => {
-      if (gameOver) return; // If someone has died, no more rounds
-      startRound();
+      if (gameOver) {
+        restartGame(); // Restart the game if game over
+      } else {
+        startRound(); // Start the next round
+      }
     });
 
     /****************************************************
      * ROUND LOGIC
      ****************************************************/
     function startRound() {
+      // Reset 'Next Round' button text to 'Next Round'
+      nextRoundBtn.textContent = 'Next Round';
+      // Hide the Next Round button initially
+      nextRoundBtn.style.display = 'none';
+
       // Clear any existing winner highlights
       const allWinnerButtons = document.querySelectorAll('.winner');
       allWinnerButtons.forEach(btn => btn.classList.remove('winner'));
@@ -812,6 +839,11 @@
       if (gameOver) return;
       phase = 0;
       statusMessage.textContent = 'Round Over!';
+
+      // Hide the Next Round button initially
+      nextRoundBtn.style.display = 'none';
+
+      // Show the result section without the button
       resultSection.style.display = 'block';
       resultMessage.textContent = `${reason} AI automatically wins.`;
       aiScore++;
@@ -830,7 +862,7 @@
       if (intervalId) clearInterval(intervalId);
       phase = 0;
 
-      // **Stop introMusic when user makes final choice**
+      // Stop introMusic when user makes final choice
       if (introMusic) {
         introMusic.pause();
         introMusic.currentTime = 0;
@@ -846,6 +878,13 @@
       }
 
       const winner = getWinner(playerFinalHand, aiFinal);
+      
+      // Hide the Next Round button initially
+      nextRoundBtn.style.display = 'none';
+      
+      // Show the result section without the button
+      resultSection.style.display = 'block';
+
       if (winner === 'Player') {
         playerScore++;
         playerScoreEl.textContent = playerScore;
@@ -877,10 +916,12 @@
         aiFinalBtn?.classList.add('winner');
         // Play green.mp3 and no Russian Roulette
         playGreenSound();
+        
+        // Show the Next Round button immediately for a draw
+        nextRoundBtn.style.display = 'block';
       }
 
       statusMessage.textContent = 'Round Over!';
-      resultSection.style.display = 'block';
     }
 
     /****************************************************
@@ -894,7 +935,7 @@
       rouletteSpin.style.display = 'inline-block';
       rouletteOutcome.textContent = '';
 
-      // **Stop introMusic if still playing**
+      // Stop introMusic if still playing
       if (introMusic) {
         introMusic.pause();
         introMusic.currentTime = 0;
@@ -959,7 +1000,7 @@
           // If sound is off, proceed to update UI
           updateRouletteOutcome(target, bulletFires);
         }
-      }, 1000); // 1-second delay after reload
+      }, 800); // Reduced delay for faster responsiveness
     }
 
     function updateRouletteOutcome(target, bulletFires) {
@@ -967,7 +1008,7 @@
 
       if (bulletFires) {
         rouletteOutcome.textContent = `BANG! The ${target.toUpperCase()} is shot.`;
-        gameOver = true;
+        gameOver = true; // Set gameOver flag
         statusMessage.textContent = 'GAME OVER!';
 
         if (target === 'user') {
@@ -977,6 +1018,16 @@
         }
       } else {
         rouletteOutcome.textContent = `CLICK! No bullet fired. ${target.toUpperCase()} survives.`;
+      }
+
+      // Show the Next Round button after Russian Roulette is done
+      nextRoundBtn.style.display = 'block';
+
+      // Set 'nextRoundBtn' text based on 'gameOver'
+      if (gameOver) {
+        nextRoundBtn.textContent = 'Restart Game';
+      } else {
+        nextRoundBtn.textContent = 'Next Round';
       }
     }
 
@@ -1032,38 +1083,57 @@
       });
     }
 
+    function highlightSelectedUserHand(side) {
+      // Remove 'selected' class from all user choice buttons
+      const allUserButtons = document.querySelectorAll('#user-choices .choice-btn');
+      allUserButtons.forEach(btn => btn.classList.remove('selected'));
+
+      // Add 'selected' class to the chosen side's button
+      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${playerLeftHand}"]`);
+      if (selectedButton) {
+          selectedButton.classList.add('selected');
+      }
+    }
+
     function onUserChoiceClick(e) {
       if (phase !== 1 && phase !== 2) return;
       const side = e.currentTarget.getAttribute('data-side');
       const hand = e.currentTarget.getAttribute('data-hand');
 
       if (phase === 1) {
-        // Toggle left/right selection
-        if (side === 'left') {
-          playerLeftHand = (playerLeftHand === hand) ? null : hand;
-        } else {
-          playerRightHand = (playerRightHand === hand) ? null : hand;
-        }
-        updateUserSelectedStates();
+          // Toggle left/right selection
+          if (side === 'left') {
+              playerLeftHand = (playerLeftHand === hand) ? null : hand;
+          } else {
+              playerRightHand = (playerRightHand === hand) ? null : hand;
+          }
+          updateUserSelectedStates();
 
-        // If both chosen, proceed
-        if (playerLeftHand && playerRightHand) {
-          clearInterval(intervalId);
-          highlightAIHands();
-          moveToPhase2();
-        }
+          // If both chosen, proceed
+          if (playerLeftHand && playerRightHand) {
+              clearInterval(intervalId);
+              highlightAIHands();
+              moveToPhase2();
+          }
       }
       else if (phase === 2) {
-        if (!playerLeftHand || !playerRightHand) return;
-        const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
-        playerFinalChoiceSide = side;
+          if (!playerLeftHand || !playerRightHand) return;
+          const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
+          playerFinalChoiceSide = side;
 
-        if (finalChoice === playerLeftHand) {
-          unhighlightUserHand('right');
-        } else {
-          unhighlightUserHand('left');
-        }
-        concludeRound(finalChoice, side);
+          if (playerLeftHand === playerRightHand) {
+              // Both hands are the same; no need to unhighlight any hand
+              // Highlight the selected hand to reflect the user's choice
+              highlightSelectedUserHand(side);
+          } else {
+              // Hands are different; proceed as usual
+              if (finalChoice === playerLeftHand) {
+                  unhighlightUserHand('right');
+              } else {
+                  unhighlightUserHand('left');
+              }
+          }
+          concludeRound(finalChoice, side);
       }
     }
 
@@ -1072,8 +1142,7 @@
      ****************************************************/
     function highlightAIHands() {
       let firstPick = randomGestureName();
-      let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
-      let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
+      let secondPick = randomGestureName();
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
 
@@ -1087,8 +1156,8 @@
       // This function is used when AI wins automatically due to user timeout
       // AI selects its hands and highlights the final chosen one
       let firstPick = randomGestureName();
-      let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
-      let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
+      let secondPick = randomGestureName();
+     
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
 
@@ -1213,6 +1282,44 @@
       }
       return arr;
     }
+
+    /****************************************************
+     * RESTART GAME FUNCTION
+     ****************************************************/
+    function restartGame() {
+      // Reset scores
+      playerScore = 0;
+      aiScore = 0;
+      playerScoreEl.textContent = playerScore;
+      aiScoreEl.textContent = aiScore;
+
+      // Hide game container
+      gameContainer.style.display = 'none';
+      
+      // Show start menu
+      startMenu.style.display = 'block';
+      
+      // Reset gameOver flag
+      gameOver = false;
+
+      // Reset chamber positions if needed
+      if (rouletteMode === 'no-reset') {
+        setupNoResetChamber(bulletsInChamber);
+      } else {
+        chamberPositions = [false, false, false, false, false, false];
+        currentChamberIndex = 0;
+      }
+
+      // Reset result section
+      resultSection.style.display = 'none';
+      resultMessage.textContent = '';
+      statusMessage.textContent = '';
+      timerDisplay.textContent = 'Timer: 5s';
+
+      // Hide the Next Round button in case it's visible
+      nextRoundBtn.style.display = 'none';
+    }
+
   </script>
 </body>
 </html>
