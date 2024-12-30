@@ -190,14 +190,13 @@
       width: 40%;
       max-width: 130px;
     }
-
-    /* AI Buttons: now slightly bigger */
+    /* AI Buttons, bigger icons */
     .ai-choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       padding: 0.4rem;
       min-width: 50px;
       cursor: default; 
@@ -207,12 +206,12 @@
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
-      max-width: 80px; /* slightly bigger */
-      height: 50px;    /* slightly bigger */
+      max-width: 80px; 
+      height: 50px; 
     }
     .ai-choice-btn img {
-      width: 40px; /* bigger icon */
-      height: 40px;
+      width: 35px; /* larger icon */
+      height: 35px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -364,33 +363,32 @@
       width: 40%;
       max-width: 130px;
     }
-
-    /* Player Buttons: now slightly bigger */
+    /* Player Buttons, bigger icons */
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9rem; /* a bit bigger text */
-      padding: 0.4rem;   /* a bit more padding */
+      font-size: 0.85rem;
+      padding: 0.4rem;
       min-width: 50px;
-      cursor: pointer; /* Tappable on mobile */
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
-      max-width: 80px; /* slightly bigger */
-      height: 50px;    /* slightly bigger */
+      max-width: 80px;
+      height: 50px;
+    }
+    .choice-btn img {
+      width: 35px; /* larger icon */
+      height: 35px;
     }
     .choice-btn.selected {
       background: #ffffff; 
       color: #ed1b76;
       border: 2px solid #f44786;
-    }
-    .choice-btn img {
-      width: 40px;  /* bigger icon */
-      height: 40px;
     }
 
     /*************************************************************
@@ -421,16 +419,14 @@
       #ai-section h2, #user-section h2 {
         font-size: 0.9rem;
       }
-
-      /* Slightly reduce back at smaller screens if you want */
+      /* Slightly smaller icons on very small screens if needed */
       .ai-choice-btn, .choice-btn {
         max-width: 70px; 
-        height: 45px;   
-        font-size: 0.8rem;
+        height: 45px; 
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 22px;
-        height: 22px;
+        width: 30px;
+        height: 30px;
       }
       #scoreboard div {
         width: 40%;
@@ -457,11 +453,10 @@
       .ai-choice-btn, .choice-btn {
         max-width: 60px; 
         height: 40px;    
-        font-size: 0.75rem;
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
       }
       #roulette-visual h3 {
         font-size: 0.75rem;
@@ -916,6 +911,7 @@
 
     /****************************************************
      * RUSSIAN ROULETTE
+     * => Always attempt reload => then fire/empty
      ****************************************************/
     function performRussianRoulette(target) {
       if (gameOver) return;
@@ -927,12 +923,7 @@
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      if (!isSoundOn) {
-        determineRouletteOutcome(target);
-        return;
-      }
-
-      // 1) Play "reload" fully, then outcome
+      // 1) Always attempt reload
       reloadMusic.currentTime = 0;
       reloadMusic.play().then(() => {
         reloadMusic.onended = () => {
@@ -956,11 +947,7 @@
         currentChamberIndex = (currentChamberIndex + 1) % 6;
       }
 
-      if (!isSoundOn) {
-        updateRouletteOutcome(target, bulletFires);
-        return;
-      }
-
+      // Attempt fire or empty either way
       if (bulletFires) {
         fireSound.currentTime = 0;
         fireSound.play().then(() => {
@@ -1138,6 +1125,7 @@
       if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
         const allHands = new Set([hand1, hand2, playerFinal]);
         if (allHands.size === 3) {
+          // random pick
           return Math.random() < 0.5 ? hand1 : hand2;
         }
       }
@@ -1195,12 +1183,10 @@
      * DRAW SOUND
      ****************************************************/
     function playGreenSound() {
-      if (isSoundOn) {
-        greenSound.currentTime = 0;
-        greenSound.play().catch(error => {
-          console.warn("Green sound playback failed:", error);
-        });
-      }
+      greenSound.currentTime = 0;
+      greenSound.play().catch(error => {
+        console.warn("Green sound playback failed:", error);
+      });
     }
 
     /****************************************************
