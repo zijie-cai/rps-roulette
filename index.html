@@ -38,41 +38,41 @@
     #start-menu {
       text-align: center;
       width: 100%;
-      max-width: 500px; /* Reduced max-width for mobile */
+      max-width: 500px; /* Suitable for larger screens */
       margin: auto;
       background: #ed1b76; /* Bright pink background */
-      padding: 1em; /* Reduced padding */
+      padding: 1em; /* Adequate padding */
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2); /* Slightly reduced shadow */
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
       position: relative;
     }
     #start-menu h1 {
       margin-bottom: 0.4em;
-      font-size: 1.5em; /* Reduced font size */
+      font-size: 1.8em; /* Slightly increased for better visibility */
       color: #ffffff;
     }
     #start-menu p {
       margin: 0.8em 0;
       line-height: 1.4em;
       color: #ffffff;
-      font-size: 0.85em; /* Further reduced font size */
+      font-size: 1em; /* Increased for readability */
     }
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 0.9em; /* Adjusted font size */
+      font-size: 1em;
     }
     #start-menu select,
     #start-menu input[type="range"] {
       margin: 0.4em 0;
-      padding: 0.3em;
+      padding: 0.5em;
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 0.9em; /* Adjusted font size */
+      font-size: 1em;
       width: 100%;
-      max-width: 180px; /* Slightly reduced max-width */
+      max-width: 250px; /* Increased max-width for better touch targets */
       display: block;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
       text-align: center;
     }
 
@@ -82,13 +82,13 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size */
-      padding: 0.5em 0.8em; /* Reduced padding */
+      font-size: 1em;
+      padding: 0.6em 1em;
       cursor: pointer;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
       transition: background 0.3s;
       width: 100%;
-      max-width: 180px; /* Reduced max-width */
+      max-width: 250px;
     }
     #sound-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -99,33 +99,36 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 1.5em; /* Reduced gap */
+      justify-content: space-around;
+      gap: 1em; /* Reduced gap for better fit */
       flex-wrap: wrap;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
     }
     .setting-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
+      gap: 0.5em;
+      width: 100%; /* Full width on smaller screens */
+      max-width: 250px;
     }
     .setting-item label {
-      margin-bottom: 0.4em;
+      margin-bottom: 0.5em;
     }
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
+      gap: 0.5em;
+      width: 100%;
     }
     .slider-container input[type="range"] {
-      width: 120px; /* Reduced width */
+      width: 100%;
     }
     .slider-container span {
-      width: 25px; /* Reduced width */
+      width: 30px;
       text-align: center;
       font-weight: bold;
-      font-size: 0.9em; /* Adjusted font size */
+      font-size: 1em;
     }
 
     #start-btn {
@@ -133,12 +136,12 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1em; /* Adjusted font size */
-      padding: 0.5em 1em; /* Reduced padding */
+      font-size: 1.2em; /* Increased for better visibility */
+      padding: 0.6em 1.2em;
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px;
+      max-width: 250px;
     }
     #start-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -149,12 +152,12 @@
      *************************************************************/
     #game-container {
       width: 100%;
-      max-width: 500px; /* Reduced max-width for mobile */
-      margin: 1em auto;
+      max-width: 600px; /* Increased for better layout on larger screens */
+      margin: 1.5em auto;
       background: #ed1b76; /* Pink background for game area */
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2); /* Slightly reduced shadow */
-      padding: 0.8em; /* Reduced padding */
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      padding: 1em;
       display: none; /* Hidden until game starts */
       position: relative;
     }
@@ -164,35 +167,37 @@
      *************************************************************/
     #ai-section {
       text-align: center;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
     }
     #ai-section h2 {
-      margin-bottom: 0.4em;
-      font-size: 1em; /* Reduced font size */
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
       color: #ffffff;
     }
     #ai-choices {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
       flex-wrap: wrap; /* Allow wrapping on small screens */
+      gap: 1em; /* Added gap for better spacing */
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
+      gap: 0.5em;
       width: 45%; /* Adjust width for better fit on mobile */
+      max-width: 150px;
     }
     .ai-choice-btn {
       background: #f44786; /* default AI button color */
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size */
-      padding: 0.4em; /* Reduced padding */
-      min-width: 60px; /* Reduced min-width */
+      font-size: 1em;
+      padding: 0.5em;
+      min-width: 60px;
       cursor: default;
       pointer-events: none; /* not clickable by user */
       display: flex;
@@ -200,11 +205,11 @@
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 80px; /* Reduced max-width */
+      max-width: 100px;
     }
     .ai-choice-btn img {
-      width: 30px; /* Reduced image size */
-      height: 30px; /* Reduced image size */
+      width: 40px; /* Increased image size for better visibility */
+      height: 40px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -217,40 +222,40 @@
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.5em auto 0.8em;
-      font-size: 1em; /* Reduced font size */
+      margin: 0.5em auto 1em;
+      font-size: 1.2em;
       display: flex;
       justify-content: center;
-      gap: 1.5em; /* Reduced gap */
-      flex-wrap: wrap; /* Allow wrapping on small screens */
+      gap: 2em;
+      flex-wrap: wrap;
     }
     #scoreboard div {
       background: #249f9c; /* Teal scoreboard background */
       color: #ffffff;
-      padding: 0.4em 0.8em; /* Reduced padding */
+      padding: 0.6em 1em;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size */
-      width: 45%; /* Adjust width for better fit on mobile */
-      min-width: 100px; /* Adjusted min-width */
+      font-size: 1em;
+      width: 45%;
+      min-width: 120px;
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
-      margin-bottom: 0.8em;
-      font-size: 1em; /* Reduced font size */
+      margin-bottom: 1em;
+      font-size: 1.2em;
       background: #249f9c;
       color: #ffffff;
-      padding: 0.4em;
+      padding: 0.6em;
       border-radius: 4px;
     }
     #status-message {
       text-align: center;
       font-weight: bold;
-      margin-bottom: 0.8em;
+      margin-bottom: 1em;
       min-height: 2em;
       color: #ffffff;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 1em;
     }
 
     /*************************************************************
@@ -258,14 +263,14 @@
      *************************************************************/
     #result-section {
       text-align: center;
-      margin-top: 0.8em;
+      margin-top: 1em;
       display: none; /* shown after reveal */
     }
     #result-message {
       font-weight: bold;
       margin-bottom: 0.6em;
       color: #ffffff; 
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 1em;
     }
     /* Hide the Next Round button by default */
     #next-round-btn {
@@ -274,13 +279,13 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size */
-      padding: 0.4em 0.8em; /* Reduced padding */
+      font-size: 1em;
+      padding: 0.5em 1em;
       cursor: pointer;
       transition: background 0.3s;
-      max-width: 180px; /* Reduced max-width */
-      margin: 0 auto; /* Center the button */
-      display: block; /* Ensure it can be centered with auto margins */
+      max-width: 200px;
+      margin: 0.5em auto 0;
+      width: 100%;
     }
     #next-round-btn:hover {
       background: #249f9c;
@@ -292,31 +297,31 @@
     #roulette-visual {
       text-align: center;
       display: none;
-      margin: 0.8em auto;
-      font-size: 0.9em; /* Reduced font size */
+      margin: 1em auto;
+      font-size: 1em;
       border: 2px dashed #f44786;
-      padding: 0.8em; /* Reduced padding */
+      padding: 1em;
       border-radius: 8px;
       background: #ffffff;
       width: 100%;
-      max-width: 400px; /* Reduced max-width */
+      max-width: 500px;
       color: #ed1b76;
     }
     #roulette-visual h3 {
-      margin-bottom: 0.4em;
+      margin-bottom: 0.5em;
       color: #ed1b76;
-      font-size: 1em; /* Reduced font size */
+      font-size: 1.2em;
     }
     #roulette-spin {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 1em;
     }
     #roulette-outcome {
-      margin-top: 0.4em;
+      margin-top: 0.5em;
       font-weight: bold;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 1em;
     }
     /* Simple spin animation for "spinning" text */
     .spin-animation {
@@ -333,11 +338,11 @@
      *************************************************************/
     #user-section {
       text-align: center;
-      margin-top: 0.8em;
+      margin-top: 1em;
     }
     #user-section h2 {
-      margin-bottom: 0.4em;
-      font-size: 1em; /* Reduced font size */
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
       color: #ffffff;
     }
 
@@ -346,32 +351,33 @@
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      margin-bottom: 0.8em;
-      gap: 1.5em; /* Reduced gap */
+      margin-bottom: 1em;
+      gap: 1em;
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
-      width: 45%; /* Adjust width for better fit on mobile */
+      gap: 0.5em;
+      width: 45%;
+      max-width: 150px;
     }
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size */
-      padding: 0.4em; /* Reduced padding */
-      min-width: 60px; /* Reduced min-width */
+      font-size: 1em;
+      padding: 0.5em;
+      min-width: 60px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 80px; /* Reduced max-width */
+      max-width: 100px;
     }
     .choice-btn:hover {
       background: #249f9c;
@@ -382,8 +388,8 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 30px; /* Reduced image size */
-      height: 30px; /* Reduced image size */
+      width: 40px; /* Increased image size for better visibility */
+      height: 40px;
     }
 
     /*************************************************************
@@ -397,20 +403,32 @@
     /*************************************************************
      * MEDIA QUERIES FOR MOBILE OPTIMIZATION
      *************************************************************/
-    @media (max-width: 480px) {
-      /* Further reduce font sizes */
-      #start-menu h1 {
-        font-size: 1.3em;
+    @media (max-width: 768px) {
+      /* Tablet devices */
+      #start-menu, #game-container {
+        max-width: 90%;
       }
-      #ai-section h2,
-      #user-section h2,
-      #roulette-visual h3 {
-        font-size: 0.95em;
+      #ai-choice-btn img, .choice-btn img {
+        width: 35px;
+        height: 35px;
       }
       #scoreboard div {
-        font-size: 0.85em;
-        width: 100%;
-        max-width: 250px;
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Mobile devices */
+      /* Further reduce font sizes */
+      #start-menu h1 {
+        font-size: 1.5em;
+      }
+      #start-menu p, #start-menu label {
+        font-size: 0.95em;
+      }
+      #sound-btn, #start-btn, #next-round-btn {
+        font-size: 1em;
+        padding: 0.6em 1em;
       }
       /* Stack AI and User choice columns vertically */
       .ai-choice-column,
@@ -421,32 +439,40 @@
       /* Ensure buttons and images are appropriately sized */
       .ai-choice-btn,
       .choice-btn {
-        max-width: 70px;
-        padding: 0.3em;
+        max-width: 90px;
+        padding: 0.5em;
       }
       .ai-choice-btn img,
       .choice-btn img {
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
       }
       /* Adjust scoreboard layout */
       #scoreboard {
         flex-direction: column;
-        gap: 0.8em;
+        gap: 1em;
+      }
+      #scoreboard div {
+        width: 80%;
+        max-width: none;
       }
       /* Ensure sliders fit within the screen */
+      .slider-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
       .slider-container input[type="range"] {
         width: 100%;
       }
       /* Adjust roulette visual */
       #roulette-visual {
-        padding: 0.6em;
+        padding: 0.8em;
       }
       /* Adjust status message font size */
       #status-message,
       #result-message,
       #roulette-outcome {
-        font-size: 0.85em;
+        font-size: 0.9em;
       }
       /* Adjust buttons to be full width */
       #sound-btn,
@@ -455,7 +481,29 @@
         max-width: none;
         width: 100%;
       }
+      /* Increase touch areas for better usability */
+      .choice-btn, .ai-choice-btn {
+        padding: 0.6em;
+      }
     }
+
+    /* Additional media queries for very small devices */
+    @media (max-width: 360px) {
+      #start-menu h1 {
+        font-size: 1.3em;
+      }
+      #ai-choice-btn img, .choice-btn img {
+        width: 25px;
+        height: 25px;
+      }
+      #scoreboard div {
+        width: 100%;
+      }
+      .choice-btn, .ai-choice-btn {
+        max-width: 80px;
+      }
+    }
+
   </style>
 </head>
 <body>
