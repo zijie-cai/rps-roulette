@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rock-Paper-Scissors (Two-Hand Variant)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Reset + Basic Layout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1em;
+    }
+
+    /*************************************************************
+     * START MENU
+     *************************************************************/
+    #start-menu {
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+    }
+    #start-menu h1 {
+      margin-bottom: 0.5em;
+      font-size: 1.8em;
+    }
+    #start-menu p {
+      margin: 1em 0;
+      line-height: 1.5em;
+    }
+    #start-btn {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      padding: 0.6em 1.2em;
+      cursor: pointer;
+    }
+    #start-btn:hover {
+      background: #45a049;
+    }
+
+    /*************************************************************
+     * GAME CONTAINER
+     *************************************************************/
+    #game-container {
+      width: 100%;
+      max-width: 700px;
+      margin: 1em auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      padding: 1em;
+      display: none; /* Hidden until game starts */
+      position: relative;
+    }
+
+    /*************************************************************
+     * AI SECTION (top)
+     *************************************************************/
+    #ai-section {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    #ai-section h2 {
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+    }
+    #ai-choices {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      margin-bottom: 1em;
+    }
+    .ai-choice-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .ai-choice-btn {
+      background: #ccc; /* default AI button color */
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      padding: 4px;
+      min-width: 80px;
+      cursor: default;
+      pointer-events: none; /* not clickable by user */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-choice-btn img {
+      width: 40px;
+      height: 40px;
+    }
+    .ai-choice-btn.selected {
+      background: #FF9800;
+      color: #fff;
+    }
+
+    /*************************************************************
+     * SCOREBOARD (center)
+     *************************************************************/
+    #scoreboard {
+      text-align: center;
+      margin: 0.5em auto 1em;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+    }
+    #scoreboard div {
+      background: #efefef;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+    }
+
+    /* TIMER & STATUS */
+    #timer-display {
+      text-align: center;
+      margin-bottom: 1em;
+      font-size: 1.2em;
+      background: #efefef;
+      padding: 0.5em;
+      border-radius: 4px;
+    }
+    #status-message {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 1em;
+      min-height: 2em;
+    }
+
+    /*************************************************************
+     * PLAYER SECTION (bottom)
+     *************************************************************/
+    #user-section {
+      text-align: center;
+      margin-top: 1em;
+    }
+    #user-section h2 {
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+    }
+
+    /* Two vertical stacks at the bottom for player's left & right */
+    #user-choices {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      margin-bottom: 1em;
+    }
+    .user-choice-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .choice-btn {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      padding: 4px;
+      min-width: 80px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .choice-btn:hover {
+      background: #45a049;
+    }
+    .choice-btn.selected {
+      background: #FF9800;
+      color: #fff;
+    }
+    .choice-btn img {
+      width: 40px;
+      height: 40px;
+    }
+
+    /*************************************************************
+     * RESULT SECTION
+     *************************************************************/
+    #result-section {
+      text-align: center;
+      margin-top: 1em;
+      display: none; /* shown after reveal */
+    }
+    #result-message {
+      font-weight: bold;
+      margin-bottom: 1em;
+    }
+    #next-round-btn {
+      background: #2196F3;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      padding: 0.6em 1.2em;
+      cursor: pointer;
+    }
+    #next-round-btn:hover {
+      background: #0c7cd5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- START MENU -->
+  <div id="start-menu">
+    <h1>Rock-Paper-Scissors: Two-Hand Variant</h1>
+    <p>
+      <strong>New Rule:</strong><br>
+      If the user fails to pick any required hand within 5 seconds (Phase 1 or Phase 2),
+      the AI automatically <em>wins</em> that round.
+    </p>
+    <button id="start-btn">Start Game</button>
+  </div>
+
+  <!-- GAME CONTAINER -->
+  <div id="game-container">
+
+    <!-- AI SECTION -->
+    <div id="ai-section">
+      <h2>AI's Stage</h2>
+      <div id="ai-choices">
+        <!-- Left column -->
+        <div class="ai-choice-column">
+          <button class="ai-choice-btn" data-hand="Rock" data-side="left">
+            <img src="./assets/icons/rock.png" alt="Rock">
+          </button>
+          <button class="ai-choice-btn" data-hand="Paper" data-side="left">
+            <img src="./assets/icons/paper.png" alt="Paper">
+          </button>
+          <button class="ai-choice-btn" data-hand="Scissors" data-side="left">
+            <img src="./assets/icons/scissors.png" alt="Scissors">
+          </button>
+        </div>
+        <!-- Right column -->
+        <div class="ai-choice-column">
+          <button class="ai-choice-btn" data-hand="Rock" data-side="right">
+            <img src="./assets/icons/rock.png" alt="Rock">
+          </button>
+          <button class="ai-choice-btn" data-hand="Paper" data-side="right">
+            <img src="./assets/icons/paper.png" alt="Paper">
+          </button>
+          <button class="ai-choice-btn" data-hand="Scissors" data-side="right">
+            <img src="./assets/icons/scissors.png" alt="Scissors">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCOREBOARD -->
+    <div id="scoreboard">
+      <div>Player: <span id="player-score">0</span></div>
+      <div>AI: <span id="ai-score">0</span></div>
+    </div>
+
+    <!-- TIMER & STATUS -->
+    <div id="timer-display">Timer: 5s</div>
+    <div id="status-message"></div>
+
+    <!-- PLAYER SECTION -->
+    <div id="user-section">
+      <h2>Player's Stage</h2>
+      <div id="user-choices">
+        <div class="user-choice-column" id="user-left-column"></div>
+        <div class="user-choice-column" id="user-right-column"></div>
+      </div>
+    </div>
+
+    <!-- RESULT SECTION -->
+    <div id="result-section">
+      <p id="result-message"></p>
+      <button id="next-round-btn">Next Round</button>
+    </div>
+  </div>
+
+  <script>
+    /****************************************************
+     *                   STATE / ELEMENTS
+     ****************************************************/
+    const startMenu = document.getElementById('start-menu');
+    const startBtn = document.getElementById('start-btn');
+    const gameContainer = document.getElementById('game-container');
+
+    const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
+
+    const RPS = [
+      { name: 'Rock',     img: './assets/icons/rock.png' },
+      { name: 'Paper',    img: './assets/icons/paper.png' },
+      { name: 'Scissors', img: './assets/icons/scissors.png' },
+    ];
+
+    const userLeftCol = document.getElementById('user-left-column');
+    const userRightCol = document.getElementById('user-right-column');
+
+    // Score & Timer
+    const playerScoreEl = document.getElementById('player-score');
+    const aiScoreEl = document.getElementById('ai-score');
+    let playerScore = 0;
+    let aiScore = 0;
+
+    const timerDisplay = document.getElementById('timer-display');
+    const statusMessage = document.getElementById('status-message');
+    const resultSection = document.getElementById('result-section');
+    const resultMessage = document.getElementById('result-message');
+    const nextRoundBtn = document.getElementById('next-round-btn');
+
+    // Selections
+    let playerLeftHand = null;
+    let playerRightHand = null;
+    let aiLeftHand = null;
+    let aiRightHand = null;
+
+    // Timers & phases
+    let intervalId = null;
+    let timeLeft = 5;
+    // phase = 1 => picking L & R, 2 => picking final
+    let phase = 1;
+
+    /****************************************************
+     *                EVENT LISTENERS
+     ****************************************************/
+    startBtn.addEventListener('click', () => {
+      startMenu.style.display = 'none';
+      gameContainer.style.display = 'block';
+      startRound();
+    });
+
+    nextRoundBtn.addEventListener('click', startRound);
+
+    /****************************************************
+     *               ROUND LOGIC
+     ****************************************************/
+    function startRound() {
+      phase = 1;
+      timeLeft = 5;
+      timerDisplay.textContent = `Timer: ${timeLeft}s`;
+      statusMessage.textContent = 'Pick your Left & Right hands (5s)!';
+      resultSection.style.display = 'none';
+      resultMessage.textContent = '';
+
+      // Clear old picks
+      playerLeftHand = null;
+      playerRightHand = null;
+      aiLeftHand = null;
+      aiRightHand = null;
+      aiChoiceButtons.forEach(b => b.classList.remove('selected'));
+
+      // Build user columns
+      buildUserColumns();
+
+      // Start Phase 1 timer
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Timer: ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+          clearInterval(intervalId);
+          // If user hasn't chosen BOTH left & right, immediate AI win
+          if (!playerLeftHand || !playerRightHand) {
+            // AI wins
+            concludeRoundWithAiWin('Time is up! You did not pick both hands.');
+          } else {
+            // Otherwise, proceed to Phase 2
+            highlightAIHands(); 
+            moveToPhase2();
+          }
+        }
+      }, 1000);
+    }
+
+    function moveToPhase2() {
+      phase = 2;
+      timeLeft = 5;
+      timerDisplay.textContent = `Timer: ${timeLeft}s`;
+      statusMessage.textContent = 'Pick ONE final hand to keep (5s)!';
+
+      // Start Phase 2 timer
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Timer: ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+          clearInterval(intervalId);
+          // If user hasn't picked final (i.e., hasn't clicked again),
+          // we assume user fails => AI wins
+          concludeRoundWithAiWin('Time is up! You did not pick a final hand.');
+        }
+      }, 1000);
+    }
+
+    /****************************************************
+     *         IF USER FAILS => AI WINS
+     ****************************************************/
+    function concludeRoundWithAiWin(reason) {
+      phase = 0;
+      statusMessage.textContent = 'Round Over!';
+      resultSection.style.display = 'block';
+      resultMessage.textContent = `${reason} AI automatically wins.`;
+      aiScore++;
+      aiScoreEl.textContent = aiScore;
+    }
+
+    /****************************************************
+     *         WHEN USER ACTUALLY PICKS FINAL
+     ****************************************************/
+    function concludeRound(playerFinalHand) {
+      if (intervalId) clearInterval(intervalId);
+      phase = 0;
+
+      // AI picks final after seeing user’s final
+      const aiFinal = chooseAiBestResponse(aiLeftHand, aiRightHand, playerFinalHand);
+
+      // De-highlight the AI's unchosen hand
+      if (aiFinal === aiLeftHand) {
+        unhighlightAIHand('right');
+      } else {
+        unhighlightAIHand('left');
+      }
+
+      // Compare
+      const winner = getWinner(playerFinalHand, aiFinal);
+      if (winner === 'Player') {
+        playerScore++;
+        playerScoreEl.textContent = playerScore;
+        resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. You WIN!`;
+      } else if (winner === 'AI') {
+        aiScore++;
+        aiScoreEl.textContent = aiScore;
+        resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. AI WINS!`;
+      } else {
+        resultMessage.textContent = `You both chose ${playerFinalHand}. It's a DRAW!`;
+      }
+
+      statusMessage.textContent = 'Round Over!';
+      resultSection.style.display = 'block';
+    }
+
+    /****************************************************
+     *    USER COLUMN BUILD + CLICK HANDLERS
+     ****************************************************/
+    function buildUserColumns() {
+      userLeftCol.innerHTML = '';
+      userRightCol.innerHTML = '';
+
+      const leftShuffled = shuffleArray([...RPS]);
+      const rightShuffled = shuffleArray([...RPS]);
+
+      // Build left column
+      leftShuffled.forEach(item => {
+        const btn = document.createElement('button');
+        btn.classList.add('choice-btn');
+        btn.setAttribute('data-hand', item.name);
+        btn.setAttribute('data-side', 'left');
+        const img = document.createElement('img');
+        img.src = item.img;
+        img.alt = item.name;
+        btn.appendChild(img);
+
+        btn.addEventListener('click', onUserChoiceClick);
+        userLeftCol.appendChild(btn);
+      });
+
+      // Build right column
+      rightShuffled.forEach(item => {
+        const btn = document.createElement('button');
+        btn.classList.add('choice-btn');
+        btn.setAttribute('data-hand', item.name);
+        btn.setAttribute('data-side', 'right');
+        const img = document.createElement('img');
+        img.src = item.img;
+        img.alt = item.name;
+        btn.appendChild(img);
+
+        btn.addEventListener('click', onUserChoiceClick);
+        userRightCol.appendChild(btn);
+      });
+    }
+
+    function onUserChoiceClick(e) {
+      if (phase !== 1 && phase !== 2) return;
+      const side = e.currentTarget.getAttribute('data-side');
+      const hand = e.currentTarget.getAttribute('data-hand');
+
+      if (phase === 1) {
+        // Toggle selection for left or right
+        if (side === 'left') {
+          playerLeftHand = (playerLeftHand === hand) ? null : hand;
+        } else {
+          playerRightHand = (playerRightHand === hand) ? null : hand;
+        }
+        updateUserSelectedStates();
+
+        // If both chosen, proceed to next phase immediately
+        if (playerLeftHand && playerRightHand) {
+          clearInterval(intervalId);
+          highlightAIHands();
+          moveToPhase2();
+        }
+      }
+      else if (phase === 2) {
+        // The user is picking their final
+        if (!playerLeftHand || !playerRightHand) return;
+        const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
+        // De-highlight the other user hand
+        if (finalChoice === playerLeftHand) {
+          unhighlightUserHand('right');
+        } else {
+          unhighlightUserHand('left');
+        }
+        concludeRound(finalChoice);
+      }
+    }
+
+    /****************************************************
+     *        AI CHOICES
+     ****************************************************/
+    function highlightAIHands() {
+      // AI picks 2 distinct hands
+      let firstPick = randomGestureName();
+      let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
+      let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
+      aiLeftHand = firstPick;
+      aiRightHand = secondPick;
+
+      // Clear old highlight
+      aiChoiceButtons.forEach(b => b.classList.remove('selected'));
+
+      // highlight the picks
+      findAIButton(firstPick, 'left')?.classList.add('selected');
+      findAIButton(secondPick, 'right')?.classList.add('selected');
+    }
+
+    function chooseAiBestResponse(hand1, hand2, playerFinal) {
+      // Very simple: if either wins, pick that. If none wins, pick one that draws if possible
+      // Or do any logic you'd like to adapt for "optimal"
+      const outcome1 = getWinner(playerFinal, hand1);
+      const outcome2 = getWinner(playerFinal, hand2);
+
+      // Priority: Win > Draw > Lose
+      function rank(res) {
+        if (res === 'AI') return 3;
+        if (res === 'Draw') return 2;
+        return 1; // Player
+      }
+      const r1 = rank(outcome1);
+      const r2 = rank(outcome2);
+
+      if (r1 > r2) return hand1;
+      if (r2 > r1) return hand2;
+      // if tie, pick the first
+      return hand1;
+    }
+
+    /****************************************************
+     *          VISUAL HIGHLIGHTING
+     ****************************************************/
+    function updateUserSelectedStates() {
+      const allBtns = document.querySelectorAll('#user-choices .choice-btn');
+      allBtns.forEach(btn => {
+        const side = btn.getAttribute('data-side');
+        const hand = btn.getAttribute('data-hand');
+        btn.classList.remove('selected');
+        if (side === 'left' && hand === playerLeftHand) {
+          btn.classList.add('selected');
+        }
+        if (side === 'right' && hand === playerRightHand) {
+          btn.classList.add('selected');
+        }
+      });
+    }
+
+    function unhighlightUserHand(side) {
+      const allBtns = document.querySelectorAll('#user-choices .choice-btn');
+      allBtns.forEach(btn => {
+        if (btn.getAttribute('data-side') === side) {
+          btn.classList.remove('selected');
+        }
+      });
+    }
+
+    function unhighlightAIHand(side) {
+      aiChoiceButtons.forEach(btn => {
+        if (btn.getAttribute('data-side') === side) {
+          btn.classList.remove('selected');
+        }
+      });
+    }
+
+    /****************************************************
+     *          HELPERS
+     ****************************************************/
+    function findAIButton(hand, side) {
+      return Array.from(aiChoiceButtons).find(btn =>
+        btn.getAttribute('data-hand') === hand &&
+        btn.getAttribute('data-side') === side
+      );
+    }
+
+    // from user's perspective => getWinner(userGesture, aiGesture)
+    function getWinner(user, ai) {
+      if (user === ai) return 'Draw';
+      if (
+        (user === 'Rock' && ai === 'Scissors') ||
+        (user === 'Paper' && ai === 'Rock') ||
+        (user === 'Scissors' && ai === 'Paper')
+      ) {
+        return 'Player';
+      }
+      return 'AI';
+    }
+
+    function randomGestureName() {
+      const list = ['Rock','Paper','Scissors'];
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    // Fisher-Yates shuffle
+    function shuffleArray(arr) {
+      for(let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+  </script>
+</body>
+</html>
