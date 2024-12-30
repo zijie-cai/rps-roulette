@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Rock-Paper-Scissors (Two-Hand Variant + Russian Roulette)</title>
+  <title>Russian Roulette & Rock Paper Scissors</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -66,22 +66,28 @@
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 0.9rem;
-    }
-    #start-menu select,
-    #start-menu input[type="range"] {
-      margin: 0.3rem auto;
-      padding: 0.3rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
       font-size: 0.85rem;
-      width: 100%;
-      max-width: 150px;
-      text-align: center;
-      display: block;
+    }
+    #start-menu .radio-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.3rem;
+    }
+    #start-menu .radio-container label {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    #start-menu input[type="radio"] {
+      accent-color: #f44786; /* Pinkish accent for radio */
+      transform: scale(1.1);
+      cursor: pointer;
     }
 
-    /* Sound Toggle Button Styling */
+    /* Sound Toggle Button */
     #sound-btn {
       background: #f44786; 
       color: #ffffff;
@@ -96,7 +102,7 @@
       max-width: 200px;
     }
 
-    /* Settings Container */
+    /* Setting Container */
     .settings-container {
       display: flex;
       flex-direction: row;
@@ -112,9 +118,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.2rem;
       width: 100%;
-      max-width: 150px;
+      max-width: 200px;
     }
     .slider-container {
       display: flex;
@@ -419,7 +425,6 @@
       #ai-section h2, #user-section h2 {
         font-size: 0.9rem;
       }
-      /* Slightly smaller icons on very small screens if needed */
       .ai-choice-btn, .choice-btn {
         max-width: 70px; 
         height: 45px; 
@@ -475,7 +480,7 @@
 
   <!-- START MENU -->
   <div id="start-menu">
-    <h1>Rock-Paper-Scissors: Two-Hand</h1>
+    <h1>Russian Roulette & Rock Paper Scissors</h1>
 
     <!-- Sound Toggle Button -->
     <button id="sound-btn" data-sound="off">Sound: OFF</button>
@@ -486,13 +491,20 @@
 
     <!-- Settings Container -->
     <div class="settings-container">
-      <!-- Russian Roulette Mode Selection -->
+      
+      <!-- Roulette Mode (Two Horizontal Bullet Points) -->
       <div class="setting-item">
-        <label for="mode-select">Roulette Mode:</label>
-        <select id="mode-select">
-          <option value="reset">Reset each round</option>
-          <option value="no-reset">No reset</option>
-        </select>
+        <label>Roulette Mode:</label>
+        <div class="radio-container">
+          <label>
+            <input type="radio" name="roulette-mode" value="reset" checked>
+            Reset
+          </label>
+          <label>
+            <input type="radio" name="roulette-mode" value="no-reset">
+            No Reset
+          </label>
+        </div>
       </div>
 
       <!-- Number of Bullets Slider -->
@@ -576,13 +588,13 @@
 
   </div>
 
-  <!-- Audio Elements (preloaded) -->
+  <!-- Audio Elements -->
   <audio id="bg-music" src="./assets/sounds/scary.mp3" preload="auto" loop></audio>
   <audio id="intro-music" src="./assets/sounds/intro.mp3" preload="auto"></audio>
   <audio id="reload-music" src="./assets/sounds/reload.mp3" preload="auto"></audio>
   <audio id="fire-sound" src="./assets/sounds/fire.wav" preload="auto"></audio>
   <audio id="empty-sound" src="./assets/sounds/empty.wav" preload="auto"></audio>
-  <audio id="green-sound" src="./assets/sounds/green.mp3" preload="auto"></audio> <!-- For draws -->
+  <audio id="green-sound" src="./assets/sounds/green.mp3" preload="auto"></audio>
 
   <script>
     /****************************************************
@@ -601,7 +613,7 @@
     const numBulletsSlider  = document.getElementById('num-bullets');
     const bulletCountDisplay= document.getElementById('bullet-count');
 
-    // Helper to forcibly stop all audio mid-play
+    // Stop all audio
     function stopAllAudio() {
       backgroundMusic.pause();
       backgroundMusic.currentTime = 0;
@@ -622,12 +634,12 @@
       greenSound.currentTime = 0;
     }
 
-    // Update bullet count display when slider changes
+    // Update bullet count display
     numBulletsSlider.addEventListener('input', () => {
       bulletCountDisplay.textContent = numBulletsSlider.value;
     });
 
-    // Updates the button text (Sound: ON/OFF) to match isSoundOn
+    // Update sound button
     function updateSoundButtonUI() {
       if (isSoundOn) {
         soundBtn.textContent = "Sound: ON";
@@ -643,13 +655,11 @@
       isSoundOn = !isSoundOn;
       updateSoundButtonUI();
       if (isSoundOn) {
-        // Attempt to play background music
         backgroundMusic.currentTime = 0;
         backgroundMusic.play().catch(err => {
           console.warn("Background music playback failed:", err);
         });
       } else {
-        // Stop all sounds
         stopAllAudio();
       }
     });
@@ -657,11 +667,13 @@
     /****************************************************
      * STATE / ELEMENTS
      ****************************************************/
-    const startMenu       = document.getElementById('start-menu');
-    const startBtn        = document.getElementById('start-btn');
-    const gameContainer   = document.getElementById('game-container');
-    const modeSelect      = document.getElementById('mode-select');
-
+    const startMenu     = document.getElementById('start-menu');
+    const startBtn      = document.getElementById('start-btn');
+    const gameContainer = document.getElementById('game-container');
+    
+    // Our new radio buttons for roulette mode
+    const rouletteModeRadios = document.querySelectorAll('input[name="roulette-mode"]');
+    
     const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
 
     const RPS = [
@@ -670,8 +682,8 @@
       { name: 'Scissors', img: './assets/icons/scissors.png' },
     ];
 
-    const userLeftCol   = document.getElementById('user-left-column');
-    const userRightCol  = document.getElementById('user-right-column');
+    const userLeftCol  = document.getElementById('user-left-column');
+    const userRightCol = document.getElementById('user-right-column');
 
     // Score & Timer
     const playerScoreEl = document.getElementById('player-score');
@@ -679,11 +691,11 @@
     let playerScore = 0;
     let aiScore = 0;
 
-    const timerDisplay    = document.getElementById('timer-display');
-    const statusMessage   = document.getElementById('status-message');
-    const resultSection   = document.getElementById('result-section');
-    const resultMessage   = document.getElementById('result-message');
-    const nextRoundBtn    = document.getElementById('next-round-btn');
+    const timerDisplay   = document.getElementById('timer-display');
+    const statusMessage  = document.getElementById('status-message');
+    const resultSection  = document.getElementById('result-section');
+    const resultMessage  = document.getElementById('result-message');
+    const nextRoundBtn   = document.getElementById('next-round-btn');
 
     // Russian Roulette elements
     const rouletteVisual  = document.getElementById('roulette-visual');
@@ -701,7 +713,8 @@
     let intervalId = null;
     let timeLeft   = 5;
     let phase      = 1;
-    // For roulette
+
+    // Roulette mode
     let rouletteMode     = 'reset';
     let bulletsInChamber = 1;
     let chamberPositions = [false, false, false, false, false, false];
@@ -709,21 +722,35 @@
     let gameOver = false;
 
     /****************************************************
+     * GET ROULLETTE MODE FROM RADIO
+     ****************************************************/
+    function getSelectedRouletteMode() {
+      let selected = 'reset';
+      rouletteModeRadios.forEach(radio => {
+        if (radio.checked) {
+          selected = radio.value;
+        }
+      });
+      return selected;
+    }
+
+    /****************************************************
      * START BUTTON
      ****************************************************/
     startBtn.addEventListener('click', () => {
-      // Stop all audio from the menu or leftover
+      // Stop leftover audio
       stopAllAudio();
 
       // Hide menu, show game
       startMenu.style.display = 'none';
       gameContainer.style.display = 'block';
 
-      // Read user settings
-      rouletteMode = modeSelect.value;
+      // Read user radio
+      rouletteMode = getSelectedRouletteMode();
+
+      // Set bullets
       bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
-      if (bulletsInChamber < 1) bulletsInChamber = 1;
-      if (bulletsInChamber > 6) bulletsInChamber = 6;
+      bulletsInChamber = Math.min(Math.max(bulletsInChamber, 1), 6);
 
       // Reset scores
       playerScore = 0;
@@ -759,17 +786,13 @@
      * ROUND LOGIC
      ****************************************************/
     function startRound() {
-      // Stop any leftover sounds before starting a new round
       stopAllAudio();
-
       nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display = 'none';
 
-      // Clear winner highlights
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
       playerFinalChoiceSide = null;
-
       rouletteVisual.style.display = 'none';
       rouletteOutcome.textContent = '';
       rouletteSpin.style.display = 'inline-block';
@@ -791,22 +814,22 @@
       // Build user columns
       buildUserColumns();
 
-      // If sound is ON, play intro
+      // If sound ON, play intro
       if (isSoundOn) {
         introMusic.playbackRate = 1.0;
-        introMusic.play().catch(error => {
-          console.warn("Intro music playback failed:", error);
+        introMusic.play().catch(err => {
+          console.warn("Intro music playback failed:", err);
         });
       }
 
-      // Start Phase 1 timer
+      // Phase 1 timer
       if (intervalId) clearInterval(intervalId);
       intervalId = setInterval(() => {
         timeLeft--;
         timerDisplay.textContent = `Timer: ${timeLeft}s`;
         if (timeLeft <= 0) {
           clearInterval(intervalId);
-          // If user hasn't chosen BOTH left & right => AI wins
+          // If user hasn't chosen BOTH => AI wins
           if (!playerLeftHand || !playerRightHand) {
             concludeRoundWithAiWin('Time up! AI wins.');
           } else {
@@ -849,7 +872,6 @@
       aiScoreEl.textContent = aiScore;
 
       highlightAIHandsFinal();
-      // Player suffers Russian Roulette
       performRussianRoulette('user');
     }
 
@@ -859,8 +881,6 @@
     function concludeRound(playerFinalHand, side) {
       if (intervalId) clearInterval(intervalId);
       phase = 0;
-
-      // Stop intro music if still playing
       introMusic.pause();
       introMusic.currentTime = 0;
 
@@ -882,7 +902,6 @@
         resultMessage.textContent = `You win!`;
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         playerFinalBtn?.classList.add('winner');
-        // AI suffers Russian Roulette
         performRussianRoulette('ai');
       }
       else if (winner === 'AI') {
@@ -892,11 +911,10 @@
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
         aiFinalBtn?.classList.add('winner');
-        // Player suffers Russian Roulette
         performRussianRoulette('user');
       }
       else {
-        // Draw => play green sound, no roulette
+        // Draw => play green sound
         resultMessage.textContent = `It's a draw!`;
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
@@ -911,7 +929,6 @@
 
     /****************************************************
      * RUSSIAN ROULETTE
-     * => Always attempt reload => then fire/empty
      ****************************************************/
     function performRussianRoulette(target) {
       if (gameOver) return;
@@ -923,20 +940,19 @@
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      // 1) Always attempt reload
+      // Always attempt reload
       reloadMusic.currentTime = 0;
       reloadMusic.play().then(() => {
         reloadMusic.onended = () => {
           reloadMusic.onended = null;
           determineRouletteOutcome(target);
         };
-      }).catch(error => {
-        console.warn("Reload sound playback failed:", error);
+      }).catch(err => {
+        console.warn("Reload playback failed:", err);
         determineRouletteOutcome(target);
       });
     }
 
-    // Decide if bullet fires => then Fire or Empty
     function determineRouletteOutcome(target) {
       let bulletFires = false;
       if (rouletteMode === 'reset') {
@@ -947,7 +963,6 @@
         currentChamberIndex = (currentChamberIndex + 1) % 6;
       }
 
-      // Attempt fire or empty either way
       if (bulletFires) {
         fireSound.currentTime = 0;
         fireSound.play().then(() => {
@@ -1052,14 +1067,12 @@
       const hand = e.currentTarget.dataset.hand;
 
       if (phase === 1) {
-        // Toggle L/R
         if (side === 'left') {
           playerLeftHand = (playerLeftHand === hand) ? null : hand;
         } else {
           playerRightHand = (playerRightHand === hand) ? null : hand;
         }
         updateUserSelectedStates();
-        // If both chosen
         if (playerLeftHand && playerRightHand) {
           clearInterval(intervalId);
           highlightAIHands();
@@ -1109,7 +1122,6 @@
     }
 
     function highlightAIHandsFinal() {
-      // For user timeout scenario
       let firstPick = randomGestureName();
       let secondPick = randomGestureName();
       aiLeftHand = firstPick;
@@ -1121,15 +1133,12 @@
     }
 
     function chooseAiBestResponse(hand1, hand2, playerFinal) {
-      // If both AI & user had 2 distinct => might produce all 3 combos => pick randomly
       if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
         const allHands = new Set([hand1, hand2, playerFinal]);
         if (allHands.size === 3) {
-          // random pick
           return Math.random() < 0.5 ? hand1 : hand2;
         }
       }
-      // Evaluate outcome
       const outcome1 = getWinner(playerFinal, hand1);
       const outcome2 = getWinner(playerFinal, hand2);
 
@@ -1184,8 +1193,8 @@
      ****************************************************/
     function playGreenSound() {
       greenSound.currentTime = 0;
-      greenSound.play().catch(error => {
-        console.warn("Green sound playback failed:", error);
+      greenSound.play().catch(err => {
+        console.warn("Green sound playback failed:", err);
       });
     }
 
