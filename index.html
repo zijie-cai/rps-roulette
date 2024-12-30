@@ -542,8 +542,9 @@
     function highlightAIHands() {
       // AI picks 2 distinct hands
       let firstPick = randomGestureName();
-      let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
-      let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
+      let secondPick = randomGestureName();
+      // let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
+      // let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
 
