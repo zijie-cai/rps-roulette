@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Rock-Paper-Scissors (Two-Hand Variant)</title>
+  <title>Rock-Paper-Scissors (Two-Hand Variant + Russian Roulette)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    /* 
+      Squid Game color palette:
+      #ed1b76 (237,27,118)
+      #f44786 (244,71,134)
+      #ffffff (255,255,255)
+      #249f9c (36,159,156)
+      #037a76 (3,122,118)
+    */
+
     /* Reset + Basic Layout */
     * {
       box-sizing: border-box;
@@ -13,8 +22,8 @@
     }
     body {
       font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #333;
+      background: #037a76; /* Deep teal background */
+      color: #ffffff;      /* White text for contrast */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -30,26 +39,101 @@
       text-align: center;
       max-width: 600px;
       margin: auto;
+      background: #ed1b76; /* Bright pink background */
+      padding: 1.5em;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      position: relative;
     }
     #start-menu h1 {
       margin-bottom: 0.5em;
       font-size: 1.8em;
+      color: #ffffff;
     }
     #start-menu p {
       margin: 1em 0;
       line-height: 1.5em;
+      color: #ffffff;
     }
+    #start-menu label {
+      font-weight: bold;
+      color: #ffffff;
+    }
+    #start-menu select,
+    #start-menu input[type="range"] {
+      margin: 0.5em 0;
+      padding: 0.4em;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      width: 100%;
+      max-width: 200px;
+      display: block;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+
+    /* Sound Toggle Button Styling */
+    #sound-btn {
+      background: #f44786; /* Lighter pink button */
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+      padding: 0.4em 1em;
+      cursor: pointer;
+      margin-bottom: 1em;
+      transition: background 0.3s;
+    }
+    #sound-btn:hover {
+      background: #249f9c; /* Teal hover */
+    }
+
+    /* Compact Slider and Mode Selection Container */
+    .settings-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2em;
+      flex-wrap: wrap;
+      margin-bottom: 1em;
+    }
+    .setting-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .setting-item label {
+      margin-bottom: 0.5em;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .slider-container input[type="range"] {
+      width: 150px;
+    }
+    .slider-container span {
+      width: 30px;
+      text-align: center;
+      font-weight: bold;
+    }
+
     #start-btn {
-      background: #4CAF50;
-      color: #fff;
+      background: #f44786; /* Lighter pink button */
+      color: #ffffff;
       border: none;
       border-radius: 4px;
       font-size: 1.2em;
       padding: 0.6em 1.2em;
       cursor: pointer;
+      transition: background 0.3s;
     }
     #start-btn:hover {
-      background: #45a049;
+      background: #249f9c; /* Teal hover */
     }
 
     /*************************************************************
@@ -59,9 +143,9 @@
       width: 100%;
       max-width: 700px;
       margin: 1em auto;
-      background: #fff;
+      background: #ed1b76; /* Pink background for game area */
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
       padding: 1em;
       display: none; /* Hidden until game starts */
       position: relative;
@@ -77,6 +161,7 @@
     #ai-section h2 {
       margin-bottom: 0.5em;
       font-size: 1.2em;
+      color: #ffffff;
     }
     #ai-choices {
       display: flex;
@@ -91,8 +176,8 @@
       gap: 0.5em;
     }
     .ai-choice-btn {
-      background: #ccc; /* default AI button color */
-      color: #000;
+      background: #f44786; /* default AI button color */
+      color: #fff;
       border: none;
       border-radius: 4px;
       font-size: 1em;
@@ -103,14 +188,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.3s, color 0.3s, border 0.3s;
     }
     .ai-choice-btn img {
       width: 40px;
       height: 40px;
     }
     .ai-choice-btn.selected {
-      background: #FF9800;
-      color: #fff;
+      background: #ffffff; /* White highlight */
+      color: #ed1b76;
+      border: 2px solid #f44786;
     }
 
     /*************************************************************
@@ -125,7 +212,8 @@
       gap: 2em;
     }
     #scoreboard div {
-      background: #efefef;
+      background: #249f9c; /* Teal scoreboard background */
+      color: #ffffff;
       padding: 0.5em 1em;
       border-radius: 4px;
     }
@@ -135,7 +223,8 @@
       text-align: center;
       margin-bottom: 1em;
       font-size: 1.2em;
-      background: #efefef;
+      background: #249f9c;
+      color: #ffffff;
       padding: 0.5em;
       border-radius: 4px;
     }
@@ -144,6 +233,7 @@
       font-weight: bold;
       margin-bottom: 1em;
       min-height: 2em;
+      color: #ffffff;
     }
 
     /*************************************************************
@@ -156,6 +246,7 @@
     #user-section h2 {
       margin-bottom: 0.5em;
       font-size: 1.2em;
+      color: #ffffff;
     }
 
     /* Two vertical stacks at the bottom for player's left & right */
@@ -164,6 +255,7 @@
       justify-content: space-around;
       align-items: flex-end;
       margin-bottom: 1em;
+      gap: 2em;
     }
     .user-choice-column {
       display: flex;
@@ -171,9 +263,8 @@
       align-items: center;
       gap: 0.5em;
     }
-
     .choice-btn {
-      background: #4CAF50;
+      background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -184,13 +275,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.3s, color 0.3s, border 0.3s;
     }
     .choice-btn:hover {
-      background: #45a049;
+      background: #249f9c;
     }
     .choice-btn.selected {
-      background: #FF9800;
-      color: #fff;
+      background: #ffffff; 
+      color: #ed1b76;
+      border: 2px solid #f44786;
     }
     .choice-btn img {
       width: 40px;
@@ -208,18 +301,59 @@
     #result-message {
       font-weight: bold;
       margin-bottom: 1em;
+      color: #ffffff; 
     }
     #next-round-btn {
-      background: #2196F3;
+      background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
       font-size: 1em;
       padding: 0.6em 1.2em;
       cursor: pointer;
+      transition: background 0.3s;
     }
     #next-round-btn:hover {
-      background: #0c7cd5;
+      background: #249f9c;
+    }
+
+    /*************************************************************
+     * RUSSIAN ROULETTE VISUALS
+     *************************************************************/
+    #roulette-visual {
+      text-align: center;
+      display: none;
+      margin: 1em auto;
+      font-size: 1em;
+      border: 2px dashed #f44786;
+      padding: 1em;
+      border-radius: 8px;
+      background: #ffffff;
+      width: 80%;
+      max-width: 500px;
+      color: #ed1b76;
+    }
+    #roulette-visual h3 {
+      margin-bottom: 0.5em;
+      color: #ed1b76;
+    }
+    #roulette-spin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #roulette-outcome {
+      margin-top: 0.5em;
+      font-weight: bold;
+    }
+    /* Simple spin animation for "spinning" text */
+    .spin-animation {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -228,11 +362,36 @@
   <!-- START MENU -->
   <div id="start-menu">
     <h1>Rock-Paper-Scissors: Two-Hand Variant</h1>
-    <p>
-      <strong>New Rule:</strong><br>
+
+    <!-- Sound Toggle Button -->
+    <button id="sound-btn" data-sound="off">Sound: OFF</button>
+
+    <p><strong>New Rule:</strong><br>
       If the user fails to pick any required hand within 5 seconds (Phase 1 or Phase 2),
       the AI automatically <em>wins</em> that round.
     </p>
+
+    <!-- Compact Settings Container -->
+    <div class="settings-container">
+      <!-- Russian Roulette Mode Selection -->
+      <div class="setting-item">
+        <label for="mode-select">Russian Roulette Mode:</label>
+        <select id="mode-select">
+          <option value="reset">Reset each round</option>
+          <option value="no-reset">No reset</option>
+        </select>
+      </div>
+
+      <!-- Number of Bullets Slider -->
+      <div class="setting-item">
+        <label for="num-bullets">Number of Bullets:</label>
+        <div class="slider-container">
+          <input type="range" id="num-bullets" value="1" min="1" max="6" step="1">
+          <span id="bullet-count">1</span>
+        </div>
+      </div>
+    </div>
+
     <button id="start-btn">Start Game</button>
   </div>
 
@@ -294,15 +453,93 @@
       <p id="result-message"></p>
       <button id="next-round-btn">Next Round</button>
     </div>
+
+    <!-- RUSSIAN ROULETTE VISUAL -->
+    <div id="roulette-visual">
+      <h3>Russian Roulette!</h3>
+      <p id="roulette-spin">Spinning the chamber: <span class="spin-animation">🔄</span></p>
+      <p id="roulette-outcome"></p>
+    </div>
   </div>
+
+  <!-- Audio Elements -->
+  <audio id="bg-music" src="./assets/sounds/scary.mp3" loop></audio>
+  <audio id="reload-music" src="./assets/sounds/reload.mp3"></audio>
+  <audio id="fire-sound" src="./assets/sounds/fire.wav"></audio>
+  <audio id="empty-sound" src="./assets/sounds/empty.wav"></audio>
+  <audio id="green-sound" src="./assets/sounds/green.mp3"></audio> <!-- New Audio Element -->
 
   <script>
     /****************************************************
-     *                   STATE / ELEMENTS
+     * SOUND LOGIC
      ****************************************************/
-    const startMenu = document.getElementById('start-menu');
-    const startBtn = document.getElementById('start-btn');
-    const gameContainer = document.getElementById('game-container');
+    // Background music for the Start Menu (looped)
+    const backgroundMusic = document.getElementById('bg-music');
+    backgroundMusic.loop = true;
+
+    // Intro music that plays each round
+    let introMusic = null;
+    const introAudioPath = "./assets/sounds/intro.mp3";
+
+    // Additional Audio Elements
+    const reloadMusic = document.getElementById('reload-music');
+    const fireSound = document.getElementById('fire-sound');
+    const emptySound = document.getElementById('empty-sound');
+    const greenSound = document.getElementById('green-sound'); // New Audio Element
+
+    // Track whether sound is ON or OFF
+    let isSoundOn = false;
+
+    // Grab the toggle button and slider
+    const soundBtn = document.getElementById('sound-btn');
+    const numBulletsSlider = document.getElementById('num-bullets');
+    const bulletCountDisplay = document.getElementById('bullet-count');
+
+    // Update bullet count display when slider changes
+    numBulletsSlider.addEventListener('input', () => {
+      bulletCountDisplay.textContent = numBulletsSlider.value;
+    });
+
+    // Sound Toggle Button Event Listener
+    soundBtn.addEventListener('click', () => {
+      isSoundOn = !isSoundOn;
+      if (isSoundOn) {
+        soundBtn.textContent = "Sound: ON";
+        soundBtn.setAttribute('data-sound', 'on');
+        // Attempt to play background music
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().catch(() => {
+          console.warn("Autoplay blocked. User may need to click again.");
+        });
+      } else {
+        soundBtn.textContent = "Sound: OFF";
+        soundBtn.setAttribute('data-sound', 'off');
+        // Stop all sounds
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+        if (introMusic) {
+          introMusic.pause();
+          introMusic.currentTime = 0;
+        }
+        reloadMusic.pause();
+        reloadMusic.currentTime = 0;
+        fireSound.pause();
+        fireSound.currentTime = 0;
+        emptySound.pause();
+        emptySound.currentTime = 0;
+        greenSound.pause(); // Stop greenSound if playing
+        greenSound.currentTime = 0;
+      }
+    });
+
+    /****************************************************
+     * STATE / ELEMENTS
+     ****************************************************/
+    const startMenu       = document.getElementById('start-menu');
+    const startBtn        = document.getElementById('start-btn');
+    const gameContainer   = document.getElementById('game-container');
+    const modeSelect      = document.getElementById('mode-select');
+    const numBulletsInput = document.getElementById('num-bullets'); // Now a slider
 
     const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
 
@@ -312,48 +549,100 @@
       { name: 'Scissors', img: './assets/icons/scissors.png' },
     ];
 
-    const userLeftCol = document.getElementById('user-left-column');
-    const userRightCol = document.getElementById('user-right-column');
+    const userLeftCol   = document.getElementById('user-left-column');
+    const userRightCol  = document.getElementById('user-right-column');
 
     // Score & Timer
     const playerScoreEl = document.getElementById('player-score');
-    const aiScoreEl = document.getElementById('ai-score');
+    const aiScoreEl     = document.getElementById('ai-score');
     let playerScore = 0;
     let aiScore = 0;
 
-    const timerDisplay = document.getElementById('timer-display');
-    const statusMessage = document.getElementById('status-message');
-    const resultSection = document.getElementById('result-section');
-    const resultMessage = document.getElementById('result-message');
-    const nextRoundBtn = document.getElementById('next-round-btn');
+    const timerDisplay    = document.getElementById('timer-display');
+    const statusMessage   = document.getElementById('status-message');
+    const resultSection   = document.getElementById('result-section');
+    const resultMessage   = document.getElementById('result-message');
+    const nextRoundBtn    = document.getElementById('next-round-btn');
+
+    // Russian Roulette elements
+    const rouletteVisual  = document.getElementById('roulette-visual');
+    const rouletteSpin    = document.getElementById('roulette-spin');
+    const rouletteOutcome = document.getElementById('roulette-outcome');
 
     // Selections
-    let playerLeftHand = null;
+    let playerLeftHand  = null;
     let playerRightHand = null;
-    let aiLeftHand = null;
-    let aiRightHand = null;
+    let aiLeftHand      = null;
+    let aiRightHand     = null;
 
     // Timers & phases
     let intervalId = null;
-    let timeLeft = 5;
+    let timeLeft   = 5;
     // phase = 1 => picking L & R, 2 => picking final
-    let phase = 1;
+    let phase      = 1;
+
+    // Roulette configuration
+    let rouletteMode     = 'reset'; // or 'no-reset'
+    let bulletsInChamber = 1;
+    let chamberPositions = [false, false, false, false, false, false];
+    let currentChamberIndex = 0;
+    let gameOver = false;
 
     /****************************************************
-     *                EVENT LISTENERS
+     * START BUTTON
      ****************************************************/
     startBtn.addEventListener('click', () => {
+      // Stop the menu background music
+      if (isSoundOn) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+      }
+
+      // Hide menu
       startMenu.style.display = 'none';
+      // Show game
       gameContainer.style.display = 'block';
+
+      // Set user settings
+      rouletteMode = modeSelect.value;
+      bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
+      if (bulletsInChamber < 1) bulletsInChamber = 1;
+      if (bulletsInChamber > 6) bulletsInChamber = 6;
+
+      if (rouletteMode === 'no-reset') {
+        setupNoResetChamber(bulletsInChamber);
+      }
+
       startRound();
     });
 
-    nextRoundBtn.addEventListener('click', startRound);
+    nextRoundBtn.addEventListener('click', () => {
+      if (gameOver) return; // If someone has died, no more rounds
+      startRound();
+    });
 
     /****************************************************
-     *               ROUND LOGIC
+     * ROUND LOGIC
      ****************************************************/
     function startRound() {
+      // Stop any leftover intro music
+      if (introMusic) {
+        introMusic.pause();
+        introMusic.currentTime = 0;
+      }
+      // If sound is ON, play intro for this round at normal speed
+      if (isSoundOn) {
+        introMusic = new Audio(introAudioPath);
+        introMusic.playbackRate = 1.0; // Set playback speed to normal
+        introMusic.play().catch(() => {
+          console.warn("Intro blocked by browser.");
+        });
+      }
+
+      rouletteVisual.style.display = 'none';
+      rouletteOutcome.textContent = '';
+      rouletteSpin.style.display = 'inline-block';
+
       phase = 1;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
@@ -361,11 +650,11 @@
       resultSection.style.display = 'none';
       resultMessage.textContent = '';
 
-      // Clear old picks
-      playerLeftHand = null;
+      // Reset picks
+      playerLeftHand  = null;
       playerRightHand = null;
-      aiLeftHand = null;
-      aiRightHand = null;
+      aiLeftHand      = null;
+      aiRightHand     = null;
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
       // Build user columns
@@ -381,11 +670,9 @@
           clearInterval(intervalId);
           // If user hasn't chosen BOTH left & right, immediate AI win
           if (!playerLeftHand || !playerRightHand) {
-            // AI wins
             concludeRoundWithAiWin('Time is up! You did not pick both hands.');
           } else {
-            // Otherwise, proceed to Phase 2
-            highlightAIHands(); 
+            highlightAIHands();
             moveToPhase2();
           }
         }
@@ -398,7 +685,6 @@
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
       statusMessage.textContent = 'Pick ONE final hand to keep (5s)!';
 
-      // Start Phase 2 timer
       if (intervalId) clearInterval(intervalId);
       intervalId = setInterval(() => {
         timeLeft--;
@@ -406,54 +692,67 @@
 
         if (timeLeft <= 0) {
           clearInterval(intervalId);
-          // If user hasn't picked final (i.e., hasn't clicked again),
-          // we assume user fails => AI wins
           concludeRoundWithAiWin('Time is up! You did not pick a final hand.');
         }
       }, 1000);
     }
 
     /****************************************************
-     *         IF USER FAILS => AI WINS
+     * IF USER FAILS => AI WINS
      ****************************************************/
     function concludeRoundWithAiWin(reason) {
+      if (gameOver) return;
       phase = 0;
       statusMessage.textContent = 'Round Over!';
       resultSection.style.display = 'block';
       resultMessage.textContent = `${reason} AI automatically wins.`;
       aiScore++;
       aiScoreEl.textContent = aiScore;
+
+      performRussianRoulette('user');
     }
 
     /****************************************************
-     *         WHEN USER ACTUALLY PICKS FINAL
+     * WHEN USER PICKS FINAL
      ****************************************************/
     function concludeRound(playerFinalHand) {
       if (intervalId) clearInterval(intervalId);
       phase = 0;
 
+      // **Stop introMusic when user makes final choice**
+      if (introMusic) {
+        introMusic.pause();
+        introMusic.currentTime = 0;
+      }
+
       // AI picks final after seeing user’s final
       const aiFinal = chooseAiBestResponse(aiLeftHand, aiRightHand, playerFinalHand);
 
-      // De-highlight the AI's unchosen hand
       if (aiFinal === aiLeftHand) {
         unhighlightAIHand('right');
       } else {
         unhighlightAIHand('left');
       }
 
-      // Compare
       const winner = getWinner(playerFinalHand, aiFinal);
       if (winner === 'Player') {
         playerScore++;
         playerScoreEl.textContent = playerScore;
         resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. You WIN!`;
-      } else if (winner === 'AI') {
+        // Russian Roulette for AI
+        performRussianRoulette('ai');
+      }
+      else if (winner === 'AI') {
         aiScore++;
         aiScoreEl.textContent = aiScore;
         resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. AI WINS!`;
-      } else {
+        // Russian Roulette for Player
+        performRussianRoulette('user');
+      }
+      else {
+        // DRAW => Play green.mp3 and no Russian Roulette
         resultMessage.textContent = `You both chose ${playerFinalHand}. It's a DRAW!`;
+        playGreenSound();
       }
 
       statusMessage.textContent = 'Round Over!';
@@ -461,16 +760,125 @@
     }
 
     /****************************************************
-     *    USER COLUMN BUILD + CLICK HANDLERS
+     * RUSSIAN ROULETTE
+     ****************************************************/
+    function performRussianRoulette(target) {
+      // target = 'user' or 'ai'
+      if (gameOver) return;
+
+      rouletteVisual.style.display = 'block';
+      rouletteSpin.style.display = 'inline-block';
+      rouletteOutcome.textContent = '';
+
+      // **Stop introMusic if still playing**
+      if (introMusic) {
+        introMusic.pause();
+        introMusic.currentTime = 0;
+      }
+
+      // Play reload.mp3 first
+      if (isSoundOn) {
+        reloadMusic.currentTime = 0;
+        reloadMusic.play().then(() => {
+          // After reload.mp3 finishes, determine outcome
+          determineRouletteOutcome(target);
+        }).catch(() => {
+          console.warn("Reload sound blocked by browser.");
+          // Proceed to outcome determination even if sound is blocked
+          determineRouletteOutcome(target);
+        });
+      } else {
+        // If sound is off, proceed immediately
+        determineRouletteOutcome(target);
+      }
+    }
+
+    function determineRouletteOutcome(target) {
+      // Simulate a slight delay to sync with reload.mp3 if needed
+      setTimeout(() => {
+        // Determine if bullet fires
+        let bulletFires = false;
+        if (rouletteMode === 'reset') {
+          // For reset each round, chance = bullets/6
+          const rand = Math.floor(Math.random() * 6) + 1;
+          bulletFires = (rand <= bulletsInChamber);
+        } else {
+          // No-reset: check currentChamberIndex
+          bulletFires = chamberPositions[currentChamberIndex];
+          currentChamberIndex = (currentChamberIndex + 1) % 6;
+        }
+
+        // Play outcome sound
+        if (isSoundOn) {
+          if (bulletFires) {
+            fireSound.currentTime = 0;
+            fireSound.play().then(() => {
+              // After fire.wav finishes, update the UI
+              updateRouletteOutcome(target, true);
+            }).catch(() => {
+              console.warn("Fire sound blocked by browser.");
+              // Update UI even if sound is blocked
+              updateRouletteOutcome(target, true);
+            });
+          } else {
+            emptySound.currentTime = 0;
+            emptySound.play().then(() => {
+              // After empty.wav finishes, update the UI
+              updateRouletteOutcome(target, false);
+            }).catch(() => {
+              console.warn("Empty sound blocked by browser.");
+              // Update UI even if sound is blocked
+              updateRouletteOutcome(target, false);
+            });
+          }
+        } else {
+          // If sound is off, proceed to update UI
+          updateRouletteOutcome(target, bulletFires);
+        }
+      }, 1000); // 1-second delay after reload
+    }
+
+    function updateRouletteOutcome(target, bulletFires) {
+      rouletteSpin.style.display = 'none';
+
+      if (bulletFires) {
+        rouletteOutcome.textContent = `BANG! The ${target.toUpperCase()} is shot.`;
+        gameOver = true;
+        statusMessage.textContent = 'GAME OVER!';
+
+        if (target === 'user') {
+          resultMessage.textContent += ' YOU have been shot. AI wins the entire match!';
+        } else {
+          resultMessage.textContent += ' The AI has been shot. YOU win the entire match!';
+        }
+      } else {
+        rouletteOutcome.textContent = `CLICK! No bullet fired. ${target.toUpperCase()} survives.`;
+      }
+    }
+
+    function setupNoResetChamber(bulletsCount) {
+      chamberPositions = [false, false, false, false, false, false];
+      currentChamberIndex = 0;
+      let count = Math.min(bulletsCount, 6);
+      while (count > 0) {
+        const idx = Math.floor(Math.random() * 6);
+        if (!chamberPositions[idx]) {
+          chamberPositions[idx] = true;
+          count--;
+        }
+      }
+    }
+
+    /****************************************************
+     * BUILD USER CHOICES
      ****************************************************/
     function buildUserColumns() {
       userLeftCol.innerHTML = '';
       userRightCol.innerHTML = '';
 
-      const leftShuffled = shuffleArray([...RPS]);
+      const leftShuffled  = shuffleArray([...RPS]);
       const rightShuffled = shuffleArray([...RPS]);
 
-      // Build left column
       leftShuffled.forEach(item => {
         const btn = document.createElement('button');
         btn.classList.add('choice-btn');
@@ -485,7 +893,6 @@
         userLeftCol.appendChild(btn);
       });
 
-      // Build right column
       rightShuffled.forEach(item => {
         const btn = document.createElement('button');
         btn.classList.add('choice-btn');
@@ -507,7 +914,7 @@
       const hand = e.currentTarget.getAttribute('data-hand');
 
       if (phase === 1) {
-        // Toggle selection for left or right
+        // Toggle left/right selection
         if (side === 'left') {
           playerLeftHand = (playerLeftHand === hand) ? null : hand;
         } else {
@@ -515,7 +922,7 @@
         }
         updateUserSelectedStates();
 
-        // If both chosen, proceed to next phase immediately
+        // If both chosen, proceed
         if (playerLeftHand && playerRightHand) {
           clearInterval(intervalId);
           highlightAIHands();
@@ -523,10 +930,9 @@
         }
       }
       else if (phase === 2) {
-        // The user is picking their final
         if (!playerLeftHand || !playerRightHand) return;
         const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
-        // De-highlight the other user hand
+
         if (finalChoice === playerLeftHand) {
           unhighlightUserHand('right');
         } else {
@@ -537,48 +943,51 @@
     }
 
     /****************************************************
-     *        AI CHOICES
+     * AI CHOICES
      ****************************************************/
     function highlightAIHands() {
-      // AI picks 2 distinct hands
       let firstPick = randomGestureName();
-      let secondPick = randomGestureName();
-      // let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
-      // let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
+      let remaining = ['Rock','Paper','Scissors'].filter(x => x !== firstPick);
+      let secondPick = remaining[Math.floor(Math.random() * remaining.length)];
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
 
-      // Clear old highlight
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
-      // highlight the picks
       findAIButton(firstPick, 'left')?.classList.add('selected');
       findAIButton(secondPick, 'right')?.classList.add('selected');
     }
 
     function chooseAiBestResponse(hand1, hand2, playerFinal) {
-      // Very simple: if either wins, pick that. If none wins, pick one that draws if possible
-      // Or do any logic you'd like to adapt for "optimal"
+      // If both AI & user had 2 distinct hands, pick randomly if all 3 distinct combos
+      if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
+        const allHands = new Set([hand1, hand2, playerLeftHand, playerRightHand]);
+        if (allHands.size === 3) {
+          // 50% probability
+          return Math.random() < 0.5 ? hand1 : hand2;
+        }
+      }
+
+      // Otherwise, pick based on best outcome
       const outcome1 = getWinner(playerFinal, hand1);
       const outcome2 = getWinner(playerFinal, hand2);
 
       // Priority: Win > Draw > Lose
       function rank(res) {
-        if (res === 'AI') return 3;
+        if (res === 'AI')   return 3;
         if (res === 'Draw') return 2;
-        return 1; // Player
+        return 1; // 'Player' means AI lost
       }
       const r1 = rank(outcome1);
       const r2 = rank(outcome2);
 
       if (r1 > r2) return hand1;
       if (r2 > r1) return hand2;
-      // if tie, pick the first
-      return hand1;
+      return hand1; // tie => pick first
     }
 
     /****************************************************
-     *          VISUAL HIGHLIGHTING
+     * VISUAL HIGHLIGHTING
      ****************************************************/
     function updateUserSelectedStates() {
       const allBtns = document.querySelectorAll('#user-choices .choice-btn');
@@ -613,7 +1022,22 @@
     }
 
     /****************************************************
-     *          HELPERS
+     * PLAY GREEN SOUND FOR DRAW
+     ****************************************************/
+    function playGreenSound() {
+      if (isSoundOn) {
+        greenSound.currentTime = 0;
+        greenSound.play().then(() => {
+          // After green.mp3 finishes, allow user to proceed
+          console.log("Green sound played successfully.");
+        }).catch(() => {
+          console.warn("Green sound blocked by browser.");
+        });
+      }
+    }
+
+    /****************************************************
+     * HELPERS
      ****************************************************/
     function findAIButton(hand, side) {
       return Array.from(aiChoiceButtons).find(btn =>
@@ -642,7 +1066,7 @@
 
     // Fisher-Yates shuffle
     function shuffleArray(arr) {
-      for(let i = arr.length - 1; i > 0; i--) {
+      for(let i = arr.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
       }
