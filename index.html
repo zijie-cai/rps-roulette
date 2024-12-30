@@ -29,7 +29,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 0.5em; /* Reduced padding for mobile */
+      padding: 0.3em; /* Further reduced padding for mobile */
     }
 
     /*************************************************************
@@ -38,41 +38,42 @@
     #start-menu {
       text-align: center;
       width: 100%;
-      max-width: 500px; /* Suitable for larger screens */
+      max-width: 450px; /* Reduced max-width for better fit on mobile */
       margin: auto;
       background: #ed1b76; /* Bright pink background */
-      padding: 1em; /* Adequate padding */
+      padding: 0.8em; /* Further reduced padding */
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      box-shadow: 0 0 6px rgba(0,0,0,0.15); /* Slightly reduced shadow */
       position: relative;
+      transition: all 0.3s ease-in-out; /* Smooth transition */
     }
     #start-menu h1 {
-      margin-bottom: 0.4em;
-      font-size: 1.8em; /* Slightly increased for better visibility */
+      margin-bottom: 0.3em;
+      font-size: 1.4em; /* Further reduced font size */
       color: #ffffff;
     }
     #start-menu p {
-      margin: 0.8em 0;
-      line-height: 1.4em;
+      margin: 0.6em 0;
+      line-height: 1.3em;
       color: #ffffff;
-      font-size: 1em; /* Increased for readability */
+      font-size: 0.8em; /* Further reduced font size */
     }
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 1em;
+      font-size: 0.85em; /* Adjusted font size */
     }
     #start-menu select,
     #start-menu input[type="range"] {
-      margin: 0.4em 0;
-      padding: 0.5em;
+      margin: 0.3em 0;
+      padding: 0.2em;
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 1em;
+      font-size: 0.85em; /* Adjusted font size */
       width: 100%;
-      max-width: 250px; /* Increased max-width for better touch targets */
+      max-width: 200px; /* Further reduced max-width */
       display: block;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
       text-align: center;
     }
 
@@ -82,13 +83,13 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.6em 1em;
+      font-size: 0.85em; /* Reduced font size */
+      padding: 0.4em 0.6em; /* Reduced padding */
       cursor: pointer;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
       transition: background 0.3s;
       width: 100%;
-      max-width: 250px;
+      max-width: 200px; /* Reduced max-width */
     }
     #sound-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -97,38 +98,37 @@
     /* Compact Slider and Mode Selection Container */
     .settings-container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column; /* Stack vertically on smaller screens */
       align-items: center;
-      justify-content: space-around;
-      gap: 1em; /* Reduced gap for better fit */
-      flex-wrap: wrap;
-      margin-bottom: 1em;
+      justify-content: center;
+      gap: 1em; /* Reduced gap */
+      margin-bottom: 0.6em;
     }
     .setting-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
-      width: 100%; /* Full width on smaller screens */
-      max-width: 250px;
+      gap: 0.3em; /* Reduced gap */
+      width: 100%;
+      max-width: 200px; /* Further reduced max-width */
     }
     .setting-item label {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.3em;
     }
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.5em; /* Reduced gap */
       width: 100%;
     }
     .slider-container input[type="range"] {
       width: 100%;
     }
     .slider-container span {
-      width: 30px;
+      width: 20px; /* Reduced width */
       text-align: center;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 0.85em; /* Adjusted font size */
     }
 
     #start-btn {
@@ -136,12 +136,12 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1.2em; /* Increased for better visibility */
-      padding: 0.6em 1.2em;
+      font-size: 1em; /* Adjusted font size */
+      padding: 0.4em 0.8em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 250px;
+      max-width: 220px; /* Further reduced max-width */
     }
     #start-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -152,14 +152,15 @@
      *************************************************************/
     #game-container {
       width: 100%;
-      max-width: 600px; /* Increased for better layout on larger screens */
-      margin: 1.5em auto;
+      max-width: 450px; /* Reduced max-width for mobile */
+      margin: 1em auto;
       background: #ed1b76; /* Pink background for game area */
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      padding: 1em;
+      box-shadow: 0 0 6px rgba(0,0,0,0.15); /* Slightly reduced shadow */
+      padding: 0.6em; /* Reduced padding */
       display: none; /* Hidden until game starts */
       position: relative;
+      transition: all 0.3s ease-in-out; /* Smooth transition */
     }
 
     /*************************************************************
@@ -167,37 +168,37 @@
      *************************************************************/
     #ai-section {
       text-align: center;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
     }
     #ai-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1.2em;
+      margin-bottom: 0.3em;
+      font-size: 1em; /* Reduced font size */
       color: #ffffff;
     }
     #ai-choices {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
       flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 1em; /* Added gap for better spacing */
+      gap: 0.8em; /* Reduced gap */
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.3em; /* Reduced gap */
       width: 45%; /* Adjust width for better fit on mobile */
-      max-width: 150px;
+      max-width: 120px; /* Reduced max-width */
     }
     .ai-choice-btn {
       background: #f44786; /* default AI button color */
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em;
-      min-width: 60px;
+      font-size: 0.85em; /* Reduced font size */
+      padding: 0.3em; /* Reduced padding */
+      min-width: 50px; /* Reduced min-width */
       cursor: default;
       pointer-events: none; /* not clickable by user */
       display: flex;
@@ -205,11 +206,11 @@
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px;
+      max-width: 90px; /* Reduced max-width */
     }
     .ai-choice-btn img {
-      width: 40px; /* Increased image size for better visibility */
-      height: 40px;
+      width: 25px; /* Reduced image size */
+      height: 25px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -222,40 +223,40 @@
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.5em auto 1em;
-      font-size: 1.2em;
+      margin: 0.3em auto 0.6em;
+      font-size: 0.95em; /* Reduced font size */
       display: flex;
       justify-content: center;
-      gap: 2em;
-      flex-wrap: wrap;
+      gap: 1em; /* Reduced gap */
+      flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     #scoreboard div {
       background: #249f9c; /* Teal scoreboard background */
       color: #ffffff;
-      padding: 0.6em 1em;
+      padding: 0.3em 0.6em; /* Reduced padding */
       border-radius: 4px;
-      font-size: 1em;
-      width: 45%;
-      min-width: 120px;
+      font-size: 0.9em; /* Reduced font size */
+      width: 45%; /* Adjust width for better fit on mobile */
+      min-width: 90px; /* Adjusted min-width */
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.2em;
+      margin-bottom: 0.6em;
+      font-size: 1em; /* Reduced font size */
       background: #249f9c;
       color: #ffffff;
-      padding: 0.6em;
+      padding: 0.3em;
       border-radius: 4px;
     }
     #status-message {
       text-align: center;
       font-weight: bold;
-      margin-bottom: 1em;
+      margin-bottom: 0.6em;
       min-height: 2em;
       color: #ffffff;
-      font-size: 1em;
+      font-size: 0.85em; /* Reduced font size */
     }
 
     /*************************************************************
@@ -263,14 +264,14 @@
      *************************************************************/
     #result-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.6em;
       display: none; /* shown after reveal */
     }
     #result-message {
       font-weight: bold;
-      margin-bottom: 0.6em;
+      margin-bottom: 0.5em;
       color: #ffffff; 
-      font-size: 1em;
+      font-size: 0.85em; /* Reduced font size */
     }
     /* Hide the Next Round button by default */
     #next-round-btn {
@@ -279,13 +280,14 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em 1em;
+      font-size: 0.85em; /* Reduced font size */
+      padding: 0.3em 0.6em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
-      max-width: 200px;
-      margin: 0.5em auto 0;
+      max-width: 180px; /* Reduced max-width */
+      margin: 0.3em auto 0;
       width: 100%;
+      display: block; /* Ensure it can be centered with auto margins */
     }
     #next-round-btn:hover {
       background: #249f9c;
@@ -297,31 +299,31 @@
     #roulette-visual {
       text-align: center;
       display: none;
-      margin: 1em auto;
-      font-size: 1em;
+      margin: 0.6em auto;
+      font-size: 0.85em; /* Reduced font size */
       border: 2px dashed #f44786;
-      padding: 1em;
+      padding: 0.6em; /* Reduced padding */
       border-radius: 8px;
       background: #ffffff;
       width: 100%;
-      max-width: 500px;
+      max-width: 350px; /* Reduced max-width */
       color: #ed1b76;
     }
     #roulette-visual h3 {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.3em;
       color: #ed1b76;
-      font-size: 1.2em;
+      font-size: 1em; /* Reduced font size */
     }
     #roulette-spin {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1em;
+      font-size: 0.85em; /* Reduced font size */
     }
     #roulette-outcome {
-      margin-top: 0.5em;
+      margin-top: 0.3em;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 0.85em; /* Reduced font size */
     }
     /* Simple spin animation for "spinning" text */
     .spin-animation {
@@ -338,11 +340,11 @@
      *************************************************************/
     #user-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.6em;
     }
     #user-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1.2em;
+      margin-bottom: 0.3em;
+      font-size: 1em; /* Reduced font size */
       color: #ffffff;
     }
 
@@ -351,33 +353,33 @@
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      margin-bottom: 1em;
-      gap: 1em;
+      margin-bottom: 0.6em;
+      gap: 0.8em; /* Reduced gap */
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
-      width: 45%;
-      max-width: 150px;
+      gap: 0.3em; /* Reduced gap */
+      width: 45%; /* Adjust width for better fit on mobile */
+      max-width: 120px; /* Reduced max-width */
     }
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em;
-      min-width: 60px;
+      font-size: 0.85em; /* Reduced font size */
+      padding: 0.3em; /* Reduced padding */
+      min-width: 50px; /* Reduced min-width */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px;
+      max-width: 90px; /* Reduced max-width */
     }
     .choice-btn:hover {
       background: #249f9c;
@@ -388,8 +390,8 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 40px; /* Increased image size for better visibility */
-      height: 40px;
+      width: 25px; /* Reduced image size */
+      height: 25px;
     }
 
     /*************************************************************
@@ -397,38 +399,25 @@
      *************************************************************/
     .winner {
       border: 3px solid #ffff00; /* Yellow border */
-      box-shadow: 0 0 10px #ffff00;
+      box-shadow: 0 0 8px #ffff00; /* Reduced shadow */
+      transition: all 0.3s ease-in-out; /* Smooth transition */
     }
 
     /*************************************************************
      * MEDIA QUERIES FOR MOBILE OPTIMIZATION
      *************************************************************/
-    @media (max-width: 768px) {
-      /* Tablet devices */
-      #start-menu, #game-container {
-        max-width: 90%;
-      }
-      #ai-choice-btn img, .choice-btn img {
-        width: 35px;
-        height: 35px;
-      }
-      #scoreboard div {
-        width: 45%;
-      }
-    }
-
     @media (max-width: 480px) {
       /* Mobile devices */
       /* Further reduce font sizes */
       #start-menu h1 {
-        font-size: 1.5em;
+        font-size: 1.2em;
       }
       #start-menu p, #start-menu label {
-        font-size: 0.95em;
+        font-size: 0.75em;
       }
       #sound-btn, #start-btn, #next-round-btn {
-        font-size: 1em;
-        padding: 0.6em 1em;
+        font-size: 0.85em;
+        padding: 0.3em 0.5em;
       }
       /* Stack AI and User choice columns vertically */
       .ai-choice-column,
@@ -439,18 +428,18 @@
       /* Ensure buttons and images are appropriately sized */
       .ai-choice-btn,
       .choice-btn {
-        max-width: 90px;
-        padding: 0.5em;
+        max-width: 80px;
+        padding: 0.3em;
       }
       .ai-choice-btn img,
       .choice-btn img {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
       }
       /* Adjust scoreboard layout */
       #scoreboard {
         flex-direction: column;
-        gap: 1em;
+        gap: 0.8em;
       }
       #scoreboard div {
         width: 80%;
@@ -466,13 +455,14 @@
       }
       /* Adjust roulette visual */
       #roulette-visual {
-        padding: 0.8em;
+        padding: 0.5em;
+        font-size: 0.8em;
       }
       /* Adjust status message font size */
       #status-message,
       #result-message,
       #roulette-outcome {
-        font-size: 0.9em;
+        font-size: 0.8em;
       }
       /* Adjust buttons to be full width */
       #sound-btn,
@@ -483,24 +473,32 @@
       }
       /* Increase touch areas for better usability */
       .choice-btn, .ai-choice-btn {
-        padding: 0.6em;
+        padding: 0.4em;
       }
     }
 
     /* Additional media queries for very small devices */
     @media (max-width: 360px) {
       #start-menu h1 {
-        font-size: 1.3em;
+        font-size: 1em;
       }
       #ai-choice-btn img, .choice-btn img {
-        width: 25px;
-        height: 25px;
+        width: 18px;
+        height: 18px;
       }
       #scoreboard div {
         width: 100%;
       }
       .choice-btn, .ai-choice-btn {
-        max-width: 80px;
+        max-width: 70px;
+      }
+      /* Further reduce padding */
+      #sound-btn, #start-btn, #next-round-btn {
+        padding: 0.2em 0.4em;
+      }
+      /* Reduce font sizes */
+      #scoreboard div {
+        font-size: 0.8em;
       }
     }
 
@@ -900,7 +898,10 @@
       // Highlight AI's final hand
       highlightAIHandsFinal();
 
-      performRussianRoulette('user');
+      // Perform Russian Roulette with a delay to ensure UI updates
+      setTimeout(() => {
+        performRussianRoulette('user');
+      }, 500); // 0.5 second delay
     }
 
     /****************************************************
@@ -940,8 +941,10 @@
         // Highlight player's final hand
         const playerFinalBtn = findUserButton(playerFinalHand, playerFinalChoiceSide);
         playerFinalBtn?.classList.add('winner');
-        // Russian Roulette for AI
-        performRussianRoulette('ai');
+        // Russian Roulette for AI with delay
+        setTimeout(() => {
+          performRussianRoulette('ai');
+        }, 500); // 0.5 second delay
       }
       else if (winner === 'AI') {
         aiScore++;
@@ -951,8 +954,10 @@
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
         aiFinalBtn?.classList.add('winner');
-        // Russian Roulette for Player
-        performRussianRoulette('user');
+        // Russian Roulette for Player with delay
+        setTimeout(() => {
+          performRussianRoulette('user');
+        }, 500); // 0.5 second delay
       }
       else {
         // DRAW => Highlight both hands
@@ -962,11 +967,12 @@
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
         playerFinalBtn?.classList.add('winner');
         aiFinalBtn?.classList.add('winner');
-        // Play green.mp3 and no Russian Roulette
-        playGreenSound();
-        
-        // Show the Next Round button immediately for a draw
-        nextRoundBtn.style.display = 'block';
+        // Play green.mp3 and no Russian Roulette with delay
+        setTimeout(() => {
+          playGreenSound();
+          // Show the Next Round button immediately for a draw
+          nextRoundBtn.style.display = 'block';
+        }, 500); // 0.5 second delay
       }
 
       statusMessage.textContent = 'Round Over!';
@@ -989,7 +995,7 @@
         introMusic.currentTime = 0;
       }
 
-      // Play reload.mp3 first
+      // Play reload.mp3 first with delay
       if (isSoundOn) {
         reloadMusic.currentTime = 0;
         reloadMusic.play().then(() => {
@@ -1001,8 +1007,10 @@
           determineRouletteOutcome(target);
         });
       } else {
-        // If sound is off, proceed immediately
-        determineRouletteOutcome(target);
+        // If sound is off, proceed immediately after a slight delay
+        setTimeout(() => {
+          determineRouletteOutcome(target);
+        }, 500); // 0.5 second delay
       }
     }
 
@@ -1021,7 +1029,7 @@
           currentChamberIndex = (currentChamberIndex + 1) % 6;
         }
 
-        // Play outcome sound
+        // Play outcome sound with delays
         if (isSoundOn) {
           if (bulletFires) {
             fireSound.currentTime = 0;
@@ -1045,8 +1053,10 @@
             });
           }
         } else {
-          // If sound is off, proceed to update UI
-          updateRouletteOutcome(target, bulletFires);
+          // If sound is off, proceed to update UI after a delay
+          setTimeout(() => {
+            updateRouletteOutcome(target, bulletFires);
+          }, 500); // 0.5 second delay
         }
       }, 800); // Reduced delay for faster responsiveness
     }
@@ -1068,15 +1078,16 @@
         rouletteOutcome.textContent = `CLICK! No bullet fired. ${target.toUpperCase()} survives.`;
       }
 
-      // Show the Next Round button after Russian Roulette is done
-      nextRoundBtn.style.display = 'block';
-
-      // Set 'nextRoundBtn' text based on 'gameOver'
-      if (gameOver) {
-        nextRoundBtn.textContent = 'Restart Game';
-      } else {
-        nextRoundBtn.textContent = 'Next Round';
-      }
+      // Show the Next Round button after Russian Roulette is done with delay
+      setTimeout(() => {
+        nextRoundBtn.style.display = 'block';
+        // Set 'nextRoundBtn' text based on 'gameOver'
+        if (gameOver) {
+          nextRoundBtn.textContent = 'Restart Game';
+        } else {
+          nextRoundBtn.textContent = 'Next Round';
+        }
+      }, 500); // 0.5 second delay
     }
 
     function setupNoResetChamber(bulletsCount) {
@@ -1157,11 +1168,14 @@
           }
           updateUserSelectedStates();
 
-          // If both chosen, proceed
+          // If both chosen, proceed with a slight delay to ensure UI updates
           if (playerLeftHand && playerRightHand) {
               clearInterval(intervalId);
               highlightAIHands();
-              moveToPhase2();
+              // Add delay before moving to phase 2
+              setTimeout(() => {
+                moveToPhase2();
+              }, 300); // 0.3 second delay
           }
       }
       else if (phase === 2) {
