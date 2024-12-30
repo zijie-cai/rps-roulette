@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <title>Rock-Paper-Scissors (Two-Hand Variant + Russian Roulette)</title>
+  <!-- 
+    NOTE: 
+    For mobile audio to work properly, audio playback must generally be triggered
+    by a user gesture (e.g., clicking/tapping a button). This is an iOS and Android
+    restriction to prevent unwanted auto-play. The "Sound: ON" button should handle this.
+    
+    The meta viewport is crucial for mobile-friendly sizing:
+  -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     /* 
-      Squid Game color palette:
+      Squid Game-inspired color palette:
       #ed1b76 (237,27,118)
       #f44786 (244,71,134)
       #ffffff (255,255,255)
@@ -14,23 +22,28 @@
       #037a76 (3,122,118)
     */
 
-    /* Reset + Basic Layout */
+    /* RESET + BASIC LAYOUT */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
     body {
       font-family: Arial, sans-serif;
-      background: #037a76; /* Deep teal background */
-      color: #ffffff;      /* White text for contrast */
-      min-height: 100vh;
+      background: #037a76; /* Deep teal */
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 0.5em; /* Reduced padding for mobile */
-      font-size: 0.9em; /* General font size reduction */
+      overflow-x: hidden; /* Hide horizontal scroll if any */
+      /* Minimizing vertical scrolling on small devices */
     }
 
     /*************************************************************
@@ -39,114 +52,113 @@
     #start-menu {
       text-align: center;
       width: 100%;
-      max-width: 500px; /* Suitable for larger screens */
-      margin: auto;
-      background: #ed1b76; /* Bright pink background */
-      padding: 1em; /* Adequate padding */
+      max-width: 500px;
+      margin: 0.5rem auto;
+      background: #ed1b76;
+      padding: 0.5rem;
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      position: relative;
     }
     #start-menu h1 {
-      margin-bottom: 0.4em;
-      font-size: 1.4em; /* Reduced for smaller font */
+      margin-bottom: 0.3rem;
+      font-size: 1.3rem;
       color: #ffffff;
+      line-height: 1.3rem;
     }
     #start-menu p {
-      margin: 0.8em 0;
-      line-height: 1.2em; /* Slightly reduced line height */
+      margin: 0.4rem 0;
+      line-height: 1.2em;
       color: #ffffff;
-      font-size: 0.9em; /* Reduced for smaller font */
+      font-size: 0.9rem;
     }
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 0.9em; /* Reduced for smaller font */
+      font-size: 0.9rem;
     }
     #start-menu select,
     #start-menu input[type="range"] {
-      margin: 0.4em 0;
-      padding: 0.4em; /* Reduced padding */
+      margin: 0.3rem auto;
+      padding: 0.3rem;
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 0.9em; /* Reduced for smaller font */
+      font-size: 0.85rem;
       width: 100%;
-      max-width: 150px; /* Increased max-width to accommodate longer text */
-      display: block;
-      margin-bottom: 1em;
+      max-width: 150px;
       text-align: center;
+      display: block;
     }
 
     /* Sound Toggle Button Styling */
     #sound-btn {
-      background: #f44786; /* Lighter pink button */
+      background: #f44786; 
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced for smaller font */
-      padding: 0.5em 0.8em; /* Reduced padding */
+      font-size: 0.9rem;
+      padding: 0.4rem 0.6rem;
       cursor: pointer;
-      margin-bottom: 1em;
+      margin: 0.5rem auto;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px; /* Increased max-width for better fit on mobile */
+      max-width: 200px;
     }
     #sound-btn:hover {
-      background: #249f9c; /* Teal hover */
+      background: #249f9c; 
     }
 
-    /* Compact Slider and Mode Selection Container */
+    /* Settings Container */
     .settings-container {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
-      gap: 0.8em; /* Reduced gap for better fit */
+      gap: 0.4rem;
       flex-wrap: wrap;
-      margin-bottom: 1em;
+      margin: 0 auto 0.5rem;
+      width: 100%;
+      max-width: 400px;
     }
     .setting-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
-      width: 100%; /* Full width on smaller screens */
-      max-width: 150px; /* Increased max-width to accommodate larger content */
-    }
-    .setting-item label {
-      margin-bottom: 0.4em;
+      gap: 0.3rem;
+      width: 100%;
+      max-width: 150px;
     }
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
-      width: 100%;
+      gap: 0.3rem;
     }
     .slider-container input[type="range"] {
       width: 100%;
-      max-width: 200px; /* Increased max-width to accommodate longer text */
+      max-width: 100px;
     }
     .slider-container span {
-      width: 25px; /* Reduced width */
+      width: 22px; 
       text-align: center;
       font-weight: bold;
-      font-size: 0.9em; /* Reduced for smaller font */
+      font-size: 0.8rem;
     }
 
+    /* Start Button */
     #start-btn {
-      background: #f44786; /* Lighter pink button */
+      background: #f44786;
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1em; /* Slight reduction */
-      padding: 0.5em 1em; /* Reduced padding */
+      font-size: 0.9rem;
+      padding: 0.5rem 0.8rem;
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px; /* Increased max-width for better fit on mobile */
+      max-width: 200px;
+      margin: 0.3rem auto;
     }
     #start-btn:hover {
-      background: #249f9c; /* Teal hover */
+      background: #249f9c;
     }
 
     /*************************************************************
@@ -154,64 +166,65 @@
      *************************************************************/
     #game-container {
       width: 100%;
-      max-width: 600px; /* Increased for better layout on larger screens */
-      margin: 1.5em auto;
-      background: #ed1b76; /* Pink background for game area */
+      max-width: 600px;
+      margin: 0.5rem auto 1rem;
+      background: #ed1b76;
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      padding: 1em; /* Adjusted padding */
+      padding: 0.5rem;
       display: none; /* Hidden until game starts */
       position: relative;
     }
 
     /*************************************************************
-     * AI SECTION (top)
+     * AI SECTION
      *************************************************************/
     #ai-section {
       text-align: center;
-      margin-bottom: 1em;
+      margin-bottom: 0.5rem;
     }
     #ai-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1em; /* Reduced for smaller font */
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
       color: #ffffff;
+      line-height: 1rem;
     }
     #ai-choices {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
-      margin-bottom: 1em;
-      flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 0.8em; /* Reduced gap for better spacing */
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
-      width: 45%; /* Adjust width for better fit on mobile */
-      max-width: 150px;
+      gap: 0.3rem;
+      width: 40%;
+      max-width: 130px;
     }
     .ai-choice-btn {
-      background: #f44786; /* Default AI button color */
+      background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced for smaller font */
-      padding: 0.4em; /* Reduced padding */
-      min-width: 50px; /* Reduced min-width */
+      font-size: 0.8rem;
+      padding: 0.3rem;
+      min-width: 40px;
       cursor: default;
       pointer-events: none; /* Not clickable by user */
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
-      width: 100%; /* Full width within column */
-      max-width: 80px; /* Reduced max-width */
+      width: 100%;
+      max-width: 70px;
+      height: 40px;
     }
     .ai-choice-btn img {
-      width: 25px; /* Reduced image size for better visibility */
-      height: 25px;
+      width: 20px;
+      height: 20px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -220,46 +233,46 @@
     }
 
     /*************************************************************
-     * SCOREBOARD (center)
+     * SCOREBOARD
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.5em auto 0.5em;
-      font-size: 0.8em; /* Further reduced font size for mobile */
+      margin: 0.3rem auto;
+      font-size: 0.8rem;
       display: flex;
       justify-content: center;
-      gap: 0.8em; /* Reduced gap for better fit */
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
     #scoreboard div {
-      background: #249f9c; /* Teal scoreboard background */
+      background: #249f9c; 
       color: #ffffff;
-      padding: 0.3em 0.6em; /* Reduced padding for smaller size */
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
-      font-size: 0.8em; /* Further reduced font size */
-      width: 45%;
-      min-width: 80px; /* Reduced min-width for better fit */
+      width: 35%;
+      min-width: 70px;
+      text-align: center;
+      font-size: 0.8rem;
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
-      margin-bottom: 1em;
-      font-size: 0.7em; /* Further reduced font size */
+      margin: 0.3rem auto;
+      font-size: 0.7rem;
       background: #249f9c;
       color: #ffffff;
-      padding: 0.3em; /* Reduced padding */
+      padding: 0.2rem;
       border-radius: 4px;
-      max-width: 200px; /* Reduced max-width */
-      margin: 0.5em auto; /* Center it */
+      max-width: 130px;
     }
     #status-message {
       text-align: center;
       font-weight: bold;
-      margin-bottom: 1em;
-      min-height: 2em;
+      margin-bottom: 0.5rem;
+      min-height: 1.4em;
       color: #ffffff;
-      font-size: 0.8em; /* Reduced font size */
+      font-size: 0.75rem;
     }
 
     /*************************************************************
@@ -267,67 +280,67 @@
      *************************************************************/
     #result-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.5rem;
       display: none; /* Shown after reveal */
     }
     #result-message {
       font-weight: bold;
-      margin-bottom: 0.6em;
+      margin-bottom: 0.4rem;
       color: #ffffff; 
-      font-size: 0.9em; /* Reduced for smaller font */
+      font-size: 0.85rem;
+      min-height: 1.2rem;
     }
-    /* Hide the Next Round button by default */
+    /* Next Round button hidden by default */
     #next-round-btn {
       display: none;
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced for smaller font */
-      padding: 0.4em 0.8em; /* Reduced padding */
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
       cursor: pointer;
       transition: background 0.3s;
-      max-width: 150px; /* Reduced max-width */
-      margin: 0.5em auto 0;
       width: 100%;
+      max-width: 150px;
+      margin: 0.2rem auto 0;
     }
     #next-round-btn:hover {
       background: #249f9c;
     }
 
     /*************************************************************
-     * RUSSIAN ROULETTE VISUALS
+     * RUSSIAN ROULETTE VISUAL
      *************************************************************/
     #roulette-visual {
       text-align: center;
       display: none;
-      margin: 1em auto;
-      font-size: 0.8em; /* Reduced font size */
+      margin: 0.5rem auto;
+      font-size: 0.75rem;
       border: 2px dashed #f44786;
-      padding: 0.5em; /* Reduced padding */
+      padding: 0.5rem;
       border-radius: 8px;
       background: #ffffff;
       width: 100%;
-      max-width: 300px; /* Reduced max-width for smaller interface */
+      max-width: 300px;
       color: #ed1b76;
     }
     #roulette-visual h3 {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.4rem;
       color: #ed1b76;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 0.85rem;
     }
     #roulette-spin {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8em; /* Reduced font size */
+      font-size: 0.75rem;
     }
     #roulette-outcome {
-      margin-top: 0.5em;
+      margin-top: 0.4rem;
       font-weight: bold;
-      font-size: 0.9em; /* Reduced font size */
+      font-size: 0.85rem;
     }
-    /* Simple spin animation for "spinning" text */
     .spin-animation {
       display: inline-block;
       animation: spin 1s linear infinite;
@@ -337,51 +350,51 @@
       to   { transform: rotate(360deg); }
     }
 
-    /* *************************************************************
-     * PLAYER SECTION (bottom)
+    /*************************************************************
+     * PLAYER SECTION
      *************************************************************/
     #user-section {
       text-align: center;
-      margin-top: 1em;
+      margin-top: 0.5rem;
     }
     #user-section h2 {
-      margin-bottom: 0.5em;
-      font-size: 1em; /* Reduced for smaller font */
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
       color: #ffffff;
+      line-height: 1rem;
     }
-
-    /* Two vertical stacks at the bottom for player's left & right */
     #user-choices {
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      margin-bottom: 1em;
-      gap: 0.8em; /* Reduced gap */
-      flex-wrap: wrap; /* Allow wrapping on small screens */
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em; /* Reduced gap */
-      width: 45%;
-      max-width: 150px;
+      gap: 0.3rem;
+      width: 40%;
+      max-width: 130px;
     }
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced for smaller font */
-      padding: 0.4em; /* Reduced padding */
-      min-width: 50px; /* Reduced min-width */
+      font-size: 0.8rem;
+      padding: 0.3rem;
+      min-width: 40px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
-      width: 100%; /* Full width within column */
-      max-width: 80px; /* Reduced max-width */
+      width: 100%;
+      max-width: 70px;
+      height: 40px;
     }
     .choice-btn:hover {
       background: #249f9c;
@@ -392,163 +405,86 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 25px; /* Reduced image size for better visibility */
-      height: 25px;
+      width: 20px;
+      height: 20px;
     }
 
     /*************************************************************
      * WINNER HIGHLIGHTING
      *************************************************************/
     .winner {
-      border: 2px solid #ffff00; /* Reduced border size */
-      box-shadow: 0 0 5px #ffff00; /* Reduced shadow size */
+      border: 2px solid #ffff00;
+      box-shadow: 0 0 5px #ffff00;
     }
 
     /*************************************************************
-     * MEDIA QUERIES FOR MOBILE OPTIMIZATION
+     * MEDIA QUERIES FOR EVEN SMALLER SCREENS
      *************************************************************/
-    @media (max-width: 768px) {
-      /* Tablet devices */
-      #start-menu, #game-container {
-        max-width: 90%;
-      }
-      #ai-choice-btn img, .choice-btn img {
-        width: 25px; /* Further reduced image size */
-        height: 25px;
-      }
-      #scoreboard div {
-        width: 45%;
-      }
-      #roulette-visual {
-        max-width: 250px; /* Further reduced max-width */
-      }
-      #timer-display {
-        max-width: 180px; /* Adjusted for smaller interface */
-      }
-    }
-
     @media (max-width: 480px) {
-      /* Mobile devices */
-      /* Further reduce font sizes */
+      #start-menu, #game-container {
+        max-width: 95%;
+      }
       #start-menu h1 {
-        font-size: 1.2em; /* Further reduced for smaller screens */
+        font-size: 1.1rem;
       }
       #start-menu p, #start-menu label {
-        font-size: 0.85em; /* Further reduced for smaller screens */
+        font-size: 0.8rem;
       }
       #sound-btn, #start-btn, #next-round-btn {
-        font-size: 0.9em; /* Reduced for smaller screens */
-        padding: 0.5em 0.8em; /* Reduced padding */
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
       }
-      /* Arrange AI and User choice columns side by side */
-      .ai-choice-column,
-      .user-choice-column {
-        width: 45%; /* Adjusted from 100% to 45% for side-by-side layout */
-        max-width: 150px; /* Ensures buttons fit within the screen */
+      #ai-section h2, #user-section h2 {
+        font-size: 0.9rem;
       }
-      /* Ensure buttons and images are appropriately sized */
-      .ai-choice-btn,
-      .choice-btn {
-        max-width: 80px; /* Further reduced max-width for better touch targets */
-        padding: 0.5em; /* Reduced padding */
+      .ai-choice-btn, .choice-btn {
+        max-width: 60px;
+        height: 36px;
+        font-size: 0.75rem;
       }
-      .ai-choice-btn img,
-      .choice-btn img {
-        width: 20px; /* Further reduced image size for better visibility */
-        height: 20px;
-      }
-      /* Adjust scoreboard layout */
-      #scoreboard {
-        flex-direction: row;
-        justify-content: center;
-        gap: 0.8em; /* Reduced gap for better fit */
-      }
-      #scoreboard div {
-        width: 45%;
-        max-width: 100px; /* Further reduced max-width for better fit on mobile */
-        font-size: 0.8em; /* Further reduced font size */
-        padding: 0.3em 0.5em; /* Reduced padding */
-      }
-      /* Move timer below scoreboard */
-      #timer-display {
-        margin-top: 0.5em;
-        font-size: 0.7em; /* Further reduced font size */
-        max-width: 150px; /* Ensure it doesn't take too much width */
-        padding: 0.2em; /* Further reduced padding */
-      }
-      /* Ensure sliders fit within the screen */
-      .slider-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .slider-container input[type="range"] {
-        width: 100%;
-        max-width: 200px; /* Adjusted to match larger size */
-      }
-      /* Adjust roulette visual */
-      #roulette-visual {
-        padding: 0.5em; /* Further reduced padding */
-        max-width: 250px; /* Further reduced max-width */
-      }
-      /* Adjust status message font size */
-      #status-message,
-      #result-message,
-      #roulette-outcome {
-        font-size: 0.8em; /* Further reduced font size */
-      }
-      /* Adjust buttons to be full width */
-      #sound-btn,
-      #start-btn,
-      #next-round-btn {
-        max-width: none;
-        width: 100%;
-      }
-      /* Increase touch areas for better usability */
-      .choice-btn, .ai-choice-btn {
-        padding: 0.5em; /* Reduced padding */
-      }
-      /* Arrange AI and User choices side by side */
-      #ai-choices, #user-choices {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      /* Further reduce roulette visual font size */
-      #roulette-visual h3 {
-        font-size: 0.8em; /* Further reduced font size */
-      }
-    }
-
-    /* Additional media queries for very small devices */
-    @media (max-width: 360px) {
-      #start-menu h1 {
-        font-size: 1em; /* Further reduced */
-      }
-      #ai-choice-btn img, .choice-btn img {
-        width: 18px; /* Further reduced image size */
+      .ai-choice-btn img, .choice-btn img {
+        width: 18px;
         height: 18px;
       }
       #scoreboard div {
-        width: 100%;
-        max-width: 100px; /* Adjusted */
+        width: 40%;
+        min-width: 60px;
+        font-size: 0.75rem;
       }
-      .choice-btn, .ai-choice-btn {
-        max-width: 70px; /* Further reduced */
-      }
-      /* Further reduce timer display on very small screens */
       #timer-display {
-        font-size: 0.6em; /* Further reduced font size */
-        padding: 0.1em; /* Further reduced padding */
-        max-width: 100px; /* Further reduced max-width */
+        font-size: 0.65rem;
+        max-width: 100px;
       }
-      /* Further reduce Russian Roulette font sizes */
+      #roulette-visual {
+        max-width: 250px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #start-menu h1 {
+        font-size: 1rem;
+      }
+      #scoreboard div {
+        width: 45%;
+        min-width: 50px;
+      }
+      .ai-choice-btn, .choice-btn {
+        max-width: 50px;
+        height: 32px;
+        font-size: 0.7rem;
+      }
+      .ai-choice-btn img, .choice-btn img {
+        width: 16px;
+        height: 16px;
+      }
       #roulette-visual h3 {
-        font-size: 0.7em; /* Further reduced */
+        font-size: 0.75rem;
       }
-      #roulette-spin {
-        font-size: 0.7em; /* Further reduced */
+      #roulette-spin, #roulette-outcome {
+        font-size: 0.75rem;
       }
-      #roulette-outcome {
-        font-size: 0.8em; /* Further reduced */
+      #result-message {
+        font-size: 0.75rem;
       }
     }
 
@@ -567,7 +503,7 @@
       If you fail to pick a hand within 5 seconds, AI wins that round.
     </p>
 
-    <!-- Compact Settings Container -->
+    <!-- Settings Container -->
     <div class="settings-container">
       <!-- Russian Roulette Mode Selection -->
       <div class="setting-item">
@@ -659,44 +595,36 @@
 
   </div>
 
-  <!-- Audio Elements -->
+  <!-- Audio Elements (preloaded) -->
   <audio id="bg-music" src="./assets/sounds/scary.mp3" preload="auto" loop></audio>
   <audio id="intro-music" src="./assets/sounds/intro.mp3" preload="auto"></audio>
   <audio id="reload-music" src="./assets/sounds/reload.mp3" preload="auto"></audio>
   <audio id="fire-sound" src="./assets/sounds/fire.wav" preload="auto"></audio>
   <audio id="empty-sound" src="./assets/sounds/empty.wav" preload="auto"></audio>
-  <audio id="green-sound" src="./assets/sounds/green.mp3" preload="auto"></audio> <!-- New Audio Element -->
+  <audio id="green-sound" src="./assets/sounds/green.mp3" preload="auto"></audio> <!-- For draws -->
 
   <script>
     /****************************************************
      * SOUND LOGIC
      ****************************************************/
-    // Background music for the Start Menu (looped)
     const backgroundMusic = document.getElementById('bg-music');
+    const introMusic      = document.getElementById('intro-music');
+    const reloadMusic     = document.getElementById('reload-music');
+    const fireSound       = document.getElementById('fire-sound');
+    const emptySound      = document.getElementById('empty-sound');
+    const greenSound      = document.getElementById('green-sound');
 
-    // Intro music that plays each round
-    const introMusic = document.getElementById('intro-music');
-
-    // Additional Audio Elements
-    const reloadMusic = document.getElementById('reload-music');
-    const fireSound = document.getElementById('fire-sound');
-    const emptySound = document.getElementById('empty-sound');
-    const greenSound = document.getElementById('green-sound'); // New Audio Element
-
-    // Track whether sound is ON or OFF
     let isSoundOn = false;
-
-    // Grab the toggle button and slider
-    const soundBtn = document.getElementById('sound-btn');
-    const numBulletsSlider = document.getElementById('num-bullets');
-    const bulletCountDisplay = document.getElementById('bullet-count');
+    const soundBtn          = document.getElementById('sound-btn');
+    const numBulletsSlider  = document.getElementById('num-bullets');
+    const bulletCountDisplay= document.getElementById('bullet-count');
 
     // Update bullet count display when slider changes
     numBulletsSlider.addEventListener('input', () => {
       bulletCountDisplay.textContent = numBulletsSlider.value;
     });
 
-    // Sound Toggle Button Event Listener
+    // Sound Toggle (IMPORTANT for Mobile: user must click to enable audio)
     soundBtn.addEventListener('click', () => {
       isSoundOn = !isSoundOn;
       if (isSoundOn) {
@@ -707,7 +635,7 @@
         const playPromise = backgroundMusic.play();
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            // Automatic playback started!
+            // Playing
           }).catch(error => {
             console.warn("Background music playback failed:", error);
           });
@@ -726,7 +654,7 @@
         fireSound.currentTime = 0;
         emptySound.pause();
         emptySound.currentTime = 0;
-        greenSound.pause(); // Stop greenSound if playing
+        greenSound.pause();
         greenSound.currentTime = 0;
       }
     });
@@ -738,7 +666,6 @@
     const startBtn        = document.getElementById('start-btn');
     const gameContainer   = document.getElementById('game-container');
     const modeSelect      = document.getElementById('mode-select');
-    const numBulletsInput = document.getElementById('num-bullets'); // Now a slider
 
     const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
 
@@ -773,18 +700,14 @@
     let playerRightHand = null;
     let aiLeftHand      = null;
     let aiRightHand     = null;
-
-    // Track the side of the player's final choice
     let playerFinalChoiceSide = null;
 
     // Timers & phases
     let intervalId = null;
     let timeLeft   = 5;
-    // phase = 1 => picking L & R, 2 => picking final
     let phase      = 1;
-
-    // Roulette configuration
-    let rouletteMode     = 'reset'; // or 'no-reset'
+    // For roulette
+    let rouletteMode     = 'reset';
     let bulletsInChamber = 1;
     let chamberPositions = [false, false, false, false, false, false];
     let currentChamberIndex = 0;
@@ -794,31 +717,30 @@
      * START BUTTON
      ****************************************************/
     startBtn.addEventListener('click', () => {
-      // Stop the menu background music
+      // Stop any background music from the menu
       if (isSoundOn) {
         backgroundMusic.pause();
         backgroundMusic.currentTime = 0;
       }
 
-      // Hide menu
+      // Hide menu, show game
       startMenu.style.display = 'none';
-      // Show game
       gameContainer.style.display = 'block';
 
-      // Set user settings
+      // Read user settings
       rouletteMode = modeSelect.value;
       bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
       if (bulletsInChamber < 1) bulletsInChamber = 1;
       if (bulletsInChamber > 6) bulletsInChamber = 6;
 
-      // Reset scores and game state
+      // Reset scores
       playerScore = 0;
       aiScore = 0;
       playerScoreEl.textContent = playerScore;
       aiScoreEl.textContent = aiScore;
       gameOver = false;
 
-      // Setup chamber positions based on mode
+      // Setup chamber
       if (rouletteMode === 'no-reset') {
         setupNoResetChamber(bulletsInChamber);
       } else {
@@ -826,18 +748,18 @@
         currentChamberIndex = 0;
       }
 
-      // Start the first round
+      // Start round
       startRound();
     });
 
     /****************************************************
-     * NEXT ROUND BUTTON - Handle Both 'Next Round' and 'Restart Game'
+     * NEXT ROUND BUTTON
      ****************************************************/
     nextRoundBtn.addEventListener('click', () => {
       if (gameOver) {
-        restartGame(); // Restart the game if game over
+        restartGame();
       } else {
-        startRound(); // Start the next round
+        startRound();
       }
     });
 
@@ -845,29 +767,25 @@
      * ROUND LOGIC
      ****************************************************/
     function startRound() {
-      // Reset 'Next Round' button text to 'Next Round'
       nextRoundBtn.textContent = 'Next Round';
-      // Hide the Next Round button initially
       nextRoundBtn.style.display = 'none';
 
-      // Clear any existing winner highlights
-      const allWinnerButtons = document.querySelectorAll('.winner');
-      allWinnerButtons.forEach(btn => btn.classList.remove('winner'));
+      // Clear winner highlights
+      document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
-      // Reset the final choice side
       playerFinalChoiceSide = null;
 
-      // Stop any leftover intro music
+      // Stop leftover intro music
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      // If sound is ON, play intro for this round at normal speed
+      // Play intro if sound is ON
       if (isSoundOn) {
-        introMusic.playbackRate = 1.0; // Set playback speed to normal
+        introMusic.playbackRate = 1.0;
         const playPromise = introMusic.play();
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            // Intro music playing
+            // Intro playing
           }).catch(error => {
             console.warn("Intro music playback failed:", error);
           });
@@ -900,10 +818,9 @@
       intervalId = setInterval(() => {
         timeLeft--;
         timerDisplay.textContent = `Timer: ${timeLeft}s`;
-
         if (timeLeft <= 0) {
           clearInterval(intervalId);
-          // If user hasn't chosen BOTH left & right, immediate AI win
+          // If user hasn't chosen BOTH left & right => AI wins
           if (!playerLeftHand || !playerRightHand) {
             concludeRoundWithAiWin('Time up! AI wins.');
           } else {
@@ -924,7 +841,6 @@
       intervalId = setInterval(() => {
         timeLeft--;
         timerDisplay.textContent = `Timer: ${timeLeft}s`;
-
         if (timeLeft <= 0) {
           clearInterval(intervalId);
           concludeRoundWithAiWin('Time up! AI wins.');
@@ -933,42 +849,36 @@
     }
 
     /****************************************************
-     * IF USER FAILS => AI WINS
+     * TIMEOUT => AI WINS
      ****************************************************/
     function concludeRoundWithAiWin(reason) {
       if (gameOver) return;
       phase = 0;
       statusMessage.textContent = 'Round Over!';
-
-      // Hide the Next Round button initially
       nextRoundBtn.style.display = 'none';
 
-      // Show the result section without the button
       resultSection.style.display = 'block';
-      resultMessage.textContent = `${reason}`;
+      resultMessage.textContent = reason;
       aiScore++;
       aiScoreEl.textContent = aiScore;
 
-      // Highlight AI's final hand
       highlightAIHandsFinal();
-
       performRussianRoulette('user');
     }
 
     /****************************************************
-     * WHEN USER PICKS FINAL
+     * USER FINAL PICK
      ****************************************************/
-    function concludeRound(playerFinalHand, playerFinalChoiceSide) {
+    function concludeRound(playerFinalHand, side) {
       if (intervalId) clearInterval(intervalId);
       phase = 0;
 
-      // Stop introMusic when user makes final choice
+      // Stop intro music
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      // AI picks final after seeing user’s final
+      // AI picks final
       const aiFinal = chooseAiBestResponse(aiLeftHand, aiRightHand, playerFinalHand);
-
       if (aiFinal === aiLeftHand) {
         unhighlightAIHand('right');
       } else {
@@ -976,114 +886,90 @@
       }
 
       const winner = getWinner(playerFinalHand, aiFinal);
-      
-      // Hide the Next Round button initially
-      nextRoundBtn.style.display = 'none';
-      
-      // Show the result section without the button
       resultSection.style.display = 'block';
+      nextRoundBtn.style.display = 'none';
 
       if (winner === 'Player') {
         playerScore++;
         playerScoreEl.textContent = playerScore;
         resultMessage.textContent = `You win!`;
-        // Highlight player's final hand
-        const playerFinalBtn = findUserButton(playerFinalHand, playerFinalChoiceSide);
+        const playerFinalBtn = findUserButton(playerFinalHand, side);
         playerFinalBtn?.classList.add('winner');
-        // Russian Roulette for AI
         performRussianRoulette('ai');
       }
       else if (winner === 'AI') {
         aiScore++;
         aiScoreEl.textContent = aiScore;
         resultMessage.textContent = `AI wins!`;
-        // Highlight AI's final hand
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
         aiFinalBtn?.classList.add('winner');
-        // Russian Roulette for Player
         performRussianRoulette('user');
       }
       else {
-        // DRAW => Highlight both hands
+        // Draw
         resultMessage.textContent = `It's a draw!`;
-        const playerFinalBtn = findUserButton(playerFinalHand, playerFinalChoiceSide);
+        const playerFinalBtn = findUserButton(playerFinalHand, side);
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
         playerFinalBtn?.classList.add('winner');
         aiFinalBtn?.classList.add('winner');
-        // Play green.mp3 and no Russian Roulette
         playGreenSound();
-        
-        // Show the Next Round button immediately for a draw
+        statusMessage.textContent = 'Round Over!';
         nextRoundBtn.style.display = 'block';
       }
-
-      statusMessage.textContent = 'Round Over!';
     }
 
     /****************************************************
      * RUSSIAN ROULETTE
      ****************************************************/
     function performRussianRoulette(target) {
-      // target = 'user' or 'ai'
       if (gameOver) return;
-
       rouletteVisual.style.display = 'block';
       rouletteSpin.style.display = 'inline-block';
       rouletteOutcome.textContent = '';
 
-      // Stop introMusic if still playing
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      // Play reload.mp3 first
+      // Play reload first
       if (isSoundOn) {
         reloadMusic.currentTime = 0;
         const playPromise = reloadMusic.play();
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            // After reload.mp3 finishes, determine outcome
             determineRouletteOutcome(target);
           }).catch(error => {
             console.warn("Reload sound playback failed:", error);
-            // Proceed to outcome determination even if sound is blocked
             determineRouletteOutcome(target);
           });
         }
       } else {
-        // If sound is off, proceed immediately
         determineRouletteOutcome(target);
       }
     }
 
     function determineRouletteOutcome(target) {
-      // Simulate a slight delay to sync with reload.mp3 if needed
       setTimeout(() => {
-        // Determine if bullet fires
         let bulletFires = false;
         if (rouletteMode === 'reset') {
-          // For reset each round, chance = bullets/6
+          // reset each round => random chance
           const rand = Math.floor(Math.random() * 6) + 1;
           bulletFires = (rand <= bulletsInChamber);
         } else {
-          // No-reset: check currentChamberIndex
+          // no-reset => check current chamber
           bulletFires = chamberPositions[currentChamberIndex];
           currentChamberIndex = (currentChamberIndex + 1) % 6;
         }
-
-        // Play outcome sound
         if (isSoundOn) {
           if (bulletFires) {
             fireSound.currentTime = 0;
             const playPromise = fireSound.play();
             if (playPromise !== undefined) {
               playPromise.then(() => {
-                // After fire.wav finishes, update the UI
                 updateRouletteOutcome(target, true);
               }).catch(error => {
-                console.warn("Fire sound playback failed:", error);
-                // Update UI even if sound is blocked
+                console.warn("Fire sound failed:", error);
                 updateRouletteOutcome(target, true);
               });
             }
@@ -1092,30 +978,25 @@
             const playPromise = emptySound.play();
             if (playPromise !== undefined) {
               playPromise.then(() => {
-                // After empty.wav finishes, update the UI
                 updateRouletteOutcome(target, false);
               }).catch(error => {
-                console.warn("Empty sound playback failed:", error);
-                // Update UI even if sound is blocked
+                console.warn("Empty sound failed:", error);
                 updateRouletteOutcome(target, false);
               });
             }
           }
         } else {
-          // If sound is off, proceed to update UI
           updateRouletteOutcome(target, bulletFires);
         }
-      }, 600); // Adjusted delay for better synchronization
+      }, 600);
     }
 
     function updateRouletteOutcome(target, bulletFires) {
       rouletteSpin.style.display = 'none';
-
       if (bulletFires) {
         rouletteOutcome.textContent = `BANG! ${target.toUpperCase()} is shot.`;
-        gameOver = true; // Set gameOver flag
+        gameOver = true;
         statusMessage.textContent = 'GAME OVER!';
-
         if (target === 'user') {
           resultMessage.textContent += ' YOU were shot. AI wins the match!';
         } else {
@@ -1124,11 +1005,7 @@
       } else {
         rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
       }
-
-      // Show the Next Round button after Russian Roulette is done
       nextRoundBtn.style.display = 'block';
-
-      // Set 'nextRoundBtn' text based on 'gameOver'
       if (gameOver) {
         nextRoundBtn.textContent = 'Restart Game';
       } else {
@@ -1162,13 +1039,12 @@
       leftShuffled.forEach(item => {
         const btn = document.createElement('button');
         btn.classList.add('choice-btn');
-        btn.setAttribute('data-hand', item.name);
-        btn.setAttribute('data-side', 'left');
+        btn.dataset.hand = item.name;
+        btn.dataset.side = 'left';
         const img = document.createElement('img');
         img.src = item.img;
         img.alt = item.name;
         btn.appendChild(img);
-
         btn.addEventListener('click', onUserChoiceClick);
         userLeftCol.appendChild(btn);
       });
@@ -1176,13 +1052,12 @@
       rightShuffled.forEach(item => {
         const btn = document.createElement('button');
         btn.classList.add('choice-btn');
-        btn.setAttribute('data-hand', item.name);
-        btn.setAttribute('data-side', 'right');
+        btn.dataset.hand = item.name;
+        btn.dataset.side = 'right';
         const img = document.createElement('img');
         img.src = item.img;
         img.alt = item.name;
         btn.appendChild(img);
-
         btn.addEventListener('click', onUserChoiceClick);
         userRightCol.appendChild(btn);
       });
@@ -1190,56 +1065,49 @@
 
     function onUserChoiceClick(e) {
       if (phase !== 1 && phase !== 2) return;
-      const side = e.currentTarget.getAttribute('data-side');
-      const hand = e.currentTarget.getAttribute('data-hand');
+      const side = e.currentTarget.dataset.side;
+      const hand = e.currentTarget.dataset.hand;
 
       if (phase === 1) {
-          // Toggle left/right selection
-          if (side === 'left') {
-              playerLeftHand = (playerLeftHand === hand) ? null : hand;
-          } else {
-              playerRightHand = (playerRightHand === hand) ? null : hand;
-          }
-          updateUserSelectedStates();
-
-          // If both chosen, proceed
-          if (playerLeftHand && playerRightHand) {
-              clearInterval(intervalId);
-              highlightAIHands();
-              moveToPhase2();
-          }
+        // Toggle L/R
+        if (side === 'left') {
+          playerLeftHand = (playerLeftHand === hand) ? null : hand;
+        } else {
+          playerRightHand = (playerRightHand === hand) ? null : hand;
+        }
+        updateUserSelectedStates();
+        // If both chosen
+        if (playerLeftHand && playerRightHand) {
+          clearInterval(intervalId);
+          highlightAIHands();
+          moveToPhase2();
+        }
       }
       else if (phase === 2) {
-          if (!playerLeftHand || !playerRightHand) return;
-          const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
-          playerFinalChoiceSide = side;
-
-          if (playerLeftHand === playerRightHand) {
-              // Both hands are the same; no need to unhighlight any hand
-              // Highlight the selected hand to reflect the user's choice
-              highlightSelectedUserHand(side);
+        if (!playerLeftHand || !playerRightHand) return;
+        const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
+        playerFinalChoiceSide = side;
+        if (playerLeftHand === playerRightHand) {
+          highlightSelectedUserHand(side);
+        } else {
+          if (finalChoice === playerLeftHand) {
+            unhighlightUserHand('right');
           } else {
-              // Hands are different; proceed as usual
-              if (finalChoice === playerLeftHand) {
-                  unhighlightUserHand('right');
-              } else {
-                  unhighlightUserHand('left');
-              }
+            unhighlightUserHand('left');
           }
-          concludeRound(finalChoice, side);
+        }
+        concludeRound(finalChoice, side);
       }
     }
 
     function highlightSelectedUserHand(side) {
-      // Remove 'selected' class from all user choice buttons
-      const allUserButtons = document.querySelectorAll('#user-choices .choice-btn');
-      allUserButtons.forEach(btn => btn.classList.remove('selected'));
-
-      // Add 'selected' class to the chosen side's button
+      document.querySelectorAll('#user-choices .choice-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
       const chosenHand = (side === 'left') ? playerLeftHand : playerRightHand;
-      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${chosenHand}"]`);
-      if (selectedButton) {
-          selectedButton.classList.add('selected');
+      const selectedBtn = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${chosenHand}"]`);
+      if (selectedBtn) {
+        selectedBtn.classList.add('selected');
       }
     }
 
@@ -1251,7 +1119,6 @@
       let secondPick = randomGestureName();
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
-
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
       findAIButton(firstPick, 'left')?.classList.add('selected');
@@ -1259,14 +1126,11 @@
     }
 
     function highlightAIHandsFinal() {
-      // This function is used when AI wins automatically due to user timeout
-      // AI selects its hands and highlights the final chosen one
+      // For user timeout scenario
       let firstPick = randomGestureName();
       let secondPick = randomGestureName();
-     
       aiLeftHand = firstPick;
       aiRightHand = secondPick;
-
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
       findAIButton(firstPick, 'left')?.classList.add('selected');
@@ -1274,41 +1138,37 @@
     }
 
     function chooseAiBestResponse(hand1, hand2, playerFinal) {
-      // If both AI & user had 2 distinct hands, pick randomly if all 3 distinct combos
+      // If both AI & user had 2 distinct => might produce all 3 combos => pick randomly
       if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
         const allHands = new Set([hand1, hand2, playerFinal]);
         if (allHands.size === 3) {
-          // 50% probability
           return Math.random() < 0.5 ? hand1 : hand2;
         }
       }
-
-      // Otherwise, pick based on best outcome
+      // Evaluate outcome
       const outcome1 = getWinner(playerFinal, hand1);
       const outcome2 = getWinner(playerFinal, hand2);
 
-      // Priority: Win > Draw > Lose
       function rank(res) {
         if (res === 'AI')   return 3;
         if (res === 'Draw') return 2;
-        return 1; // 'Player' means AI lost
+        return 1;
       }
       const r1 = rank(outcome1);
       const r2 = rank(outcome2);
 
       if (r1 > r2) return hand1;
       if (r2 > r1) return hand2;
-      return hand1; // Tie => pick first
+      return hand1;
     }
 
     /****************************************************
-     * VISUAL HIGHLIGHTING
+     * VISUAL UPDATES
      ****************************************************/
     function updateUserSelectedStates() {
-      const allBtns = document.querySelectorAll('#user-choices .choice-btn');
-      allBtns.forEach(btn => {
-        const side = btn.getAttribute('data-side');
-        const hand = btn.getAttribute('data-hand');
+      document.querySelectorAll('#user-choices .choice-btn').forEach(btn => {
+        const side = btn.dataset.side;
+        const hand = btn.dataset.hand;
         btn.classList.remove('selected');
         if (side === 'left' && hand === playerLeftHand) {
           btn.classList.add('selected');
@@ -1320,9 +1180,8 @@
     }
 
     function unhighlightUserHand(side) {
-      const allBtns = document.querySelectorAll('#user-choices .choice-btn');
-      allBtns.forEach(btn => {
-        if (btn.getAttribute('data-side') === side) {
+      document.querySelectorAll('#user-choices .choice-btn').forEach(btn => {
+        if (btn.dataset.side === side) {
           btn.classList.remove('selected');
         }
       });
@@ -1330,14 +1189,14 @@
 
     function unhighlightAIHand(side) {
       aiChoiceButtons.forEach(btn => {
-        if (btn.getAttribute('data-side') === side) {
+        if (btn.dataset.side === side) {
           btn.classList.remove('selected');
         }
       });
     }
 
     /****************************************************
-     * PLAY GREEN SOUND FOR DRAW
+     * DRAW SOUND
      ****************************************************/
     function playGreenSound() {
       if (isSoundOn) {
@@ -1345,7 +1204,7 @@
         const playPromise = greenSound.play();
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            // Green sound played
+            // Playing
           }).catch(error => {
             console.warn("Green sound playback failed:", error);
           });
@@ -1359,12 +1218,10 @@
     function findAIButton(hand, side) {
       return document.querySelector(`.ai-choice-btn[data-hand="${hand}"][data-side="${side}"]`);
     }
-
     function findUserButton(hand, side) {
       return document.querySelector(`#user-${side}-column .choice-btn[data-hand="${hand}"]`);
     }
 
-    // From user's perspective => getWinner(userGesture, aiGesture)
     function getWinner(user, ai) {
       if (user === ai) return 'Draw';
       if (
@@ -1376,13 +1233,10 @@
       }
       return 'AI';
     }
-
     function randomGestureName() {
       const list = ['Rock','Paper','Scissors'];
       return list[Math.floor(Math.random() * list.length)];
     }
-
-    // Fisher-Yates shuffle
     function shuffleArray(arr) {
       for(let i = arr.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * (i + 1));
@@ -1392,25 +1246,18 @@
     }
 
     /****************************************************
-     * RESTART GAME FUNCTION
+     * RESTART GAME
      ****************************************************/
     function restartGame() {
-      // Reset scores
       playerScore = 0;
       aiScore = 0;
       playerScoreEl.textContent = playerScore;
       aiScoreEl.textContent = aiScore;
 
-      // Hide game container
       gameContainer.style.display = 'none';
-      
-      // Show start menu
       startMenu.style.display = 'block';
-      
-      // Reset gameOver flag
       gameOver = false;
 
-      // Reset chamber positions if needed
       if (rouletteMode === 'no-reset') {
         setupNoResetChamber(bulletsInChamber);
       } else {
@@ -1418,16 +1265,12 @@
         currentChamberIndex = 0;
       }
 
-      // Reset result section
       resultSection.style.display = 'none';
       resultMessage.textContent = '';
       statusMessage.textContent = '';
       timerDisplay.textContent = 'Timer: 5s';
-
-      // Hide the Next Round button in case it's visible
       nextRoundBtn.style.display = 'none';
     }
-
   </script>
 </body>
 </html>
