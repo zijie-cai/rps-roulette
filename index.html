@@ -190,28 +190,29 @@
       width: 40%;
       max-width: 130px;
     }
+
+    /* AI Buttons: now slightly bigger */
     .ai-choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
       font-size: 0.8rem;
-      padding: 0.3rem;
-      min-width: 40px;
-      /* no hover needed for AI buttons on mobile */
+      padding: 0.4rem;
+      min-width: 50px;
+      cursor: default; 
+      pointer-events: none; /* Not clickable by user */
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
-      max-width: 70px;
-      height: 40px;
-      cursor: default; /* AI buttons not clickable by user */
-      pointer-events: none;
+      max-width: 80px; /* slightly bigger */
+      height: 50px;    /* slightly bigger */
     }
     .ai-choice-btn img {
-      width: 20px;
-      height: 20px;
+      width: 25px; /* bigger icon */
+      height: 25px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -277,7 +278,7 @@
       font-size: 0.85rem;
       min-height: 1.2rem;
     }
-    /* Next Round button */
+    /* Next Round button hidden by default */
     #next-round-btn {
       display: none;
       background: #f44786;
@@ -363,22 +364,24 @@
       width: 40%;
       max-width: 130px;
     }
+
+    /* Player Buttons: now slightly bigger */
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.8rem;
-      padding: 0.3rem;
-      min-width: 40px;
+      font-size: 0.9rem; /* a bit bigger text */
+      padding: 0.4rem;   /* a bit more padding */
+      min-width: 50px;
       cursor: pointer; /* Tappable on mobile */
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
-      max-width: 70px;
-      height: 40px;
+      max-width: 80px; /* slightly bigger */
+      height: 50px;    /* slightly bigger */
     }
     .choice-btn.selected {
       background: #ffffff; 
@@ -386,8 +389,8 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 20px;
-      height: 20px;
+      width: 25px;  /* bigger icon */
+      height: 25px;
     }
 
     /*************************************************************
@@ -418,14 +421,16 @@
       #ai-section h2, #user-section h2 {
         font-size: 0.9rem;
       }
+
+      /* Slightly reduce back at smaller screens if you want */
       .ai-choice-btn, .choice-btn {
-        max-width: 60px;
-        height: 36px;
-        font-size: 0.75rem;
+        max-width: 70px; 
+        height: 45px;   
+        font-size: 0.8rem;
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
       }
       #scoreboard div {
         width: 40%;
@@ -450,13 +455,13 @@
         min-width: 50px;
       }
       .ai-choice-btn, .choice-btn {
-        max-width: 50px;
-        height: 32px;
-        font-size: 0.7rem;
+        max-width: 60px; 
+        height: 40px;    
+        font-size: 0.75rem;
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
       }
       #roulette-visual h3 {
         font-size: 0.75rem;
