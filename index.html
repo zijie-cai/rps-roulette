@@ -70,7 +70,7 @@
       border: 1px solid #ccc;
       font-size: 1em;
       width: 100%;
-      max-width: 250px; /* Increased max-width for better touch targets */
+      max-width: 200px; /* Reduced max-width for better fit on mobile */
       display: block;
       margin-bottom: 1em;
       text-align: center;
@@ -88,7 +88,7 @@
       margin-bottom: 1em;
       transition: background 0.3s;
       width: 100%;
-      max-width: 250px;
+      max-width: 200px; /* Reduced max-width for better fit on mobile */
     }
     #sound-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -110,7 +110,7 @@
       align-items: center;
       gap: 0.5em;
       width: 100%; /* Full width on smaller screens */
-      max-width: 250px;
+      max-width: 200px; /* Reduced max-width for better fit on mobile */
     }
     .setting-item label {
       margin-bottom: 0.5em;
@@ -141,7 +141,7 @@
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 250px;
+      max-width: 200px; /* Reduced max-width for better fit on mobile */
     }
     #start-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -223,27 +223,27 @@
     #scoreboard {
       text-align: center;
       margin: 0.5em auto 1em;
-      font-size: 1.2em;
+      font-size: 1em; /* Reduced font size for mobile */
       display: flex;
       justify-content: center;
-      gap: 2em;
+      gap: 1em; /* Reduced gap for better fit */
       flex-wrap: wrap;
     }
     #scoreboard div {
       background: #249f9c; /* Teal scoreboard background */
       color: #ffffff;
-      padding: 0.6em 1em;
+      padding: 0.4em 0.8em; /* Reduced padding for smaller size */
       border-radius: 4px;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced font size for mobile */
       width: 45%;
-      min-width: 120px;
+      min-width: 100px; /* Reduced min-width for better fit */
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
       margin-bottom: 1em;
-      font-size: 1.2em;
+      font-size: 1em; /* Reduced font size for mobile */
       background: #249f9c;
       color: #ffffff;
       padding: 0.6em;
@@ -430,7 +430,7 @@
         font-size: 1em;
         padding: 0.6em 1em;
       }
-      /* Stack AI and User choice columns side by side */
+      /* Arrange AI and User choice columns side by side */
       .ai-choice-column,
       .user-choice-column {
         width: 45%; /* Adjusted from 100% to 45% for side-by-side layout */
@@ -449,12 +449,19 @@
       }
       /* Adjust scoreboard layout */
       #scoreboard {
-        flex-direction: column;
-        gap: 1em;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1em; /* Reduced gap for better fit */
       }
       #scoreboard div {
-        width: 80%;
-        max-width: none;
+        width: 45%;
+        max-width: 120px; /* Reduced max-width for better fit on mobile */
+        font-size: 0.9em; /* Further reduced font size */
+        padding: 0.4em 0.6em; /* Reduced padding */
+      }
+      /* Move timer below scoreboard */
+      #timer-display {
+        margin-top: 0.5em;
       }
       /* Ensure sliders fit within the screen */
       .slider-container {
@@ -619,6 +626,7 @@
 
   <!-- Audio Elements -->
   <audio id="bg-music" src="./assets/sounds/scary.mp3" loop></audio>
+  <audio id="intro-music" src="./assets/sounds/intro.mp3"></audio>
   <audio id="reload-music" src="./assets/sounds/reload.mp3"></audio>
   <audio id="fire-sound" src="./assets/sounds/fire.wav"></audio>
   <audio id="empty-sound" src="./assets/sounds/empty.wav"></audio>
@@ -633,8 +641,7 @@
     backgroundMusic.loop = true;
 
     // Intro music that plays each round
-    let introMusic = null;
-    const introAudioPath = "./assets/sounds/intro.mp3";
+    const introMusic = document.getElementById('intro-music');
 
     // Additional Audio Elements
     const reloadMusic = document.getElementById('reload-music');
@@ -663,19 +670,22 @@
         soundBtn.setAttribute('data-sound', 'on');
         // Attempt to play background music
         backgroundMusic.currentTime = 0;
-        backgroundMusic.play().catch(() => {
-          console.warn("Autoplay blocked. User may need to click again.");
-        });
+        const playPromise = backgroundMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Automatic playback started!
+          }).catch(error => {
+            console.warn("Background music playback failed:", error);
+          });
+        }
       } else {
         soundBtn.textContent = "Sound: OFF";
         soundBtn.setAttribute('data-sound', 'off');
         // Stop all sounds
         backgroundMusic.pause();
         backgroundMusic.currentTime = 0;
-        if (introMusic) {
-          introMusic.pause();
-          introMusic.currentTime = 0;
-        }
+        introMusic.pause();
+        introMusic.currentTime = 0;
         reloadMusic.pause();
         reloadMusic.currentTime = 0;
         fireSound.pause();
@@ -814,17 +824,20 @@
       playerFinalChoiceSide = null;
 
       // Stop any leftover intro music
-      if (introMusic) {
-        introMusic.pause();
-        introMusic.currentTime = 0;
-      }
+      introMusic.pause();
+      introMusic.currentTime = 0;
+
       // If sound is ON, play intro for this round at normal speed
       if (isSoundOn) {
-        introMusic = new Audio(introAudioPath);
         introMusic.playbackRate = 1.0; // Set playback speed to normal
-        introMusic.play().catch(() => {
-          console.warn("Intro blocked by browser.");
-        });
+        const playPromise = introMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Intro music playing
+          }).catch(error => {
+            console.warn("Intro music playback failed:", error);
+          });
+        }
       }
 
       rouletteVisual.style.display = 'none';
@@ -916,10 +929,8 @@
       phase = 0;
 
       // Stop introMusic when user makes final choice
-      if (introMusic) {
-        introMusic.pause();
-        introMusic.currentTime = 0;
-      }
+      introMusic.pause();
+      introMusic.currentTime = 0;
 
       // AI picks final after seeing user’s final
       const aiFinal = chooseAiBestResponse(aiLeftHand, aiRightHand, playerFinalHand);
@@ -989,22 +1000,23 @@
       rouletteOutcome.textContent = '';
 
       // Stop introMusic if still playing
-      if (introMusic) {
-        introMusic.pause();
-        introMusic.currentTime = 0;
-      }
+      introMusic.pause();
+      introMusic.currentTime = 0;
 
       // Play reload.mp3 first
       if (isSoundOn) {
         reloadMusic.currentTime = 0;
-        reloadMusic.play().then(() => {
-          // After reload.mp3 finishes, determine outcome
-          determineRouletteOutcome(target);
-        }).catch(() => {
-          console.warn("Reload sound blocked by browser.");
-          // Proceed to outcome determination even if sound is blocked
-          determineRouletteOutcome(target);
-        });
+        const playPromise = reloadMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // After reload.mp3 finishes, determine outcome
+            determineRouletteOutcome(target);
+          }).catch(error => {
+            console.warn("Reload sound playback failed:", error);
+            // Proceed to outcome determination even if sound is blocked
+            determineRouletteOutcome(target);
+          });
+        }
       } else {
         // If sound is off, proceed immediately
         determineRouletteOutcome(target);
@@ -1030,24 +1042,30 @@
         if (isSoundOn) {
           if (bulletFires) {
             fireSound.currentTime = 0;
-            fireSound.play().then(() => {
-              // After fire.wav finishes, update the UI
-              updateRouletteOutcome(target, true);
-            }).catch(() => {
-              console.warn("Fire sound blocked by browser.");
-              // Update UI even if sound is blocked
-              updateRouletteOutcome(target, true);
-            });
+            const playPromise = fireSound.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                // After fire.wav finishes, update the UI
+                updateRouletteOutcome(target, true);
+              }).catch(error => {
+                console.warn("Fire sound playback failed:", error);
+                // Update UI even if sound is blocked
+                updateRouletteOutcome(target, true);
+              });
+            }
           } else {
             emptySound.currentTime = 0;
-            emptySound.play().then(() => {
-              // After empty.wav finishes, update the UI
-              updateRouletteOutcome(target, false);
-            }).catch(() => {
-              console.warn("Empty sound blocked by browser.");
-              // Update UI even if sound is blocked
-              updateRouletteOutcome(target, false);
-            });
+            const playPromise = emptySound.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                // After empty.wav finishes, update the UI
+                updateRouletteOutcome(target, false);
+              }).catch(error => {
+                console.warn("Empty sound playback failed:", error);
+                // Update UI even if sound is blocked
+                updateRouletteOutcome(target, false);
+              });
+            }
           }
         } else {
           // If sound is off, proceed to update UI
@@ -1136,18 +1154,6 @@
       });
     }
 
-    function highlightSelectedUserHand(side) {
-      // Remove 'selected' class from all user choice buttons
-      const allUserButtons = document.querySelectorAll('#user-choices .choice-btn');
-      allUserButtons.forEach(btn => btn.classList.remove('selected'));
-
-      // Add 'selected' class to the chosen side's button
-      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${playerLeftHand}"]`);
-      if (selectedButton) {
-          selectedButton.classList.add('selected');
-      }
-    }
-
     function onUserChoiceClick(e) {
       if (phase !== 1 && phase !== 2) return;
       const side = e.currentTarget.getAttribute('data-side');
@@ -1187,6 +1193,18 @@
               }
           }
           concludeRound(finalChoice, side);
+      }
+    }
+
+    function highlightSelectedUserHand(side) {
+      // Remove 'selected' class from all user choice buttons
+      const allUserButtons = document.querySelectorAll('#user-choices .choice-btn');
+      allUserButtons.forEach(btn => btn.classList.remove('selected'));
+
+      // Add 'selected' class to the chosen side's button
+      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${(side === 'left') ? playerLeftHand : playerRightHand}"]`);
+      if (selectedButton) {
+          selectedButton.classList.add('selected');
       }
     }
 
@@ -1289,12 +1307,14 @@
     function playGreenSound() {
       if (isSoundOn) {
         greenSound.currentTime = 0;
-        greenSound.play().then(() => {
-          // After green.mp3 finishes, allow user to proceed
-          console.log("Green sound played successfully.");
-        }).catch(() => {
-          console.warn("Green sound blocked by browser.");
-        });
+        const playPromise = greenSound.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Green sound played
+          }).catch(error => {
+            console.warn("Green sound playback failed:", error);
+          });
+        }
       }
     }
 
