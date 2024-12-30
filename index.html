@@ -7,7 +7,7 @@
 
   <style>
     /* 
-      Squid Game-inspired color palette:
+      Squid Game-inspired color palette (for reference):
       #ed1b76 (237,27,118)
       #f44786 (244,71,134)
       #ffffff (255,255,255)
@@ -15,7 +15,9 @@
       #037a76 (3,122,118)
     */
 
-    /* RESET + BASIC LAYOUT */
+    /*************************************************************
+     * RESET + BASIC LAYOUT
+     *************************************************************/
     * {
       box-sizing: border-box;
       margin: 0;
@@ -39,78 +41,58 @@
     }
 
     /*************************************************************
-     * START MENU
+     * START MENU (Minimal & Simplistic)
      *************************************************************/
     #start-menu {
       text-align: center;
       width: 100%;
       max-width: 500px;
-      margin: 0.5rem auto;
+      margin: 0.3rem auto;   /* Reduced margin */
       background: #ed1b76;
-      padding: 0.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      padding: 0.4rem;       /* Reduced padding */
+      border-radius: 6px;    /* Slightly smaller corners */
+      box-shadow: 0 0 6px rgba(0,0,0,0.2); /* Slightly smaller shadow */
     }
     #start-menu h1 {
-      margin-bottom: 0.3rem;
-      font-size: 1.3rem;
-      color: #ffffff;
-      line-height: 1.3rem;
+      margin-bottom: 0.2rem;
+      font-size: 1.1rem; /* Smaller heading */
+      line-height: 1.2rem;
     }
     #start-menu p {
-      margin: 0.4rem 0;
+      margin: 0.3rem 0;
       line-height: 1.2em;
-      color: #ffffff;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
     #start-menu label {
-      font-weight: bold;
+      font-size: 0.8rem; /* Smaller label text */
+      font-weight: normal; /* Less bold for minimal look */
       color: #ffffff;
-      font-size: 0.85rem;
-    }
-    #start-menu .radio-container {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 0.3rem;
-    }
-    #start-menu .radio-container label {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    #start-menu input[type="radio"] {
-      accent-color: #f44786; /* Pinkish accent for radio */
-      transform: scale(1.1);
-      cursor: pointer;
     }
 
-    /* Sound Toggle Button */
+    /* Sound Toggle Button (smaller) */
     #sound-btn {
       background: #f44786; 
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9rem;
-      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;       /* Reduced */
+      padding: 0.3rem 0.5rem;  /* Reduced */
       cursor: pointer;
-      margin: 0.5rem auto;
+      margin: 0.3rem auto;     /* Reduced margin */
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px;
+      max-width: 150px;        /* Smaller max width */
     }
 
-    /* Setting Container */
+    /* Settings Container for bullet choice + bullets slider */
     .settings-container {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-around;
-      gap: 0.4rem;
+      justify-content: center;
+      gap: 0.3rem; /* Tighter spacing */
       flex-wrap: wrap;
-      margin: 0 auto 0.5rem;
+      margin: 0 auto;
       width: 100%;
       max-width: 400px;
     }
@@ -120,37 +102,59 @@
       align-items: center;
       gap: 0.2rem;
       width: 100%;
-      max-width: 200px;
+      max-width: 170px; /* Slightly narrower */
     }
+
+    /* Radio Container: smaller bullet points */
+    .radio-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem; /* Tighter gap */
+      margin-top: 0.2rem; /* Smaller top margin */
+    }
+    .radio-container label {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .radio-container input[type="radio"] {
+      transform: scale(0.85); /* Smaller bullet points */
+      accent-color: #f44786; 
+      cursor: pointer;
+    }
+
+    /* Slider / Bullets label */
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.2rem;
     }
     .slider-container input[type="range"] {
       width: 100%;
-      max-width: 100px;
+      max-width: 80px; /* Reduced slider width */
     }
     .slider-container span {
-      width: 22px; 
+      width: 18px; 
       text-align: center;
       font-weight: bold;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
-    /* Start Button */
+    /* Start Button (smaller) */
     #start-btn {
       background: #f44786;
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 0.9rem;
-      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.6rem;
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px;
-      margin: 0.3rem auto;
+      max-width: 150px; /* Smaller max width */
+      margin: 0.4rem auto;
     }
 
     /*************************************************************
@@ -248,7 +252,9 @@
       font-size: 0.8rem;
     }
 
-    /* TIMER & STATUS */
+    /*************************************************************
+     * TIMER & STATUS
+     *************************************************************/
     #timer-display {
       text-align: center;
       margin: 0.3rem auto;
@@ -283,7 +289,6 @@
       font-size: 0.85rem;
       min-height: 1.2rem;
     }
-    /* Next Round button hidden by default */
     #next-round-btn {
       display: none;
       background: #f44786;
@@ -413,17 +418,15 @@
         max-width: 95%;
       }
       #start-menu h1 {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
-      #start-menu p, #start-menu label {
-        font-size: 0.8rem;
+      #start-menu p,
+      #start-menu label {
+        font-size: 0.75rem;
       }
       #sound-btn, #start-btn, #next-round-btn {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.6rem;
-      }
-      #ai-section h2, #user-section h2 {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
       }
       .ai-choice-btn, .choice-btn {
         max-width: 70px; 
@@ -449,7 +452,7 @@
 
     @media (max-width: 360px) {
       #start-menu h1 {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
       #scoreboard div {
         width: 45%;
@@ -478,7 +481,7 @@
 </head>
 <body>
 
-  <!-- START MENU -->
+  <!-- START MENU (minimal design) -->
   <div id="start-menu">
     <h1>Russian Roulette & Rock Paper Scissors</h1>
 
@@ -491,8 +494,8 @@
 
     <!-- Settings Container -->
     <div class="settings-container">
-      
-      <!-- Roulette Mode (Two Horizontal Bullet Points) -->
+
+      <!-- Roulette Mode (Two Horizontal Bullet Points, smaller) -->
       <div class="setting-item">
         <label>Roulette Mode:</label>
         <div class="radio-container">
@@ -515,6 +518,7 @@
           <span id="bullet-count">1</span>
         </div>
       </div>
+
     </div>
 
     <button id="start-btn">Start Game</button>
@@ -613,7 +617,7 @@
     const numBulletsSlider  = document.getElementById('num-bullets');
     const bulletCountDisplay= document.getElementById('bullet-count');
 
-    // Stop all audio
+    // Helper to forcibly stop all audio mid-play
     function stopAllAudio() {
       backgroundMusic.pause();
       backgroundMusic.currentTime = 0;
@@ -639,7 +643,7 @@
       bulletCountDisplay.textContent = numBulletsSlider.value;
     });
 
-    // Update sound button
+    // Update the sound button text
     function updateSoundButtonUI() {
       if (isSoundOn) {
         soundBtn.textContent = "Sound: ON";
@@ -667,13 +671,13 @@
     /****************************************************
      * STATE / ELEMENTS
      ****************************************************/
-    const startMenu     = document.getElementById('start-menu');
-    const startBtn      = document.getElementById('start-btn');
-    const gameContainer = document.getElementById('game-container');
+    const startMenu      = document.getElementById('start-menu');
+    const startBtn       = document.getElementById('start-btn');
+    const gameContainer  = document.getElementById('game-container');
     
-    // Our new radio buttons for roulette mode
+    // Radio buttons for roulette mode
     const rouletteModeRadios = document.querySelectorAll('input[name="roulette-mode"]');
-    
+
     const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
 
     const RPS = [
@@ -722,7 +726,7 @@
     let gameOver = false;
 
     /****************************************************
-     * GET ROULLETTE MODE FROM RADIO
+     * GET SELECTED ROULETTE MODE
      ****************************************************/
     function getSelectedRouletteMode() {
       let selected = 'reset';
@@ -738,7 +742,6 @@
      * START BUTTON
      ****************************************************/
     startBtn.addEventListener('click', () => {
-      // Stop leftover audio
       stopAllAudio();
 
       // Hide menu, show game
@@ -790,6 +793,7 @@
       nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display = 'none';
 
+      // Clear winner highlights
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
       playerFinalChoiceSide = null;
@@ -1011,6 +1015,9 @@
       }
     }
 
+    /****************************************************
+     * SETUP NO-RESET CHAMBER
+     ****************************************************/
     function setupNoResetChamber(bulletsCount) {
       chamberPositions = [false, false, false, false, false, false];
       currentChamberIndex = 0;
