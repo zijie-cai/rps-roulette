@@ -30,6 +30,7 @@
       align-items: center;
       justify-content: flex-start;
       padding: 0.5em; /* Reduced padding for mobile */
+      font-size: 0.9em; /* General font size reduction */
     }
 
     /*************************************************************
@@ -48,29 +49,29 @@
     }
     #start-menu h1 {
       margin-bottom: 0.4em;
-      font-size: 1.8em; /* Slightly increased for better visibility */
+      font-size: 1.4em; /* Reduced for smaller font */
       color: #ffffff;
     }
     #start-menu p {
       margin: 0.8em 0;
-      line-height: 1.4em;
+      line-height: 1.2em; /* Slightly reduced line height */
       color: #ffffff;
-      font-size: 1em; /* Increased for readability */
+      font-size: 0.9em; /* Reduced for smaller font */
     }
     #start-menu label {
       font-weight: bold;
       color: #ffffff;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
     }
     #start-menu select,
     #start-menu input[type="range"] {
       margin: 0.4em 0;
-      padding: 0.5em;
+      padding: 0.4em; /* Reduced padding */
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
       width: 100%;
-      max-width: 200px; /* Reduced max-width for better fit on mobile */
+      max-width: 200px; /* Increased max-width to accommodate longer text */
       display: block;
       margin-bottom: 1em;
       text-align: center;
@@ -82,13 +83,13 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.6em 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
+      padding: 0.5em 0.8em; /* Reduced padding */
       cursor: pointer;
       margin-bottom: 1em;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px; /* Reduced max-width for better fit on mobile */
+      max-width: 200px; /* Increased max-width for better fit on mobile */
     }
     #sound-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -100,7 +101,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
-      gap: 1em; /* Reduced gap for better fit */
+      gap: 0.8em; /* Reduced gap for better fit */
       flex-wrap: wrap;
       margin-bottom: 1em;
     }
@@ -108,27 +109,28 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 100%; /* Full width on smaller screens */
-      max-width: 200px; /* Reduced max-width for better fit on mobile */
+      max-width: 200px; /* Increased max-width to accommodate larger content */
     }
     .setting-item label {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.4em;
     }
     .slider-container {
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 100%;
     }
     .slider-container input[type="range"] {
       width: 100%;
+      max-width: 200px; /* Increased max-width to accommodate longer text */
     }
     .slider-container span {
-      width: 30px;
+      width: 25px; /* Reduced width */
       text-align: center;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
     }
 
     #start-btn {
@@ -136,12 +138,12 @@
       color: #ffffff;
       border: none;
       border-radius: 4px;
-      font-size: 1.2em; /* Increased for better visibility */
-      padding: 0.6em 1.2em;
+      font-size: 1em; /* Slight reduction */
+      padding: 0.5em 1em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 200px; /* Reduced max-width for better fit on mobile */
+      max-width: 200px; /* Increased max-width for better fit on mobile */
     }
     #start-btn:hover {
       background: #249f9c; /* Teal hover */
@@ -157,7 +159,7 @@
       background: #ed1b76; /* Pink background for game area */
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      padding: 1em;
+      padding: 1em; /* Adjusted padding */
       display: none; /* Hidden until game starts */
       position: relative;
     }
@@ -171,7 +173,7 @@
     }
     #ai-section h2 {
       margin-bottom: 0.5em;
-      font-size: 1.2em;
+      font-size: 1em; /* Reduced for smaller font */
       color: #ffffff;
     }
     #ai-choices {
@@ -180,36 +182,36 @@
       align-items: flex-start;
       margin-bottom: 1em;
       flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 1em; /* Added gap for better spacing */
+      gap: 0.8em; /* Reduced gap for better spacing */
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 45%; /* Adjust width for better fit on mobile */
       max-width: 150px;
     }
     .ai-choice-btn {
-      background: #f44786; /* default AI button color */
+      background: #f44786; /* Default AI button color */
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em;
-      min-width: 60px;
+      font-size: 0.9em; /* Reduced for smaller font */
+      padding: 0.4em; /* Reduced padding */
+      min-width: 50px; /* Reduced min-width */
       cursor: default;
-      pointer-events: none; /* not clickable by user */
+      pointer-events: none; /* Not clickable by user */
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px;
+      max-width: 80px; /* Reduced max-width */
     }
     .ai-choice-btn img {
-      width: 40px; /* Increased image size for better visibility */
-      height: 40px;
+      width: 25px; /* Reduced image size for better visibility */
+      height: 25px;
     }
     .ai-choice-btn.selected {
       background: #ffffff; /* White highlight */
@@ -222,32 +224,34 @@
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.5em auto 1em;
-      font-size: 1em; /* Reduced font size for mobile */
+      margin: 0.5em auto 0.5em;
+      font-size: 0.8em; /* Further reduced font size for mobile */
       display: flex;
       justify-content: center;
-      gap: 1em; /* Reduced gap for better fit */
+      gap: 0.8em; /* Reduced gap for better fit */
       flex-wrap: wrap;
     }
     #scoreboard div {
       background: #249f9c; /* Teal scoreboard background */
       color: #ffffff;
-      padding: 0.4em 0.8em; /* Reduced padding for smaller size */
+      padding: 0.3em 0.6em; /* Reduced padding for smaller size */
       border-radius: 4px;
-      font-size: 0.9em; /* Reduced font size for mobile */
+      font-size: 0.8em; /* Further reduced font size */
       width: 45%;
-      min-width: 100px; /* Reduced min-width for better fit */
+      min-width: 80px; /* Reduced min-width for better fit */
     }
 
     /* TIMER & STATUS */
     #timer-display {
       text-align: center;
       margin-bottom: 1em;
-      font-size: 1em; /* Reduced font size for mobile */
+      font-size: 0.7em; /* Further reduced font size */
       background: #249f9c;
       color: #ffffff;
-      padding: 0.6em;
+      padding: 0.3em; /* Reduced padding */
       border-radius: 4px;
+      max-width: 200px; /* Reduced max-width */
+      margin: 0.5em auto; /* Center it */
     }
     #status-message {
       text-align: center;
@@ -255,7 +259,7 @@
       margin-bottom: 1em;
       min-height: 2em;
       color: #ffffff;
-      font-size: 1em;
+      font-size: 0.8em; /* Reduced font size */
     }
 
     /*************************************************************
@@ -264,13 +268,13 @@
     #result-section {
       text-align: center;
       margin-top: 1em;
-      display: none; /* shown after reveal */
+      display: none; /* Shown after reveal */
     }
     #result-message {
       font-weight: bold;
       margin-bottom: 0.6em;
       color: #ffffff; 
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
     }
     /* Hide the Next Round button by default */
     #next-round-btn {
@@ -279,11 +283,11 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em 1em;
+      font-size: 0.9em; /* Reduced for smaller font */
+      padding: 0.4em 0.8em; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
-      max-width: 200px;
+      max-width: 150px; /* Reduced max-width */
       margin: 0.5em auto 0;
       width: 100%;
     }
@@ -298,30 +302,30 @@
       text-align: center;
       display: none;
       margin: 1em auto;
-      font-size: 1em;
+      font-size: 0.8em; /* Reduced font size */
       border: 2px dashed #f44786;
-      padding: 1em;
+      padding: 0.5em; /* Reduced padding */
       border-radius: 8px;
       background: #ffffff;
       width: 100%;
-      max-width: 500px;
+      max-width: 300px; /* Reduced max-width for smaller interface */
       color: #ed1b76;
     }
     #roulette-visual h3 {
       margin-bottom: 0.5em;
       color: #ed1b76;
-      font-size: 1.2em;
+      font-size: 0.9em; /* Reduced font size */
     }
     #roulette-spin {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1em;
+      font-size: 0.8em; /* Reduced font size */
     }
     #roulette-outcome {
       margin-top: 0.5em;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 0.9em; /* Reduced font size */
     }
     /* Simple spin animation for "spinning" text */
     .spin-animation {
@@ -342,7 +346,7 @@
     }
     #user-section h2 {
       margin-bottom: 0.5em;
-      font-size: 1.2em;
+      font-size: 1em; /* Reduced for smaller font */
       color: #ffffff;
     }
 
@@ -352,14 +356,14 @@
       justify-content: space-around;
       align-items: flex-end;
       margin-bottom: 1em;
-      gap: 1em;
+      gap: 0.8em; /* Reduced gap */
       flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.4em; /* Reduced gap */
       width: 45%;
       max-width: 150px;
     }
@@ -368,16 +372,16 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 1em;
-      padding: 0.5em;
-      min-width: 60px;
+      font-size: 0.9em; /* Reduced for smaller font */
+      padding: 0.4em; /* Reduced padding */
+      min-width: 50px; /* Reduced min-width */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%; /* Full width within column */
-      max-width: 100px;
+      max-width: 80px; /* Reduced max-width */
     }
     .choice-btn:hover {
       background: #249f9c;
@@ -388,16 +392,16 @@
       border: 2px solid #f44786;
     }
     .choice-btn img {
-      width: 40px; /* Increased image size for better visibility */
-      height: 40px;
+      width: 25px; /* Reduced image size for better visibility */
+      height: 25px;
     }
 
     /*************************************************************
      * WINNER HIGHLIGHTING
      *************************************************************/
     .winner {
-      border: 3px solid #ffff00; /* Yellow border */
-      box-shadow: 0 0 10px #ffff00;
+      border: 2px solid #ffff00; /* Reduced border size */
+      box-shadow: 0 0 5px #ffff00; /* Reduced shadow size */
     }
 
     /*************************************************************
@@ -409,11 +413,17 @@
         max-width: 90%;
       }
       #ai-choice-btn img, .choice-btn img {
-        width: 35px;
-        height: 35px;
+        width: 25px; /* Further reduced image size */
+        height: 25px;
       }
       #scoreboard div {
         width: 45%;
+      }
+      #roulette-visual {
+        max-width: 250px; /* Further reduced max-width */
+      }
+      #timer-display {
+        max-width: 180px; /* Adjusted for smaller interface */
       }
     }
 
@@ -421,14 +431,14 @@
       /* Mobile devices */
       /* Further reduce font sizes */
       #start-menu h1 {
-        font-size: 1.5em;
+        font-size: 1.2em; /* Further reduced for smaller screens */
       }
       #start-menu p, #start-menu label {
-        font-size: 0.95em;
+        font-size: 0.85em; /* Further reduced for smaller screens */
       }
       #sound-btn, #start-btn, #next-round-btn {
-        font-size: 1em;
-        padding: 0.6em 1em;
+        font-size: 0.9em; /* Reduced for smaller screens */
+        padding: 0.5em 0.8em; /* Reduced padding */
       }
       /* Arrange AI and User choice columns side by side */
       .ai-choice-column,
@@ -439,29 +449,32 @@
       /* Ensure buttons and images are appropriately sized */
       .ai-choice-btn,
       .choice-btn {
-        max-width: 100px; /* Increased from 90px to 100px for better touch targets */
-        padding: 0.6em;
+        max-width: 80px; /* Further reduced max-width for better touch targets */
+        padding: 0.5em; /* Reduced padding */
       }
       .ai-choice-btn img,
       .choice-btn img {
-        width: 35px; /* Adjusted image size for better visibility */
-        height: 35px;
+        width: 20px; /* Further reduced image size for better visibility */
+        height: 20px;
       }
       /* Adjust scoreboard layout */
       #scoreboard {
         flex-direction: row;
         justify-content: center;
-        gap: 1em; /* Reduced gap for better fit */
+        gap: 0.8em; /* Reduced gap for better fit */
       }
       #scoreboard div {
         width: 45%;
-        max-width: 120px; /* Reduced max-width for better fit on mobile */
-        font-size: 0.9em; /* Further reduced font size */
-        padding: 0.4em 0.6em; /* Reduced padding */
+        max-width: 100px; /* Further reduced max-width for better fit on mobile */
+        font-size: 0.8em; /* Further reduced font size */
+        padding: 0.3em 0.5em; /* Reduced padding */
       }
       /* Move timer below scoreboard */
       #timer-display {
         margin-top: 0.5em;
+        font-size: 0.7em; /* Further reduced font size */
+        max-width: 150px; /* Ensure it doesn't take too much width */
+        padding: 0.2em; /* Further reduced padding */
       }
       /* Ensure sliders fit within the screen */
       .slider-container {
@@ -470,16 +483,18 @@
       }
       .slider-container input[type="range"] {
         width: 100%;
+        max-width: 200px; /* Adjusted to match larger size */
       }
       /* Adjust roulette visual */
       #roulette-visual {
-        padding: 0.8em;
+        padding: 0.5em; /* Further reduced padding */
+        max-width: 250px; /* Further reduced max-width */
       }
       /* Adjust status message font size */
       #status-message,
       #result-message,
       #roulette-outcome {
-        font-size: 0.9em;
+        font-size: 0.8em; /* Further reduced font size */
       }
       /* Adjust buttons to be full width */
       #sound-btn,
@@ -490,29 +505,50 @@
       }
       /* Increase touch areas for better usability */
       .choice-btn, .ai-choice-btn {
-        padding: 0.6em;
+        padding: 0.5em; /* Reduced padding */
       }
       /* Arrange AI and User choices side by side */
       #ai-choices, #user-choices {
         flex-direction: row;
         justify-content: space-between;
       }
+      /* Further reduce roulette visual font size */
+      #roulette-visual h3 {
+        font-size: 0.8em; /* Further reduced font size */
+      }
     }
 
     /* Additional media queries for very small devices */
     @media (max-width: 360px) {
       #start-menu h1 {
-        font-size: 1.3em;
+        font-size: 1em; /* Further reduced */
       }
       #ai-choice-btn img, .choice-btn img {
-        width: 25px;
-        height: 25px;
+        width: 18px; /* Further reduced image size */
+        height: 18px;
       }
       #scoreboard div {
         width: 100%;
+        max-width: 100px; /* Adjusted */
       }
       .choice-btn, .ai-choice-btn {
-        max-width: 80px;
+        max-width: 70px; /* Further reduced */
+      }
+      /* Further reduce timer display on very small screens */
+      #timer-display {
+        font-size: 0.6em; /* Further reduced font size */
+        padding: 0.1em; /* Further reduced padding */
+        max-width: 100px; /* Further reduced max-width */
+      }
+      /* Further reduce Russian Roulette font sizes */
+      #roulette-visual h3 {
+        font-size: 0.7em; /* Further reduced */
+      }
+      #roulette-spin {
+        font-size: 0.7em; /* Further reduced */
+      }
+      #roulette-outcome {
+        font-size: 0.8em; /* Further reduced */
       }
     }
 
@@ -522,21 +558,20 @@
 
   <!-- START MENU -->
   <div id="start-menu">
-    <h1>Rock-Paper-Scissors: Two-Hand Variant</h1>
+    <h1>Rock-Paper-Scissors: Two-Hand</h1>
 
     <!-- Sound Toggle Button -->
     <button id="sound-btn" data-sound="off">Sound: OFF</button>
 
     <p><strong>New Rule:</strong><br>
-      If the user fails to pick any required hand within 5 seconds (Phase 1 or Phase 2),
-      the AI automatically <em>wins</em> that round.
+      If you fail to pick a hand within 5 seconds, AI wins that round.
     </p>
 
     <!-- Compact Settings Container -->
     <div class="settings-container">
       <!-- Russian Roulette Mode Selection -->
       <div class="setting-item">
-        <label for="mode-select">Russian Roulette Mode:</label>
+        <label for="mode-select">Roulette Mode:</label>
         <select id="mode-select">
           <option value="reset">Reset each round</option>
           <option value="no-reset">No reset</option>
@@ -545,7 +580,7 @@
 
       <!-- Number of Bullets Slider -->
       <div class="setting-item">
-        <label for="num-bullets">Number of Bullets:</label>
+        <label for="num-bullets">Bullets:</label>
         <div class="slider-container">
           <input type="range" id="num-bullets" value="1" min="1" max="6" step="1">
           <span id="bullet-count">1</span>
@@ -609,7 +644,7 @@
     <!-- RUSSIAN ROULETTE VISUAL -->
     <div id="roulette-visual">
       <h3>Russian Roulette!</h3>
-      <p id="roulette-spin">Spinning the chamber: <span class="spin-animation">🔄</span></p>
+      <p id="roulette-spin">Spinning: <span class="spin-animation">🔄</span></p>
       <p id="roulette-outcome"></p>
     </div>
 
@@ -625,12 +660,12 @@
   </div>
 
   <!-- Audio Elements -->
-  <audio id="bg-music" src="./assets/sounds/scary.mp3" loop></audio>
-  <audio id="intro-music" src="./assets/sounds/intro.mp3"></audio>
-  <audio id="reload-music" src="./assets/sounds/reload.mp3"></audio>
-  <audio id="fire-sound" src="./assets/sounds/fire.wav"></audio>
-  <audio id="empty-sound" src="./assets/sounds/empty.wav"></audio>
-  <audio id="green-sound" src="./assets/sounds/green.mp3"></audio> <!-- New Audio Element -->
+  <audio id="bg-music" src="./assets/sounds/scary.mp3" preload="auto" loop></audio>
+  <audio id="intro-music" src="./assets/sounds/intro.mp3" preload="auto"></audio>
+  <audio id="reload-music" src="./assets/sounds/reload.mp3" preload="auto"></audio>
+  <audio id="fire-sound" src="./assets/sounds/fire.wav" preload="auto"></audio>
+  <audio id="empty-sound" src="./assets/sounds/empty.wav" preload="auto"></audio>
+  <audio id="green-sound" src="./assets/sounds/green.mp3" preload="auto"></audio> <!-- New Audio Element -->
 
   <script>
     /****************************************************
@@ -638,7 +673,6 @@
      ****************************************************/
     // Background music for the Start Menu (looped)
     const backgroundMusic = document.getElementById('bg-music');
-    backgroundMusic.loop = true;
 
     // Intro music that plays each round
     const introMusic = document.getElementById('intro-music');
@@ -847,7 +881,7 @@
       phase = 1;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
-      statusMessage.textContent = 'Pick your Left & Right hands (5s)!';
+      statusMessage.textContent = 'Pick your hands (5s)!';
       resultSection.style.display = 'none';
       resultMessage.textContent = '';
 
@@ -871,7 +905,7 @@
           clearInterval(intervalId);
           // If user hasn't chosen BOTH left & right, immediate AI win
           if (!playerLeftHand || !playerRightHand) {
-            concludeRoundWithAiWin('Time is up! You did not pick both hands.');
+            concludeRoundWithAiWin('Time up! AI wins.');
           } else {
             highlightAIHands();
             moveToPhase2();
@@ -884,7 +918,7 @@
       phase = 2;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
-      statusMessage.textContent = 'Pick ONE final hand to keep (5s)!';
+      statusMessage.textContent = 'Pick one final hand (5s)!';
 
       if (intervalId) clearInterval(intervalId);
       intervalId = setInterval(() => {
@@ -893,7 +927,7 @@
 
         if (timeLeft <= 0) {
           clearInterval(intervalId);
-          concludeRoundWithAiWin('Time is up! You did not pick a final hand.');
+          concludeRoundWithAiWin('Time up! AI wins.');
         }
       }, 1000);
     }
@@ -911,7 +945,7 @@
 
       // Show the result section without the button
       resultSection.style.display = 'block';
-      resultMessage.textContent = `${reason} AI automatically wins.`;
+      resultMessage.textContent = `${reason}`;
       aiScore++;
       aiScoreEl.textContent = aiScore;
 
@@ -952,7 +986,7 @@
       if (winner === 'Player') {
         playerScore++;
         playerScoreEl.textContent = playerScore;
-        resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. You WIN!`;
+        resultMessage.textContent = `You win!`;
         // Highlight player's final hand
         const playerFinalBtn = findUserButton(playerFinalHand, playerFinalChoiceSide);
         playerFinalBtn?.classList.add('winner');
@@ -962,7 +996,7 @@
       else if (winner === 'AI') {
         aiScore++;
         aiScoreEl.textContent = aiScore;
-        resultMessage.textContent = `You chose ${playerFinalHand}, AI chose ${aiFinal}. AI WINS!`;
+        resultMessage.textContent = `AI wins!`;
         // Highlight AI's final hand
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
@@ -972,7 +1006,7 @@
       }
       else {
         // DRAW => Highlight both hands
-        resultMessage.textContent = `You both chose ${playerFinalHand}. It's a DRAW!`;
+        resultMessage.textContent = `It's a draw!`;
         const playerFinalBtn = findUserButton(playerFinalHand, playerFinalChoiceSide);
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn = findAIButton(aiFinal, aiFinalSide);
@@ -1071,24 +1105,24 @@
           // If sound is off, proceed to update UI
           updateRouletteOutcome(target, bulletFires);
         }
-      }, 800); // Reduced delay for faster responsiveness
+      }, 600); // Adjusted delay for better synchronization
     }
 
     function updateRouletteOutcome(target, bulletFires) {
       rouletteSpin.style.display = 'none';
 
       if (bulletFires) {
-        rouletteOutcome.textContent = `BANG! The ${target.toUpperCase()} is shot.`;
+        rouletteOutcome.textContent = `BANG! ${target.toUpperCase()} is shot.`;
         gameOver = true; // Set gameOver flag
         statusMessage.textContent = 'GAME OVER!';
 
         if (target === 'user') {
-          resultMessage.textContent += ' YOU have been shot. AI wins the entire match!';
+          resultMessage.textContent += ' YOU were shot. AI wins the match!';
         } else {
-          resultMessage.textContent += ' The AI has been shot. YOU win the entire match!';
+          resultMessage.textContent += ' AI was shot. YOU win the match!';
         }
       } else {
-        rouletteOutcome.textContent = `CLICK! No bullet fired. ${target.toUpperCase()} survives.`;
+        rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
       }
 
       // Show the Next Round button after Russian Roulette is done
@@ -1202,7 +1236,8 @@
       allUserButtons.forEach(btn => btn.classList.remove('selected'));
 
       // Add 'selected' class to the chosen side's button
-      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${(side === 'left') ? playerLeftHand : playerRightHand}"]`);
+      const chosenHand = (side === 'left') ? playerLeftHand : playerRightHand;
+      const selectedButton = document.querySelector(`#user-${side}-column .choice-btn[data-hand="${chosenHand}"]`);
       if (selectedButton) {
           selectedButton.classList.add('selected');
       }
@@ -1263,7 +1298,7 @@
 
       if (r1 > r2) return hand1;
       if (r2 > r1) return hand2;
-      return hand1; // tie => pick first
+      return hand1; // Tie => pick first
     }
 
     /****************************************************
@@ -1329,7 +1364,7 @@
       return document.querySelector(`#user-${side}-column .choice-btn[data-hand="${hand}"]`);
     }
 
-    // from user's perspective => getWinner(userGesture, aiGesture)
+    // From user's perspective => getWinner(userGesture, aiGesture)
     function getWinner(user, ai) {
       if (user === ai) return 'Draw';
       if (
