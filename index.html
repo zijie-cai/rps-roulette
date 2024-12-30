@@ -410,7 +410,7 @@
     }
 
     /*************************************************************
-     * MEDIA QUERIES FOR EVEN SMALLER SCREENS
+     * MEDIA QUERIES
      *************************************************************/
     @media (max-width: 480px) {
       #start-menu, #game-container {
@@ -606,11 +606,32 @@
     const emptySound      = document.getElementById('empty-sound');
     const greenSound      = document.getElementById('green-sound');
 
-    let isSoundOn = false; // Track current sound state
+    let isSoundOn = false; // Start OFF by default
 
     const soundBtn          = document.getElementById('sound-btn');
     const numBulletsSlider  = document.getElementById('num-bullets');
     const bulletCountDisplay= document.getElementById('bullet-count');
+
+    // Helper to forcibly stop all audio mid-play
+    function stopAllAudio() {
+      backgroundMusic.pause();
+      backgroundMusic.currentTime = 0;
+
+      introMusic.pause();
+      introMusic.currentTime = 0;
+
+      reloadMusic.pause();
+      reloadMusic.currentTime = 0;
+
+      fireSound.pause();
+      fireSound.currentTime = 0;
+
+      emptySound.pause();
+      emptySound.currentTime = 0;
+
+      greenSound.pause();
+      greenSound.currentTime = 0;
+    }
 
     // Update bullet count display when slider changes
     numBulletsSlider.addEventListener('input', () => {
@@ -640,18 +661,7 @@
         });
       } else {
         // Stop all sounds
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
-        introMusic.pause();
-        introMusic.currentTime = 0;
-        reloadMusic.pause();
-        reloadMusic.currentTime = 0;
-        fireSound.pause();
-        fireSound.currentTime = 0;
-        emptySound.pause();
-        emptySound.currentTime = 0;
-        greenSound.pause();
-        greenSound.currentTime = 0;
+        stopAllAudio();
       }
     });
 
@@ -713,11 +723,8 @@
      * START BUTTON
      ****************************************************/
     startBtn.addEventListener('click', () => {
-      // Stop any background music from the menu
-      if (isSoundOn) {
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
-      }
+      // Stop all audio from the menu or leftover
+      stopAllAudio();
 
       // Hide menu, show game
       startMenu.style.display = 'none';
@@ -763,6 +770,9 @@
      * ROUND LOGIC
      ****************************************************/
     function startRound() {
+      // Stop any leftover sounds before starting a new round
+      stopAllAudio();
+
       nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display = 'none';
 
@@ -770,18 +780,6 @@
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
       playerFinalChoiceSide = null;
-
-      // Stop leftover intro music
-      introMusic.pause();
-      introMusic.currentTime = 0;
-
-      // Play intro if sound is ON
-      if (isSoundOn) {
-        introMusic.playbackRate = 1.0;
-        introMusic.play().catch(error => {
-          console.warn("Intro music playback failed:", error);
-        });
-      }
 
       rouletteVisual.style.display = 'none';
       rouletteOutcome.textContent = '';
@@ -803,6 +801,14 @@
 
       // Build user columns
       buildUserColumns();
+
+      // If sound is ON, play intro
+      if (isSoundOn) {
+        introMusic.playbackRate = 1.0;
+        introMusic.play().catch(error => {
+          console.warn("Intro music playback failed:", error);
+        });
+      }
 
       // Start Phase 1 timer
       if (intervalId) clearInterval(intervalId);
@@ -865,7 +871,7 @@
       if (intervalId) clearInterval(intervalId);
       phase = 0;
 
-      // Stop intro music
+      // Stop intro music if still playing
       introMusic.pause();
       introMusic.currentTime = 0;
 
@@ -916,7 +922,6 @@
 
     /****************************************************
      * RUSSIAN ROULETTE
-     * => Reload first, then Fire or Empty
      ****************************************************/
     function performRussianRoulette(target) {
       if (gameOver) return;
@@ -928,16 +933,16 @@
       introMusic.pause();
       introMusic.currentTime = 0;
 
-      // If sound is off, skip reload and just do outcome
       if (!isSoundOn) {
         determineRouletteOutcome(target);
         return;
       }
 
-      // 1) Play "reload" fully, then onended => do outcome
+      // 1) Play "reload" fully, then outcome
       reloadMusic.currentTime = 0;
       reloadMusic.play().then(() => {
         reloadMusic.onended = () => {
+          reloadMusic.onended = null;
           determineRouletteOutcome(target);
         };
       }).catch(error => {
@@ -946,26 +951,18 @@
       });
     }
 
-    // Actually decide if bullet fires (and then Fire or Empty sound)
+    // Decide if bullet fires => then Fire or Empty
     function determineRouletteOutcome(target) {
-      // Important: remove onended handler to prevent double-calls
-      reloadMusic.onended = null;
-
       let bulletFires = false;
       if (rouletteMode === 'reset') {
-        // reset each round => random chance
         const rand = Math.floor(Math.random() * 6) + 1;
         bulletFires = (rand <= bulletsInChamber);
       } else {
-        // no-reset => check current chamber
         bulletFires = chamberPositions[currentChamberIndex];
         currentChamberIndex = (currentChamberIndex + 1) % 6;
       }
 
-      // 2) If bullet fires => play fireSound
-      //    else => play emptySound
       if (!isSoundOn) {
-        // If sound turned off between reload & outcome
         updateRouletteOutcome(target, bulletFires);
         return;
       }
@@ -974,8 +971,8 @@
         fireSound.currentTime = 0;
         fireSound.play().then(() => {
           fireSound.onended = () => {
+            fireSound.onended = null;
             updateRouletteOutcome(target, true);
-            fireSound.onended = null; // clean up
           };
         }).catch(err => {
           console.warn("Fire sound failed:", err);
@@ -985,8 +982,8 @@
         emptySound.currentTime = 0;
         emptySound.play().then(() => {
           emptySound.onended = () => {
+            emptySound.onended = null;
             updateRouletteOutcome(target, false);
-            emptySound.onended = null; // clean up
           };
         }).catch(err => {
           console.warn("Empty sound failed:", err);
@@ -995,7 +992,6 @@
       }
     }
 
-    // Final UI update after bullet outcome
     function updateRouletteOutcome(target, bulletFires) {
       rouletteSpin.style.display = 'none';
       if (bulletFires) {
@@ -1255,13 +1251,14 @@
       playerScoreEl.textContent = playerScore;
       aiScoreEl.textContent = aiScore;
 
+      // Force sound OFF upon restart
+      isSoundOn = false;
+      stopAllAudio();
+      updateSoundButtonUI();
+
       gameContainer.style.display = 'none';
       startMenu.style.display = 'block';
       gameOver = false;
-
-      // Keep the user's Sound ON/OFF preference
-      // Just update the menu button text to reflect the current state
-      updateSoundButtonUI();
 
       if (rouletteMode === 'no-reset') {
         setupNoResetChamber(bulletsInChamber);
