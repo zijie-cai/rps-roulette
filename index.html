@@ -430,22 +430,22 @@
         font-size: 1em;
         padding: 0.6em 1em;
       }
-      /* Stack AI and User choice columns vertically */
+      /* Stack AI and User choice columns side by side */
       .ai-choice-column,
       .user-choice-column {
-        width: 100%;
-        max-width: none;
+        width: 45%; /* Adjusted from 100% to 45% for side-by-side layout */
+        max-width: 150px; /* Ensures buttons fit within the screen */
       }
       /* Ensure buttons and images are appropriately sized */
       .ai-choice-btn,
       .choice-btn {
-        max-width: 90px;
-        padding: 0.5em;
+        max-width: 100px; /* Increased from 90px to 100px for better touch targets */
+        padding: 0.6em;
       }
       .ai-choice-btn img,
       .choice-btn img {
-        width: 30px;
-        height: 30px;
+        width: 35px; /* Adjusted image size for better visibility */
+        height: 35px;
       }
       /* Adjust scoreboard layout */
       #scoreboard {
@@ -484,6 +484,11 @@
       /* Increase touch areas for better usability */
       .choice-btn, .ai-choice-btn {
         padding: 0.6em;
+      }
+      /* Arrange AI and User choices side by side */
+      #ai-choices, #user-choices {
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
 
