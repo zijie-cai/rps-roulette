@@ -1166,15 +1166,17 @@
         gameOver = true;
         statusMessage.textContent = 'GAME OVER!';
         if (target === 'user') {
-          resultMessage.textContent = 'You were shot. AI survived!';
+          resultMessage.textContent = 'BANG! You were shot. AI survived!';
         } else {
-          resultMessage.textContent = 'AI was shot. You survived!';
+          resultMessage.textContent = 'BANG! AI was shot. You survived!';
         }
         nextRoundBtn.style.display = 'block';
         nextRoundBtn.textContent = 'Restart Game';
       } else {
         // Removed the label "CLICK! AI survives."
         // rouletteOutcome.textContent = ''; // Already removed the element
+        statusMessage.textContent = 'Round Over!'
+        resultMessage.textContent = `CLICK! No bullet was fired!`;
 
         // Round is over, proceed to next round
         updateChanceDisplay();
