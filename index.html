@@ -392,9 +392,16 @@
      * MEDIA QUERIES
      *************************************************************/
     @media (max-width: 480px) {
-      #start-menu, #game-container {
+      /* Keep start-menu as is */
+      #game-container {
         max-width: 95%;
+        padding: 0.6rem;
       }
+
+      #start-menu {
+        max-width: 450px; /* Ensure start menu remains unchanged */
+      }
+
       #start-menu h1 {
         font-size: 1rem;
       }
@@ -405,6 +412,7 @@
       #sound-btn, #start-btn, #next-round-btn, #roulette-btn {
         font-size: 0.75rem;
         padding: 0.3rem 0.6rem;
+        max-width: 120px;
       }
       .settings-container {
         display: grid;
@@ -436,15 +444,44 @@
       }
       #roulette-visual {
         max-width: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       #chance-display {
         font-size: 0.75rem;
         max-width: 220px;
         padding: 0.5rem;
       }
+      #gun-sim {
+        width: 60%; /* Adjusted for better fit on smaller screens */
+        height: 100px; /* Further reduced height */
+      }
+      #gun-sim:before {
+        width: 15px; /* Reduced from 25px */
+        height: 15px; /* Reduced from 25px */
+        top: calc(50% - 47.5px); /* Adjusted for new container height */
+        left: calc(50% - 12.5px); /* Adjusted for new width */
+        border: 6.25px solid #222; /* Reduced border thickness */
+      }
+      #gun-sim:after {
+        width: 15px; /* Reduced from 25px */
+        height: 100px; /* Reduced from 125px */
+        top: calc(50% - 10px); /* Adjusted for new container height */
+        left: calc(50% - 6.25px); /* Adjusted for new width */
+      }
+      .chamber-container {
+        width: 80px; /* Reduced from 100px */
+        height: 80px; /* Reduced from 100px */
+      }
+      .chamber-hole {
+        width: 15px; /* Reduced from 20px */
+        height: 15px; /* Reduced from 20px */
+      }
     }
 
     @media (max-width: 360px) {
+      /* Further adjustments for very small screens */
       #start-menu h1 {
         font-size: 0.9rem;
       }
@@ -461,8 +498,8 @@
         width: 25px;
         height: 25px;
       }
-      #roulette-visual h3 {
-        font-size: 0.75rem;
+      #roulette-visual {
+        max-width: 200px;
       }
       #roulette-spin, #roulette-outcome {
         font-size: 0.7rem;
@@ -470,115 +507,139 @@
       #result-message {
         font-size: 0.7rem;
       }
+      #gun-sim {
+        width: 70%; /* Further adjusted for tiny screens */
+        height: 80px; /* Further reduced height */
+      }
+      #gun-sim:before {
+        width: 12px; /* Further reduced */
+        height: 12px; /* Further reduced */
+        top: calc(50% - 37.5px); /* Adjusted for new container height */
+        left: calc(50% - 6px); /* Adjusted for new width */
+        border: 6px solid #222; /* Further reduced border thickness */
+      }
+      #gun-sim:after {
+        width: 12px; /* Further reduced */
+        height: 80px; /* Further reduced */
+        top: calc(50% - 8px); /* Adjusted for new container height */
+        left: calc(50% - 6px); /* Adjusted for new width */
+      }
+      .chamber-container {
+        width: 60px; /* Further reduced */
+        height: 60px; /* Further reduced */
+      }
+      .chamber-hole {
+        width: 12px; /* Further reduced */
+        height: 12px; /* Further reduced */
+      }
     }
 
     /*************************************************************
      * 2) GUN SIMULATOR (CHAMBER) STYLES
-     *    We wrap it inside #gun-sim so it won't override <body>.
+     *    Adjusted for smaller visualization and centered positioning.
      *************************************************************/
-    /*************************************************************
- * 2) GUN SIMULATOR (CHAMBER) STYLES
- *    Adjusted for smaller visualization and centered positioning.
- *************************************************************/
-#gun-sim {
-  width: 50%; /* Reduced from 100% to 50% */
-  height: 125px; /* Reduced from 250px to 125px */
-  background: #f44786;
-  position: relative;
-  overflow: hidden;
-  margin: 0.5rem auto; /* Center horizontally with auto margins */
-  border: 1px dashed #f44786; /* Adjusted border thickness */
-  border-radius: 8px;
-  /* Keep it hidden until we actually show the spinning chamber */
-  display: none;
-}
+    #gun-sim {
+      width: 50%; /* Reduced from 100% to 50% */
+      height: 125px; /* Reduced from 250px to 125px */
+      background: #f44786;
+      position: relative;
+      overflow: hidden;
+      margin: 0.5rem auto; /* Center horizontally with auto margins */
+      border: 1px dashed #f44786; /* Adjusted border thickness */
+      border-radius: 8px;
+      /* Keep it hidden until we actually show the spinning chamber */
+      display: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-/* Gun barrel visual */
-#gun-sim:before {
-  content: '';
-  display: block;
-  width: 25px; /* Reduced from 50px to 25px */
-  height: 25px; /* Reduced from 50px to 25px */
-  position: absolute;
-  border-radius: 50%;
-  top: calc(50% - 57.5px); /* Adjusted for new container height */
-  left: calc(50% - 25px); /* Adjusted for new width */
-  box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, inset black 0 5px 7.5px, inset rgba(0, 0, 0, 0.3) 0 0 25px;
-  border: 12.5px solid #222; /* Reduced border thickness */
-  z-index: 10;
-}
+    /* Gun barrel visual */
+    #gun-sim:before {
+      content: '';
+      display: block;
+      width: 25px; /* Reduced from 50px to 25px */
+      height: 25px; /* Reduced from 50px to 25px */
+      position: absolute;
+      border-radius: 50%;
+      top: calc(50% - 57.5px); /* Adjusted for new container height */
+      left: calc(50% - 25px); /* Adjusted for new width */
+      box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, inset black 0 5px 7.5px, inset rgba(0, 0, 0, 0.3) 0 0 25px;
+      border: 12.5px solid #222; /* Reduced border thickness */
+      z-index: 10;
+    }
 
-/* Gun barrel shadow */
-#gun-sim:after {
-  content: '';
-  display: block;
-  width: 25px; /* Reduced from 50px to 25px */
-  height: 125px; /* Reduced from 250px to 125px */
-  position: absolute;
-  border-radius: 15px;
-  top: calc(50% - 20px); /* Adjusted for new container height */
-  left: calc(50% - 12.5px); /* Adjusted for new width */
-  background: #222;
-  z-index: 5;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, #210 12.5px 50px 0, #210 0px 50px 0, #210 -12.5px 50px 0;
-}
+    /* Gun barrel shadow */
+    #gun-sim:after {
+      content: '';
+      display: block;
+      width: 25px; /* Reduced from 50px to 25px */
+      height: 125px; /* Reduced from 250px to 125px */
+      position: absolute;
+      border-radius: 15px;
+      top: calc(50% - 20px); /* Adjusted for new container height */
+      left: calc(50% - 12.5px); /* Adjusted for new width */
+      background: #222;
+      z-index: 5;
+      box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, #210 12.5px 50px 0, #210 0px 50px 0, #210 -12.5px 50px 0;
+    }
 
-/* Rotating chamber container */
-.chamber-container {
-  width: 100px; /* Reduced from 200px to 100px */
-  height: 100px; /* Reduced from 200px to 100px */
-  margin: 0 auto; /* Center horizontally */
-  position: absolute;
-  border-radius: 100%;
-  top: calc(50% + 4px); /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%) rotate(0deg); /* Center and initial rotation */
-  background: radial-gradient(circle, #444 30%, #222 80%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.5s ease-in-out;
-}
+    /* Rotating chamber container */
+    .chamber-container {
+      width: 100px; /* Reduced from 200px to 100px */
+      height: 100px; /* Reduced from 200px to 100px */
+      margin: 0 auto; /* Center horizontally */
+      position: absolute;
+      border-radius: 100%;
+      top: calc(50% + 4px); /* Center vertically */
+      left: 50%; /* Center horizontally */
+      transform: translate(-50%, -50%) rotate(0deg); /* Center and initial rotation */
+      background: radial-gradient(circle, #444 30%, #222 80%);
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.5s ease-in-out;
+    }
 
-/* Chamber holes */
-.chamber-hole {
-  width: 20px; /* Reduced from 40px to 20px */
-  height: 20px; /* Reduced from 40px to 20px */
-  background: black;
-  border-radius: 50%;
-  position: absolute;
-}
+    /* Chamber holes */
+    .chamber-hole {
+      width: 20px; /* Reduced from 40px to 20px */
+      height: 20px; /* Reduced from 40px to 20px */
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
 
 
-.hole-1 { top: 5px; left: calc(50% - 10px); }
-.hole-2 { top: 22.5px; left: 70.5px; }
-.hole-3 { bottom: 22.5px; left: 70.5px; }
-.hole-4 { bottom: 5px; left: calc(50% - 10px); }
-.hole-5 { bottom: 22.5px; right: 70.5px; }
-.hole-6 { top: 22.5px; right: 70.5px; }
+    .hole-1 { top: 5px; left: calc(50% - 10px); }
+    .hole-2 { top: 22.5px; left: 70.5px; }
+    .hole-3 { bottom: 22.5px; left: 70.5px; }
+    .hole-4 { bottom: 5px; left: calc(50% - 10px); }
+    .hole-5 { bottom: 22.5px; right: 70.5px; }
+    .hole-6 { top: 22.5px; right: 70.5px; }
 
-/* Spin animation */
-@keyframes spin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
-}
-.spin {
-  animation: spin 0.5s ease-in-out;
-}
+    /* Spin animation */
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .spin {
+      animation: spin 0.5s ease-in-out;
+    }
 
-/* Added Styles for Gun Simulator Background Changes */
-#gun-sim.safe {
-  background-color: #006400; /* Dark Green */
-  transition: background-color 0.5s ease;
-}
+    /* Added Styles for Gun Simulator Background Changes */
+    #gun-sim.safe {
+      background-color: #006400; /* Dark Green */
+      transition: background-color 0.5s ease;
+    }
 
-#gun-sim.shot {
-  background-color: #8B0000; /* Blood Red */
-  transition: background-color 0.5s ease;
-}
+    #gun-sim.shot {
+      background-color: #8B0000; /* Blood Red */
+      transition: background-color 0.5s ease;
+    }
 
-/* Removed centering for "Russian Roulette!" heading since it's no longer needed */
+    /* Removed centering for "Russian Roulette!" heading since it's no longer needed */
 
   </style>
 </head>
@@ -1065,7 +1126,7 @@
       // Removed: rouletteOutcome.textContent  = '';
 
       // Show the spinning chamber
-      gunSimContainer.style.display = 'block'; 
+      gunSimContainer.style.display = 'flex'; 
 
       introMusic.pause();
       introMusic.currentTime = 0;
