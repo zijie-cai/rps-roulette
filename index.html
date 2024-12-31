@@ -442,6 +442,16 @@
         max-width: 220px;
         padding: 0.5rem;
       }
+
+      /* Center the gun-sim on mobile */
+      #roulette-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #gun-sim {
+        width: 80%; /* Adjusted for mobile */
+      }
     }
 
     @media (max-width: 360px) {
@@ -470,6 +480,11 @@
       #result-message {
         font-size: 0.7rem;
       }
+
+      /* Further adjust the gun-sim for very small screens */
+      #gun-sim {
+        width: 90%; /* Further adjusted for smaller mobile screens */
+      }
     }
 
     /*************************************************************
@@ -489,7 +504,6 @@
   margin: 0.5rem auto; /* Center horizontally with auto margins */
   border: 1px dashed #f44786; /* Adjusted border thickness */
   border-radius: 8px;
-  transform: translateX(50px);
   /* Keep it hidden until we actually show the spinning chamber */
   display: none;
 }
