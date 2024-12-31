@@ -165,12 +165,12 @@
      *************************************************************/
     #game-container {
       width: 100%;
-      max-width: 600px;
+      max-width: 400px; /* Reduced from 600px */
       margin: 1rem auto 1rem;  
       background: #ed1b76;
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      padding: 0.8rem;
+      padding: 0.5rem; /* Reduced padding */
       display: none;
       position: relative;
     }
@@ -180,11 +180,11 @@
      *************************************************************/
     #ai-section {
       text-align: center;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem; /* Reduced margin */
     }
     #ai-section h2 {
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
+      margin-bottom: 0.3rem; /* Reduced margin */
+      font-size: 0.8rem; /* Reduced font size */
       color: #ffffff;
       line-height: 1.2rem;
     }
@@ -193,37 +193,37 @@
       justify-content: space-around;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.4rem; /* Reduced gap */
     }
     .ai-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
-      width: 40%;
-      max-width: 130px;
+      gap: 0.2rem; /* Reduced gap */
+      width: 45%; /* Adjusted width */
+      max-width: 100px; /* Reduced max-width */
     }
     .ai-choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.8rem;
-      padding: 0.4rem;
-      min-width: 50px;
+      font-size: 0.7rem; /* Reduced font size */
+      padding: 0.3rem; /* Reduced padding */
+      min-width: 40px; /* Reduced min-width */
       cursor: default;
       pointer-events: none;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 80px;
-      height: 50px;
+      max-width: 60px; /* Reduced max-width */
+      height: 40px; /* Reduced height */
       transition: background 0.3s, color 0.3s, border 0.3s;
     }
     .ai-choice-btn img {
-      width: 35px;
-      height: 35px;
+      width: 25px; /* Reduced from 35px */
+      height: 25px; /* Reduced from 35px */
     }
     .ai-choice-btn.selected {
       background: #ffffff;
@@ -236,22 +236,22 @@
      *************************************************************/
     #scoreboard {
       text-align: center;
-      margin: 0.6rem auto;
-      font-size: 0.85rem;
+      margin: 0.4rem auto; /* Reduced margin */
+      font-size: 0.75rem; /* Reduced font size */
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 0.6rem; /* Reduced gap */
       flex-wrap: wrap;
     }
     #scoreboard div {
       background: #249f9c;
       color: #ffffff;
-      padding: 0.4rem 0.5rem;
+      padding: 0.3rem 0.4rem; /* Reduced padding */
       border-radius: 4px;
-      width: 35%;
-      min-width: 70px;
+      width: 45%; /* Reduced width */
+      min-width: 60px; /* Reduced min-width */
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.75rem; /* Reduced font size */
     }
 
     /*************************************************************
@@ -259,21 +259,21 @@
      *************************************************************/
     #timer-display {
       text-align: center;
-      margin: 0.4rem auto;
-      font-size: 0.78rem;
+      margin: 0.3rem auto; /* Reduced margin */
+      font-size: 0.7rem; /* Reduced font size */
       background: #249f9c;
       color: #ffffff;
-      padding: 0.3rem 0.4rem;
+      padding: 0.2rem 0.3rem; /* Reduced padding */
       border-radius: 4px;
-      max-width: 130px;
+      max-width: 100px; /* Reduced max-width */
     }
     #status-message {
       text-align: center;
       font-weight: bold;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem; /* Reduced margin */
       min-height: 1.2em;
       color: #ffffff;
-      font-size: 0.85rem;
+      font-size: 0.75rem; /* Reduced font size */
     }
 
     /*************************************************************
@@ -281,14 +281,14 @@
      *************************************************************/
     #result-section {
       text-align: center;
-      margin-top: 0.6rem;
+      margin-top: 0.4rem; /* Reduced margin */
       display: none;
     }
     #result-message {
       font-weight: bold;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem; /* Reduced margin */
       color: #ffffff;
-      font-size: 0.85rem;
+      font-size: 0.75rem; /* Reduced font size */
       min-height: 1.2rem;
     }
     #next-round-btn,
@@ -297,12 +297,12 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.8rem;
-      padding: 0.4rem 0.6rem;
+      font-size: 0.7rem; /* Reduced font size */
+      padding: 0.3rem 0.5rem; /* Reduced padding */
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
-      max-width: 150px;
+      max-width: 120px; /* Reduced max-width */
       margin: 0.2rem auto 0;
       display: none;
     }
@@ -313,13 +313,13 @@
     #chance-display {
       display: none;  
       text-align: center;
-      margin: 0.5rem auto;
-      font-size: 0.8rem; 
+      margin: 0.3rem auto; /* Reduced margin */
+      font-size: 0.7rem; /* Reduced font size */
       background: rgba(255,255,255,0.2);
       border: 1px solid #ffffff;
       border-radius: 4px;
-      padding: 0.5rem 0.8rem;
-      max-width: 240px;
+      padding: 0.4rem 0.6rem; /* Reduced padding */
+      max-width: 200px; /* Reduced max-width */
       line-height: 1.3;
       white-space: pre-line;
     }
@@ -329,11 +329,11 @@
      *************************************************************/
     #user-section {
       text-align: center;
-      margin-top: 0.6rem;
+      margin-top: 0.4rem; /* Reduced margin */
     }
     #user-section h2 {
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
+      margin-bottom: 0.3rem; /* Reduced margin */
+      font-size: 0.8rem; /* Reduced font size */
       color: #ffffff;
       line-height: 1.2rem;
     }
@@ -341,38 +341,38 @@
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      gap: 0.6rem;
+      gap: 0.4rem; /* Reduced gap */
       flex-wrap: wrap;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem; /* Reduced margin */
     }
     .user-choice-column {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
-      width: 40%;
-      max-width: 130px;
+      gap: 0.2rem; /* Reduced gap */
+      width: 45%; /* Adjusted width */
+      max-width: 100px; /* Reduced max-width */
     }
     .choice-btn {
       background: #f44786;
       color: #fff;
       border: none;
       border-radius: 4px;
-      font-size: 0.8rem;
-      padding: 0.4rem;
-      min-width: 50px;
+      font-size: 0.7rem; /* Reduced font size */
+      padding: 0.3rem; /* Reduced padding */
+      min-width: 40px; /* Reduced min-width */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
-      max-width: 80px;
-      height: 50px;
+      max-width: 60px; /* Reduced max-width */
+      height: 40px; /* Reduced height */
     }
     .choice-btn img {
-      width: 35px;
-      height: 35px;
+      width: 25px; /* Reduced from 35px */
+      height: 25px; /* Reduced from 35px */
     }
     .choice-btn.selected {
       background: #ffffff;
@@ -403,8 +403,8 @@
         font-size: 0.8rem;
       }
       #sound-btn, #start-btn, #next-round-btn, #roulette-btn {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem; /* Further reduced font size */
+        padding: 0.2rem 0.4rem; /* Further reduced padding */
       }
       .settings-container {
         display: grid;
@@ -418,29 +418,29 @@
         justify-items: center;
       }
       .ai-choice-btn, .choice-btn {
-        max-width: 70px;
-        height: 45px;
+        max-width: 50px; /* Further reduced max-width */
+        height: 35px; /* Further reduced height */
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 30px;
-        height: 30px;
+        width: 20px; /* Further reduced image size */
+        height: 20px;
       }
       #scoreboard div {
         width: 40%;
-        min-width: 60px;
-        font-size: 0.75rem;
+        min-width: 50px;
+        font-size: 0.65rem; /* Further reduced font size */
       }
       #timer-display {
-        font-size: 0.7rem;
-        max-width: 100px;
+        font-size: 0.6rem; /* Further reduced font size */
+        max-width: 90px; /* Further reduced max-width */
       }
       #roulette-visual {
-        max-width: 250px;
+        max-width: 200px; /* Reduced max-width */
       }
       #chance-display {
-        font-size: 0.75rem;
-        max-width: 220px;
-        padding: 0.5rem;
+        font-size: 0.65rem; /* Further reduced font size */
+        max-width: 180px; /* Further reduced max-width */
+        padding: 0.3rem; /* Further reduced padding */
       }
     }
 
@@ -451,24 +451,24 @@
       #scoreboard div {
         width: 45%;
         min-width: 50px;
-        font-size: 0.7rem;
+        font-size: 0.6rem; /* Further reduced font size */
       }
       .ai-choice-btn, .choice-btn {
-        max-width: 60px;
-        height: 40px;
+        max-width: 45px; /* Further reduced max-width */
+        height: 30px; /* Further reduced height */
       }
       .ai-choice-btn img, .choice-btn img {
-        width: 25px;
-        height: 25px;
+        width: 18px; /* Further reduced image size */
+        height: 18px;
       }
       #roulette-visual h3 {
         font-size: 0.75rem;
       }
       #roulette-spin, #roulette-outcome {
-        font-size: 0.7rem;
+        font-size: 0.6rem; /* Further reduced font size */
       }
       #result-message {
-        font-size: 0.7rem;
+        font-size: 0.6rem; /* Further reduced font size */
       }
     }
 
@@ -481,13 +481,13 @@
  *    Adjusted for smaller visualization and centered positioning.
  *************************************************************/
 #gun-sim {
-  width: 50%; /* Reduced from 100% to 50% */
-  height: 125px; /* Reduced from 250px to 125px */
+  width: 40%; /* Further reduced from 50% to 40% */
+  height: 100px; /* Reduced from 125px to 100px */
   background: #f44786;
   position: relative;
   overflow: hidden;
-  margin: 0.5rem auto; /* Center horizontally with auto margins */
-  border: 1px dashed #f44786; /* Adjusted border thickness */
+  margin: 0.3rem auto; /* Reduced margin */
+  border: 1px dashed #f44786;
   border-radius: 8px;
   /* Keep it hidden until we actually show the spinning chamber */
   display: none;
@@ -497,14 +497,14 @@
 #gun-sim:before {
   content: '';
   display: block;
-  width: 25px; /* Reduced from 50px to 25px */
-  height: 25px; /* Reduced from 50px to 25px */
+  width: 20px; /* Further reduced from 25px */
+  height: 20px; /* Further reduced from 25px */
   position: absolute;
   border-radius: 50%;
-  top: calc(50% - 57.5px); /* Adjusted for new container height */
-  left: calc(50% - 25px); /* Adjusted for new width */
+  top: calc(50% - 45px); /* Adjusted for new container height */
+  left: calc(50% - 20px); /* Adjusted for new width */
   box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, inset black 0 5px 7.5px, inset rgba(0, 0, 0, 0.3) 0 0 25px;
-  border: 12.5px solid #222; /* Reduced border thickness */
+  border: 10px solid #222; /* Reduced border thickness */
   z-index: 10;
 }
 
@@ -512,12 +512,12 @@
 #gun-sim:after {
   content: '';
   display: block;
-  width: 25px; /* Reduced from 50px to 25px */
-  height: 125px; /* Reduced from 250px to 125px */
+  width: 20px; /* Further reduced from 25px */
+  height: 100px; /* Reduced from 125px */
   position: absolute;
   border-radius: 15px;
-  top: calc(50% - 20px); /* Adjusted for new container height */
-  left: calc(50% - 12.5px); /* Adjusted for new width */
+  top: calc(50% - 15px); /* Adjusted for new container height */
+  left: calc(50% - 10px); /* Adjusted for new width */
   background: #222;
   z-index: 5;
   box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, #210 12.5px 50px 0, #210 0px 50px 0, #210 -12.5px 50px 0;
@@ -525,12 +525,12 @@
 
 /* Rotating chamber container */
 .chamber-container {
-  width: 100px; /* Reduced from 200px to 100px */
-  height: 100px; /* Reduced from 200px to 100px */
+  width: 80px; /* Further reduced from 100px */
+  height: 80px; /* Further reduced from 100px */
   margin: 0 auto; /* Center horizontally */
   position: absolute;
   border-radius: 100%;
-  top: calc(50% + 4px); /* Center vertically */
+  top: calc(50% + 6px); /* Adjusted for new container height */
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%) rotate(0deg); /* Center and initial rotation */
   background: radial-gradient(circle, #444 30%, #222 80%);
@@ -543,20 +543,19 @@
 
 /* Chamber holes */
 .chamber-hole {
-  width: 20px; /* Reduced from 40px to 20px */
-  height: 20px; /* Reduced from 40px to 20px */
+  width: 15px; /* Further reduced from 20px */
+  height: 15px; /* Further reduced from 20px */
   background: black;
   border-radius: 50%;
   position: absolute;
 }
 
-
-.hole-1 { top: 5px; left: calc(50% - 10px); }
-.hole-2 { top: 22.5px; left: 70.5px; }
-.hole-3 { bottom: 22.5px; left: 70.5px; }
-.hole-4 { bottom: 5px; left: calc(50% - 10px); }
-.hole-5 { bottom: 22.5px; right: 70.5px; }
-.hole-6 { top: 22.5px; right: 70.5px; }
+.hole-1 { top: 3px; left: calc(50% - 7.5px); }
+.hole-2 { top: 17.5px; left: 52px; }
+.hole-3 { bottom: 17.5px; left: 52px; }
+.hole-4 { bottom: 3px; left: calc(50% - 7.5px); }
+.hole-5 { bottom: 17.5px; right: 52px; }
+.hole-6 { top: 17.5px; right: 52px; }
 
 /* Spin animation */
 @keyframes spin {
