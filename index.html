@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Russian Roulette & Rock Paper Scissors</title>
+  <title>● ■ ▲: The Rock Paper Scissors Roulette</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -124,6 +124,33 @@
       transform: scale(0.9);
       accent-color: #f44786;
       cursor: pointer;
+    }
+    /* General shape styling */
+    .shape {
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* Circle adjustments */
+    .shape.circle {
+      font-size: 2em; /* Adjust size */
+      line-height: 1em;
+      transform: translateY(-0.09em); 
+    }
+
+    /* Square adjustments */
+    .shape.square {
+      font-size: 1.6em; /* Adjust size */
+      line-height: 1em;
+      transform: translateY(-0.14em); 
+    }
+
+    /* Triangle adjustments */
+    .shape.triangle {
+      font-size: 1.2em; /* Adjust size */
+      line-height: 1em;
+      transform: translateY(-0.09em); 
     }
 
     /* Slider */
@@ -495,7 +522,12 @@
 
   <!-- START MENU -->
   <div id="start-menu">
-    <h1>Russian Roulette & Rock Paper Scissors</h1>
+    <h1>
+      <span class="shape circle">●</span>
+      <span class="shape square">■</span>
+      <span class="shape triangle">▲</span>
+      : The Rock Paper Scissors Roulette
+    </h1>
 
     <!-- Sound Toggle Button -->
     <button id="sound-btn" data-sound="off">Music: OFF</button>
