@@ -980,7 +980,7 @@
       rouletteBtn.style.display   = 'block';
       chanceDisplay.style.display = 'block';
 
-      rouletteBtn.textContent = 'Roulette (YOU)';
+      rouletteBtn.textContent = 'Roulette (You)';
 
       resultSection.style.display = 'block';
       resultMessage.textContent = reason;
@@ -1036,7 +1036,7 @@
         // AI won -> player must do roulette
         rouletteTarget = 'user';
         rouletteBtn.style.display = 'block';
-        rouletteBtn.textContent = 'Roulette (YOU)';
+        rouletteBtn.textContent = 'Roulette (You)';
         chanceDisplay.style.display = 'block';
         updateChanceDisplay();
       }
@@ -1166,9 +1166,9 @@
         gameOver = true;
         statusMessage.textContent = 'GAME OVER!';
         if (target === 'user') {
-          resultMessage.textContent += ' YOU were shot. AI survived!';
+          resultMessage.textContent = 'You were shot. AI survived!';
         } else {
-          resultMessage.textContent += ' AI was shot. YOU survived!';
+          resultMessage.textContent = 'AI was shot. You survived!';
         }
         nextRoundBtn.style.display = 'block';
         nextRoundBtn.textContent = 'Restart Game';
