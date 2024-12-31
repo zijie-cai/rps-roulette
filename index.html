@@ -48,19 +48,19 @@
       text-align: center;
       width: 100%;
       max-width: 450px;
-      margin: 6rem auto;            /* Increased top/bottom margin for vertical spacing */
+      margin: 6rem auto;            
       background: #ed1b76;
-      padding: 1rem;                /* Slightly increased padding */
+      padding: 1rem;                
       border-radius: 6px;
       box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
     #start-menu h1 {
-      margin-bottom: 1rem;          /* Increased space below heading */
-      font-size: 1.2rem;            /* Slightly bigger font */
+      margin-bottom: 1rem;        
+      font-size: 1.2rem;           
       line-height: 1.4rem;
     }
     #start-menu p {
-      margin: 1rem 0 2rem;          /* Increased vertical spacing */
+      margin: 1rem 0 2rem;        
       line-height: 1.4em;
       font-size: 0.9rem;
     }
@@ -77,9 +77,9 @@
       border: none;
       border-radius: 4px;
       font-size: 0.85rem;
-      padding: 0.5rem 1rem;        /* Slightly larger padding */
+      padding: 0.5rem 1rem;       
       cursor: pointer;
-      margin: 1rem auto;           /* More vertical spacing */
+      margin: 1rem auto;          
       transition: background 0.3s;
       width: 100%;
       max-width: 150px;
@@ -93,7 +93,7 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin: 1rem auto;           /* More margin for vertical spacing */
+      margin: 1rem auto;          
       width: 100%;
       max-width: 400px;
     }
@@ -105,8 +105,6 @@
       width: 100%;
       max-width: 170px;
     }
-
-    /* Radio Container */
     .radio-container {
       display: flex;
       justify-content: center;
@@ -125,30 +123,25 @@
       accent-color: #f44786;
       cursor: pointer;
     }
-    /* General shape styling */
+
+    /* Shapes */
     .shape {
       display: inline-block;
       text-align: center;
       vertical-align: middle;
     }
-
-    /* Circle adjustments */
     .shape.circle {
-      font-size: 2em; /* Adjust size */
+      font-size: 2em;
       line-height: 1em;
       transform: translateY(-0.1em); 
     }
-
-    /* Square adjustments */
     .shape.square {
-      font-size: 1.7em; /* Adjust size */
+      font-size: 1.7em;
       line-height: 1em;
       transform: translateY(-0.17em); 
     }
-
-    /* Triangle adjustments */
     .shape.triangle {
-      font-size: 1.2em; /* Adjust size */
+      font-size: 1.2em;
       line-height: 1em;
       transform: translateY(-0.09em); 
     }
@@ -168,7 +161,6 @@
       text-align: center;
       font-weight: bold;
       font-size: 0.75rem;
-      
     }
 
     /* Start Button */
@@ -178,12 +170,12 @@
       border: none;
       border-radius: 4px;
       font-size: 0.85rem;
-      padding: 0.5rem 1rem;        /* Slightly larger padding */
+      padding: 0.5rem 1rem;       
       cursor: pointer;
       transition: background 0.3s;
       width: 100%;
       max-width: 150px;
-      margin: 1rem auto 0;         /* Increased top margin */
+      margin: 1rem auto 0;       
     }
 
     /*************************************************************
@@ -242,10 +234,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s, color 0.3s, border 0.3s;
       width: 100%;
       max-width: 80px;
       height: 50px;
+      transition: background 0.3s, color 0.3s, border 0.3s;
     }
     .ai-choice-btn img {
       width: 35px;
@@ -284,9 +276,17 @@
      * CHANCE DISPLAY
      *************************************************************/
     #chance-display {
+      display: none;  
       text-align: center;
       margin: 0.5rem auto;
-      font-size: 0.85rem;
+      font-size: 0.8rem; 
+      background: rgba(255,255,255,0.2);
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      padding: 0.5rem 0.8rem;
+      max-width: 240px;
+      line-height: 1.3;
+      white-space: pre-line;
     }
 
     /*************************************************************
@@ -339,7 +339,7 @@
       width: 100%;
       max-width: 150px;
       margin: 0.2rem auto 0;
-      display: none; /* both hidden by default */
+      display: none;
     }
 
     /*************************************************************
@@ -465,7 +465,6 @@
         font-size: 0.75rem;
         padding: 0.3rem 0.6rem;
       }
-      /* Make "Roulette Mode" & "Bullets" appear side-by-side or stack */
       .settings-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -496,6 +495,11 @@
       }
       #roulette-visual {
         max-width: 250px;
+      }
+      #chance-display {
+        font-size: 0.75rem;
+        max-width: 220px;
+        padding: 0.5rem;
       }
     }
 
@@ -614,9 +618,6 @@
       <div>AI: <span id="ai-score">0</span></div>
     </div>
 
-    <!-- CHANCE DISPLAY -->
-    <div id="chance-display"></div>
-
     <!-- TIMER & STATUS -->
     <div id="timer-display">Timer: 5s</div>
     <div id="status-message"></div>
@@ -624,6 +625,10 @@
     <!-- RESULT SECTION -->
     <div id="result-section">
       <p id="result-message"></p>
+      <!-- CHANCE DISPLAY -->
+      <div id="chance-display"></div>
+      
+      <!-- ROULETTE BUTTON & NEXT ROUND -->
       <button id="roulette-btn">Roulette</button>
       <button id="next-round-btn">Next Round</button>
     </div>
@@ -665,7 +670,7 @@
     const emptySound      = document.getElementById('empty-sound');
     const greenSound      = document.getElementById('green-sound');
 
-    let isSoundOn = false; // Start OFF by default
+    let isSoundOn = false;
 
     const soundBtn          = document.getElementById('sound-btn');
     const numBulletsSlider  = document.getElementById('num-bullets');
@@ -717,11 +722,11 @@
     /****************************************************
      * STATE / ELEMENTS
      ****************************************************/
-    const startMenu       = document.getElementById('start-menu');
-    const startBtn        = document.getElementById('start-btn');
-    const gameContainer   = document.getElementById('game-container');
-    const rouletteModeRadios = document.querySelectorAll('input[name="roulette-mode"]');
-    const aiChoiceButtons = document.querySelectorAll('.ai-choice-btn');
+    const startMenu         = document.getElementById('start-menu');
+    const startBtn          = document.getElementById('start-btn');
+    const gameContainer     = document.getElementById('game-container');
+    const rouletteModeRadios= document.querySelectorAll('input[name="roulette-mode"]');
+    const aiChoiceButtons   = document.querySelectorAll('.ai-choice-btn');
 
     const RPS = [
       { name: 'Rock',     img: './assets/icons/rock.png' },
@@ -729,49 +734,53 @@
       { name: 'Scissors', img: './assets/icons/scissors.png' },
     ];
 
-    const userLeftCol     = document.getElementById('user-left-column');
-    const userRightCol    = document.getElementById('user-right-column');
+    const userLeftCol       = document.getElementById('user-left-column');
+    const userRightCol      = document.getElementById('user-right-column');
 
     // Score & Timer
-    const playerScoreEl   = document.getElementById('player-score');
-    const aiScoreEl       = document.getElementById('ai-score');
+    const playerScoreEl     = document.getElementById('player-score');
+    const aiScoreEl         = document.getElementById('ai-score');
     let playerScore = 0;
     let aiScore     = 0;
 
-    const timerDisplay    = document.getElementById('timer-display');
-    const statusMessage   = document.getElementById('status-message');
-    const resultSection   = document.getElementById('result-section');
-    const resultMessage   = document.getElementById('result-message');
-    const nextRoundBtn    = document.getElementById('next-round-btn');
+    const timerDisplay      = document.getElementById('timer-display');
+    const statusMessage     = document.getElementById('status-message');
+    const resultSection     = document.getElementById('result-section');
+    const resultMessage     = document.getElementById('result-message');
+    const nextRoundBtn      = document.getElementById('next-round-btn');
 
     // Chance display
-    const chanceDisplay   = document.getElementById('chance-display');
+    const chanceDisplay     = document.getElementById('chance-display');
 
-    // Russian Roulette elements
-    const rouletteVisual   = document.getElementById('roulette-visual');
-    const rouletteSpin     = document.getElementById('roulette-spin');
-    const rouletteOutcome  = document.getElementById('roulette-outcome');
-    const rouletteBtn      = document.getElementById('roulette-btn'); // new button
+    // Russian Roulette
+    const rouletteVisual    = document.getElementById('roulette-visual');
+    const rouletteSpin      = document.getElementById('roulette-spin');
+    const rouletteOutcome   = document.getElementById('roulette-outcome');
+    const rouletteBtn       = document.getElementById('roulette-btn');
 
     // Selections
-    let playerLeftHand         = null;
-    let playerRightHand        = null;
-    let aiLeftHand             = null;
-    let aiRightHand            = null;
-    let playerFinalChoiceSide  = null;
+    let playerLeftHand       = null;
+    let playerRightHand      = null;
+    let aiLeftHand           = null;
+    let aiRightHand          = null;
+    let playerFinalChoiceSide= null;
 
     // Timers & phases
-    let intervalId = null;
-    let timeLeft   = 5;
-    let phase      = 1;
+    let intervalId  = null;
+    let timeLeft    = 5;
+    let phase       = 1;
 
-    // Roulette
+    /****************************************************
+     * NO-RESET LOGIC
+     * We'll track how many bullets remain, and how many
+     * total shots are left. Probability each round =
+     * bulletsRemaining / shotsRemaining
+     ****************************************************/
     let rouletteMode       = 'reset';
     let bulletsInChamber   = 1;
-    let chamberPositions   = [false, false, false, false, false, false];
-    let currentChamberIndex= 0;
+    let totalShotsLeft     = 6;  // starts at 6, will shrink if we get a "click"
     let gameOver           = false;
-    let rouletteTarget     = null; // store who gets shot this round ("user" or "ai")
+    let rouletteTarget     = null;
 
     function getSelectedRouletteMode() {
       let selected = 'reset';
@@ -801,19 +810,16 @@
       aiScoreEl.textContent     = aiScore;
       gameOver = false;
 
-      if (rouletteMode === 'no-reset') {
-        setupNoResetChamber(bulletsInChamber);
-      } else {
-        chamberPositions = [false, false, false, false, false, false];
-        currentChamberIndex = 0;
-      }
+      // If reset mode, we do a random spin each time (p = bullets/6).
+      // If no-reset, we track bulletsInChamber & totalShotsLeft.
+      totalShotsLeft = 6;
 
-      updateChanceDisplay();
+      updateChanceDisplay(); 
       startRound();
     });
 
     /****************************************************
-     * NEXT ROUND & ROULETTE BUTTONS
+     * NEXT ROUND & ROULETTE BUTTON
      ****************************************************/
     nextRoundBtn.addEventListener('click', () => {
       if (gameOver) {
@@ -823,10 +829,11 @@
       }
     });
 
-    // Click to actually do Russian Roulette
     rouletteBtn.addEventListener('click', () => {
-      if (!rouletteTarget) return; // if draw, or no target set
-      rouletteBtn.style.display = 'none'; // hide the button once clicked
+      rouletteBtn.style.display = 'none';
+      chanceDisplay.style.display = 'none';
+
+      if (!rouletteTarget) return; 
       performRussianRoulette(rouletteTarget);
     });
 
@@ -835,25 +842,24 @@
      ****************************************************/
     function startRound() {
       stopAllAudio();
-      nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display = 'none';
-      rouletteBtn.style.display   = 'none'; // hide the roulette button at round start
+      rouletteBtn.style.display   = 'none';
+      chanceDisplay.style.display = 'none'; 
 
-      // Clear winner highlights
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
-      playerFinalChoiceSide = null;
-      rouletteTarget        = null;
+      playerFinalChoiceSide  = null;
+      rouletteTarget         = null;
       rouletteVisual.style.display = 'none';
-      rouletteOutcome.textContent   = '';
-      rouletteSpin.style.display    = 'inline-block';
+      rouletteOutcome.textContent  = '';
+      rouletteSpin.style.display   = 'inline-block';
 
       phase = 1;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
-      statusMessage.textContent = 'Pick your hands (5s)!';
+      statusMessage.textContent = 'Rock, Paper, Scissors (5s)!';
       resultSection.style.display = 'none';
-      resultMessage.textContent = '';
+      resultMessage.textContent   = '';
 
       playerLeftHand  = null;
       playerRightHand = null;
@@ -890,7 +896,7 @@
       phase = 2;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
-      statusMessage.textContent = 'Remove the unwanted hand (5s)!';
+      statusMessage.textContent = 'Minus One (5s)!';
 
       if (intervalId) clearInterval(intervalId);
       intervalId = setInterval(() => {
@@ -908,7 +914,11 @@
       phase = 0;
       statusMessage.textContent = 'Round Over!';
       nextRoundBtn.style.display = 'none';
-      rouletteBtn.style.display   = 'none';
+      rouletteBtn.style.display   = 'block';
+      chanceDisplay.style.display = 'block';
+
+      // Label the roulette button for the user
+      rouletteBtn.textContent = 'Roulette (YOU)';
 
       resultSection.style.display = 'block';
       resultMessage.textContent = reason;
@@ -916,10 +926,8 @@
       aiScoreEl.textContent = aiScore;
 
       highlightAIHandsFinal();
-      // Instead of auto-roulette, we set the target to "user" and show the Roulette button:
       rouletteTarget = 'user';
-      // If you want to automatically do it for the user, keep the logic below
-      rouletteBtn.style.display = 'block';
+      updateChanceDisplay();
     }
 
     function concludeRound(playerFinalHand, side) {
@@ -939,6 +947,7 @@
       resultSection.style.display = 'block';
       nextRoundBtn.style.display  = 'none';
       rouletteBtn.style.display   = 'none';
+      chanceDisplay.style.display = 'none';
 
       if (winner === 'Player') {
         playerScore++;
@@ -947,9 +956,12 @@
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         playerFinalBtn?.classList.add('winner');
 
-        // If Player wins, the AI faces the roulette
+        // Player won -> AI must do roulette
         rouletteTarget = 'ai';
         rouletteBtn.style.display = 'block';
+        rouletteBtn.textContent = 'Roulette (AI)';
+        chanceDisplay.style.display = 'block';
+        updateChanceDisplay();
       }
       else if (winner === 'AI') {
         aiScore++;
@@ -959,13 +971,16 @@
         const aiFinalBtn  = findAIButton(aiFinal, aiFinalSide);
         aiFinalBtn?.classList.add('winner');
 
-        // If AI wins, the user faces the roulette
+        // AI won -> player must do roulette
         rouletteTarget = 'user';
         rouletteBtn.style.display = 'block';
+        rouletteBtn.textContent = 'Roulette (YOU)';
+        chanceDisplay.style.display = 'block';
+        updateChanceDisplay();
       }
       else {
         // It's a draw => no roulette
-        resultMessage.textContent = `It's a draw!`;
+        resultMessage.textContent = `Draw!`;
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         const aiFinalSide    = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn     = findAIButton(aiFinal, aiFinalSide);
@@ -974,7 +989,6 @@
         playGreenSound();
         statusMessage.textContent = 'Round Over!';
         nextRoundBtn.style.display = 'block';
-        // For a draw, no one is shot => no roulette
         rouletteTarget = null;
       }
     }
@@ -1005,15 +1019,23 @@
 
     function determineRouletteOutcome(target) {
       let bulletFires = false;
+
       if (rouletteMode === 'reset') {
+        // For reset, random spin each time => bulletsInChamber out of 6
         const rand = Math.floor(Math.random() * 6) + 1;
         bulletFires = (rand <= bulletsInChamber);
       } else {
-        bulletFires = chamberPositions[currentChamberIndex];
-        currentChamberIndex = (currentChamberIndex + 1) % 6;
+        // NO-RESET => probability = bulletsInChamber / totalShotsLeft
+        const p = bulletsInChamber / totalShotsLeft;
+        bulletFires = (Math.random() < p);
       }
 
       if (bulletFires) {
+        // if bullet fired, reduce bullet count
+        if (rouletteMode === 'no-reset') {
+          bulletsInChamber--;
+          totalShotsLeft--;
+        }
         fireSound.currentTime = 0;
         fireSound.play().then(() => {
           fireSound.onended = () => {
@@ -1025,6 +1047,10 @@
           updateRouletteOutcome(target, true);
         });
       } else {
+        // empty => reduce totalShotsLeft only if no bullet
+        if (rouletteMode === 'no-reset') {
+          totalShotsLeft--;
+        }
         emptySound.currentTime = 0;
         emptySound.play().then(() => {
           emptySound.onended = () => {
@@ -1053,24 +1079,9 @@
         nextRoundBtn.textContent = 'Restart Game';
       } else {
         rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
-        // Round truly over, proceed to next round
+        // Round is over, proceed to next round
+        updateChanceDisplay();
         nextRoundBtn.style.display = 'block';
-      }
-    }
-
-    /****************************************************
-     * SETUP NO-RESET CHAMBER
-     ****************************************************/
-    function setupNoResetChamber(bulletsCount) {
-      chamberPositions = [false, false, false, false, false, false];
-      currentChamberIndex = 0;
-      let count = Math.min(bulletsCount, 6);
-      while (count > 0) {
-        const idx = Math.floor(Math.random() * 6);
-        if (!chamberPositions[idx]) {
-          chamberPositions[idx] = true;
-          count--;
-        }
       }
     }
 
@@ -1078,13 +1089,18 @@
      * CHANCE DISPLAY
      ****************************************************/
     function updateChanceDisplay() {
-      // For simplicity: "Shots Loaded: X" => Probability of bullet = X/6
-      // Probability of survival = (6 - X)/6
-      bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
-      const pDeath = (bulletsInChamber / 6).toFixed(2);
-      const pLive  = ((6 - bulletsInChamber) / 6).toFixed(2);
-      chanceDisplay.textContent = 
-        `Shots Loaded: ${bulletsInChamber} of 6 — Chance of Death: ${pDeath}, Chance of Survival: ${pLive}`;
+      if (rouletteMode === 'reset') {
+        // Probability = #Bullets / 6 each spin
+        bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
+        const pDeath = ((bulletsInChamber / 6) * 100).toFixed(1);
+        chanceDisplay.textContent = 
+          `Shots Loaded: ${bulletsInChamber} of 6\nChance of Death: ${pDeath}%`;
+      } else {
+        // NO-RESET => Probability = bulletsInChamber / totalShotsLeft
+        const p = (bulletsInChamber / totalShotsLeft) * 100;
+        chanceDisplay.textContent = 
+          `Bullets Loaded: ${bulletsInChamber}\n Shots Left: ${totalShotsLeft}\nChance of Death: ${p.toFixed(1)}%`;
+      }
     }
 
     /****************************************************
@@ -1150,10 +1166,7 @@
         const finalChoice = (side === 'left') ? playerRightHand : playerLeftHand;
         const finalChoiceSide = (side === 'left') ? 'right' : 'left';
 
-        // Visually unselect the removed side
         unhighlightUserHand(side);
-
-        // Mark the final side as "selected"
         highlightSelectedUserHand(finalChoiceSide);
 
         concludeRound(finalChoice, finalChoiceSide);
@@ -1189,9 +1202,9 @@
      * AI CHOICES
      ****************************************************/
     function highlightAIHands() {
-      let firstPick = randomGestureName();
+      let firstPick  = randomGestureName();
       let secondPick = randomGestureName();
-      aiLeftHand = firstPick;
+      aiLeftHand  = firstPick;
       aiRightHand = secondPick;
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
@@ -1200,9 +1213,9 @@
     }
 
     function highlightAIHandsFinal() {
-      let firstPick = randomGestureName();
+      let firstPick  = randomGestureName();
       let secondPick = randomGestureName();
-      aiLeftHand = firstPick;
+      aiLeftHand  = firstPick;
       aiRightHand = secondPick;
       aiChoiceButtons.forEach(b => b.classList.remove('selected'));
 
@@ -1211,12 +1224,10 @@
     }
 
     function chooseAiBestResponse(hand1, hand2, playerFinal) {
-      // If both AI hands are different and player's hands are different,
-      // there's a possibility all three gestures are unique.
+      // Simple logic that tries to see which AI hand can beat the player's final choice
       if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
         const allHands = new Set([hand1, hand2, playerFinal]);
         if (allHands.size === 3) {
-          // If all three are unique, pick randomly between AI's two hands
           return Math.random() < 0.5 ? hand1 : hand2;
         }
       }
@@ -1306,21 +1317,19 @@
       startMenu.style.display     = 'block';
       gameOver                    = false;
 
-      if (rouletteMode === 'no-reset') {
-        setupNoResetChamber(bulletsInChamber);
-      } else {
-        chamberPositions = [false, false, false, false, false, false];
-        currentChamberIndex = 0;
-      }
+      // Re-init for next game
+      totalShotsLeft = 6;
+      bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
 
       resultSection.style.display = 'none';
       resultMessage.textContent    = '';
       statusMessage.textContent    = '';
       timerDisplay.textContent     = 'Timer: 5s';
+      nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display   = 'none';
       rouletteBtn.style.display    = 'none';
+      chanceDisplay.style.display  = 'none'; 
 
-      // Reset the chance display text
       updateChanceDisplay();
     }
   </script>
