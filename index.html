@@ -2,21 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>● ■ ▲: The Rock Paper Scissors Roulette</title>
+  <title>● ■ ▲: The Rock Paper Scissors Roulette + Gun Simulator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    /*
-      Squid Game-inspired color palette (for reference):
-      #ed1b76 (237,27,118)
-      #f44786 (244,71,134)
-      #ffffff (255,255,255)
-      #249f9c (36,159,156)
-      #037a76 (3,122,118)
-    */
-
     /*************************************************************
-     * RESET + BASIC LAYOUT
+     * 1) ROCK-PAPER-SCISSORS ROULETTE GAME STYLES
      *************************************************************/
     * {
       box-sizing: border-box;
@@ -28,17 +19,18 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      /* For RPS background */
+      background: #037a76; /* Deep teal */
+      overflow-x: hidden;
     }
     body {
       font-family: Arial, sans-serif;
-      background: #037a76; /* Deep teal */
       color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding-top: 0.5rem; 
       justify-content: flex-start;
-      overflow-x: hidden;
     }
 
     /*************************************************************
@@ -69,8 +61,6 @@
       font-weight: normal;
       color: #ffffff;
     }
-
-    /* Sound Toggle Button */
     #sound-btn {
       background: #f44786;
       color: #ffffff;
@@ -84,8 +74,6 @@
       width: 100%;
       max-width: 150px;
     }
-
-    /* Settings Container */
     .settings-container {
       display: flex;
       flex-direction: row;
@@ -123,8 +111,6 @@
       accent-color: #f44786;
       cursor: pointer;
     }
-
-    /* Shapes */
     .shape {
       display: inline-block;
       text-align: center;
@@ -145,8 +131,6 @@
       line-height: 1em;
       transform: translateY(-0.09em); 
     }
-
-    /* Slider */
     .slider-container {
       display: flex;
       align-items: center;
@@ -162,8 +146,6 @@
       font-weight: bold;
       font-size: 0.75rem;
     }
-
-    /* Start Button */
     #start-btn {
       background: #f44786;
       color: #ffffff;
@@ -273,23 +255,6 @@
     }
 
     /*************************************************************
-     * CHANCE DISPLAY
-     *************************************************************/
-    #chance-display {
-      display: none;  
-      text-align: center;
-      margin: 0.5rem auto;
-      font-size: 0.8rem; 
-      background: rgba(255,255,255,0.2);
-      border: 1px solid #ffffff;
-      border-radius: 4px;
-      padding: 0.5rem 0.8rem;
-      max-width: 240px;
-      line-height: 1.3;
-      white-space: pre-line;
-    }
-
-    /*************************************************************
      * TIMER & STATUS
      *************************************************************/
     #timer-display {
@@ -343,44 +308,20 @@
     }
 
     /*************************************************************
-     * RUSSIAN ROULETTE VISUAL
+     * CHANCE DISPLAY
      *************************************************************/
-    #roulette-visual {
+    #chance-display {
+      display: none;  
       text-align: center;
-      display: none;
-      margin: 0.6rem auto;
-      font-size: 0.75rem;
-      border: 2px dashed #f44786;
-      padding: 0.6rem;
-      border-radius: 8px;
-      background: #ffffff;
-      width: 100%;
-      max-width: 300px;
-      color: #ed1b76;
-    }
-    #roulette-visual h3 {
-      margin-bottom: 0.4rem;
-      color: #ed1b76;
-      font-size: 0.85rem;
-    }
-    #roulette-spin {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-    }
-    #roulette-outcome {
-      margin-top: 0.4rem;
-      font-weight: bold;
-      font-size: 0.8rem;
-    }
-    .spin-animation {
-      display: inline-block;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+      margin: 0.5rem auto;
+      font-size: 0.8rem; 
+      background: rgba(255,255,255,0.2);
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      padding: 0.5rem 0.8rem;
+      max-width: 240px;
+      line-height: 1.3;
+      white-space: pre-line;
     }
 
     /*************************************************************
@@ -530,6 +471,115 @@
         font-size: 0.7rem;
       }
     }
+
+    /*************************************************************
+     * 2) GUN SIMULATOR (CHAMBER) STYLES
+     *    We wrap it inside #gun-sim so it won't override <body>.
+     *************************************************************/
+    /*************************************************************
+ * 2) GUN SIMULATOR (CHAMBER) STYLES
+ *    Adjusted for smaller visualization and centered positioning.
+ *************************************************************/
+#gun-sim {
+  width: 50%; /* Reduced from 100% to 50% */
+  height: 125px; /* Reduced from 250px to 125px */
+  background: #f44786;
+  position: relative;
+  overflow: hidden;
+  margin: 0.5rem auto; /* Center horizontally with auto margins */
+  border: 1px dashed #f44786; /* Adjusted border thickness */
+  border-radius: 8px;
+  /* Keep it hidden until we actually show the spinning chamber */
+  display: none;
+}
+
+/* Gun barrel visual */
+#gun-sim:before {
+  content: '';
+  display: block;
+  width: 25px; /* Reduced from 50px to 25px */
+  height: 25px; /* Reduced from 50px to 25px */
+  position: absolute;
+  border-radius: 50%;
+  top: calc(50% - 57.5px); /* Adjusted for new container height */
+  left: calc(50% - 25px); /* Adjusted for new width */
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, inset black 0 5px 7.5px, inset rgba(0, 0, 0, 0.3) 0 0 25px;
+  border: 12.5px solid #222; /* Reduced border thickness */
+  z-index: 10;
+}
+
+/* Gun barrel shadow */
+#gun-sim:after {
+  content: '';
+  display: block;
+  width: 25px; /* Reduced from 50px to 25px */
+  height: 125px; /* Reduced from 250px to 125px */
+  position: absolute;
+  border-radius: 15px;
+  top: calc(50% - 20px); /* Adjusted for new container height */
+  left: calc(50% - 12.5px); /* Adjusted for new width */
+  background: #222;
+  z-index: 5;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2.5px 15px, #210 12.5px 50px 0, #210 0px 50px 0, #210 -12.5px 50px 0;
+}
+
+/* Rotating chamber container */
+.chamber-container {
+  width: 100px; /* Reduced from 200px to 100px */
+  height: 100px; /* Reduced from 200px to 100px */
+  margin: 0 auto; /* Center horizontally */
+  position: absolute;
+  border-radius: 100%;
+  top: calc(50% + 4px); /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%) rotate(0deg); /* Center and initial rotation */
+  background: radial-gradient(circle, #444 30%, #222 80%);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Chamber holes */
+.chamber-hole {
+  width: 20px; /* Reduced from 40px to 20px */
+  height: 20px; /* Reduced from 40px to 20px */
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+}
+
+
+.hole-1 { top: 5px; left: calc(50% - 10px); }
+.hole-2 { top: 22.5px; left: 70.5px; }
+.hole-3 { bottom: 22.5px; left: 70.5px; }
+.hole-4 { bottom: 5px; left: calc(50% - 10px); }
+.hole-5 { bottom: 22.5px; right: 70.5px; }
+.hole-6 { top: 22.5px; right: 70.5px; }
+
+/* Spin animation */
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.spin {
+  animation: spin 0.5s ease-in-out;
+}
+
+/* Added Styles for Gun Simulator Background Changes */
+#gun-sim.safe {
+  background-color: #006400; /* Dark Green */
+  transition: background-color 0.5s ease;
+}
+
+#gun-sim.shot {
+  background-color: #8B0000; /* Blood Red */
+  transition: background-color 0.5s ease;
+}
+
+/* Removed centering for "Russian Roulette!" heading since it's no longer needed */
+
   </style>
 </head>
 <body>
@@ -583,7 +633,7 @@
 
     <!-- AI SECTION -->
     <div id="ai-section">
-      <h2>AI's Stage</h2>
+      <h2>AI's Hands</h2>
       <div id="ai-choices">
         <!-- Left column -->
         <div class="ai-choice-column">
@@ -635,14 +685,27 @@
 
     <!-- RUSSIAN ROULETTE VISUAL -->
     <div id="roulette-visual">
-      <h3>Russian Roulette!</h3>
-      <p id="roulette-spin">Spinning: <span class="spin-animation">🔄</span></p>
-      <p id="roulette-outcome"></p>
+      <!-- Removed all textual labels to keep only the visualization -->
+      <!--
+        2) GUN SIMULATOR CHAMBER:
+           Here is the integrated "Gun Simulator" snippet 
+           (wrapped in #gun-sim so it doesn't override <body>).
+      -->
+      <div id="gun-sim">
+        <div class="chamber-container" id="chamber-container">
+          <div class="chamber-hole hole-1"></div>
+          <div class="chamber-hole hole-2"></div>
+          <div class="chamber-hole hole-3"></div>
+          <div class="chamber-hole hole-4"></div>
+          <div class="chamber-hole hole-5"></div>
+          <div class="chamber-hole hole-6"></div>
+        </div>
+      </div>
     </div>
 
     <!-- PLAYER SECTION -->
     <div id="user-section">
-      <h2>Player's Stage</h2>
+      <h2>Player's Hands</h2>
       <div id="user-choices">
         <div class="user-choice-column" id="user-left-column"></div>
         <div class="user-choice-column" id="user-right-column"></div>
@@ -754,16 +817,18 @@
 
     // Russian Roulette
     const rouletteVisual    = document.getElementById('roulette-visual');
-    const rouletteSpin      = document.getElementById('roulette-spin');
-    const rouletteOutcome   = document.getElementById('roulette-outcome');
+    // Removed references to roulette-spin and roulette-outcome as their elements are deleted
     const rouletteBtn       = document.getElementById('roulette-btn');
+
+    // Gun simulator references
+    const gunSimContainer   = document.getElementById('gun-sim');
+    const chamberContainer  = document.getElementById('chamber-container');
 
     // Selections
     let playerLeftHand       = null;
     let playerRightHand      = null;
     let aiLeftHand           = null;
     let aiRightHand          = null;
-    let playerFinalChoiceSide= null;
 
     // Timers & phases
     let intervalId  = null;
@@ -772,9 +837,6 @@
 
     /****************************************************
      * NO-RESET LOGIC
-     * We'll track how many bullets remain, and how many
-     * total shots are left. Probability each round =
-     * bulletsRemaining / shotsRemaining
      ****************************************************/
     let rouletteMode       = 'reset';
     let bulletsInChamber   = 1;
@@ -809,9 +871,6 @@
       playerScoreEl.textContent = playerScore;
       aiScoreEl.textContent     = aiScore;
       gameOver = false;
-
-      // If reset mode, we do a random spin each time (p = bullets/6).
-      // If no-reset, we track bulletsInChamber & totalShotsLeft.
       totalShotsLeft = 6;
 
       updateChanceDisplay(); 
@@ -848,11 +907,13 @@
 
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
-      playerFinalChoiceSide  = null;
       rouletteTarget         = null;
       rouletteVisual.style.display = 'none';
-      rouletteOutcome.textContent  = '';
-      rouletteSpin.style.display   = 'inline-block';
+      // Removed: rouletteOutcome.textContent  = '';
+      // Removed: rouletteSpin.style.display   = 'inline-block';
+
+      // Reset Gun Simulator Background
+      gunSimContainer.classList.remove('shot', 'safe');
 
       phase = 1;
       timeLeft = 5;
@@ -882,6 +943,7 @@
         timerDisplay.textContent = `Timer: ${timeLeft}s`;
         if (timeLeft <= 0) {
           clearInterval(intervalId);
+          introMusic.pause(); 
           if (!playerLeftHand || !playerRightHand) {
             concludeRoundWithAiWin('Time up! AI wins.');
           } else {
@@ -904,6 +966,7 @@
         timerDisplay.textContent = `Timer: ${timeLeft}s`;
         if (timeLeft <= 0) {
           clearInterval(intervalId);
+          introMusic.pause(); 
           concludeRoundWithAiWin('Time up! AI wins.');
         }
       }, 1000);
@@ -917,7 +980,6 @@
       rouletteBtn.style.display   = 'block';
       chanceDisplay.style.display = 'block';
 
-      // Label the roulette button for the user
       rouletteBtn.textContent = 'Roulette (YOU)';
 
       resultSection.style.display = 'block';
@@ -999,8 +1061,11 @@
     function performRussianRoulette(target) {
       if (gameOver) return;
       rouletteVisual.style.display = 'block';
-      rouletteSpin.style.display   = 'inline-block';
-      rouletteOutcome.textContent  = '';
+      // Removed: rouletteSpin.style.display   = 'inline-block';
+      // Removed: rouletteOutcome.textContent  = '';
+
+      // Show the spinning chamber
+      gunSimContainer.style.display = 'block'; 
 
       introMusic.pause();
       introMusic.currentTime = 0;
@@ -1009,11 +1074,30 @@
       reloadMusic.play().then(() => {
         reloadMusic.onended = () => {
           reloadMusic.onended = null;
-          determineRouletteOutcome(target);
+          // Trigger the spin animation on the chamber container
+          spinChamber(() => {
+            // After spin animation finishes, decide outcome:
+            determineRouletteOutcome(target);
+          });
         };
       }).catch(err => {
         console.warn("Reload playback failed:", err);
-        determineRouletteOutcome(target);
+        // If reload sound fails, just proceed
+        spinChamber(() => {
+          determineRouletteOutcome(target);
+        });
+      });
+    }
+
+    function spinChamber(onFinish) {
+      // Add .spin class to animate
+      chamberContainer.classList.add('spin');
+
+      chamberContainer.addEventListener('animationend', function handler() {
+        chamberContainer.removeEventListener('animationend', handler);
+        chamberContainer.classList.remove('spin');
+        // Callback to continue logic
+        if (typeof onFinish === 'function') onFinish();
       });
     }
 
@@ -1046,6 +1130,11 @@
           console.warn("Fire sound failed:", err);
           updateRouletteOutcome(target, true);
         });
+
+        // Change Gun Simulator Background to Blood Red
+        gunSimContainer.classList.add('shot');
+        gunSimContainer.classList.remove('safe');
+
       } else {
         // empty => reduce totalShotsLeft only if no bullet
         if (rouletteMode === 'no-reset') {
@@ -1061,24 +1150,32 @@
           console.warn("Empty sound failed:", err);
           updateRouletteOutcome(target, false);
         });
+
+        // Change Gun Simulator Background to Dark Green
+        gunSimContainer.classList.add('safe');
+        gunSimContainer.classList.remove('shot');
       }
     }
 
     function updateRouletteOutcome(target, bulletFires) {
-      rouletteSpin.style.display = 'none';
+      // Removed: rouletteSpin.style.display = 'none';
       if (bulletFires) {
-        rouletteOutcome.textContent = `BANG! ${target.toUpperCase()} is shot.`;
+        // Removed text label, retain only visual
+        // rouletteOutcome.textContent = `BANG! ${target.toUpperCase()} is shot.`;
+        // Instead, you might want to trigger a visual effect or sound
         gameOver = true;
         statusMessage.textContent = 'GAME OVER!';
         if (target === 'user') {
-          resultMessage.textContent += ' YOU were shot. AI wins the match!';
+          resultMessage.textContent += ' YOU were shot. AI survived!';
         } else {
-          resultMessage.textContent += ' AI was shot. YOU win the match!';
+          resultMessage.textContent += ' AI was shot. YOU survived!';
         }
         nextRoundBtn.style.display = 'block';
         nextRoundBtn.textContent = 'Restart Game';
       } else {
-        rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
+        // Removed the label "CLICK! AI survives."
+        // rouletteOutcome.textContent = ''; // Already removed the element
+
         // Round is over, proceed to next round
         updateChanceDisplay();
         nextRoundBtn.style.display = 'block';
@@ -1090,16 +1187,14 @@
      ****************************************************/
     function updateChanceDisplay() {
       if (rouletteMode === 'reset') {
-        // Probability = #Bullets / 6 each spin
         bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
         const pDeath = ((bulletsInChamber / 6) * 100).toFixed(1);
         chanceDisplay.textContent = 
           `Shots Loaded: ${bulletsInChamber} of 6\nChance of Death: ${pDeath}%`;
       } else {
-        // NO-RESET => Probability = bulletsInChamber / totalShotsLeft
         const p = (bulletsInChamber / totalShotsLeft) * 100;
         chanceDisplay.textContent = 
-          `Bullets Loaded: ${bulletsInChamber}\n Shots Left: ${totalShotsLeft}\nChance of Death: ${p.toFixed(1)}%`;
+          `Bullets Loaded: ${bulletsInChamber}\nShots Left: ${totalShotsLeft}\nChance of Death: ${p.toFixed(1)}%`;
       }
     }
 
@@ -1224,7 +1319,7 @@
     }
 
     function chooseAiBestResponse(hand1, hand2, playerFinal) {
-      // Simple logic that tries to see which AI hand can beat the player's final choice
+      // Simple logic to pick whichever is more likely to win
       if (hand1 !== hand2 && playerLeftHand !== playerRightHand) {
         const allHands = new Set([hand1, hand2, playerFinal]);
         if (allHands.size === 3) {
@@ -1317,7 +1412,6 @@
       startMenu.style.display     = 'block';
       gameOver                    = false;
 
-      // Re-init for next game
       totalShotsLeft = 6;
       bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
 
@@ -1329,6 +1423,11 @@
       nextRoundBtn.style.display   = 'none';
       rouletteBtn.style.display    = 'none';
       chanceDisplay.style.display  = 'none'; 
+      // Hide the gun-sim again
+      gunSimContainer.style.display = 'none';
+
+      // Reset Gun Simulator Background
+      gunSimContainer.classList.remove('shot', 'safe');
 
       updateChanceDisplay();
     }
