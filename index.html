@@ -60,7 +60,7 @@
       line-height: 1.4rem;
     }
     #start-menu p {
-      margin: 1rem 0 2rem;              /* Increased vertical spacing */
+      margin: 1rem 0 2rem;          /* Increased vertical spacing */
       line-height: 1.4em;
       font-size: 0.9rem;
     }
@@ -281,6 +281,15 @@
     }
 
     /*************************************************************
+     * CHANCE DISPLAY
+     *************************************************************/
+    #chance-display {
+      text-align: center;
+      margin: 0.5rem auto;
+      font-size: 0.85rem;
+    }
+
+    /*************************************************************
      * TIMER & STATUS
      *************************************************************/
     #timer-display {
@@ -317,8 +326,8 @@
       font-size: 0.85rem;
       min-height: 1.2rem;
     }
-    #next-round-btn {
-      display: none;
+    #next-round-btn,
+    #roulette-btn {
       background: #f44786;
       color: #fff;
       border: none;
@@ -330,6 +339,7 @@
       width: 100%;
       max-width: 150px;
       margin: 0.2rem auto 0;
+      display: none; /* both hidden by default */
     }
 
     /*************************************************************
@@ -451,7 +461,7 @@
       #start-menu label {
         font-size: 0.8rem;
       }
-      #sound-btn, #start-btn, #next-round-btn {
+      #sound-btn, #start-btn, #next-round-btn, #roulette-btn {
         font-size: 0.75rem;
         padding: 0.3rem 0.6rem;
       }
@@ -604,6 +614,9 @@
       <div>AI: <span id="ai-score">0</span></div>
     </div>
 
+    <!-- CHANCE DISPLAY -->
+    <div id="chance-display"></div>
+
     <!-- TIMER & STATUS -->
     <div id="timer-display">Timer: 5s</div>
     <div id="status-message"></div>
@@ -611,6 +624,7 @@
     <!-- RESULT SECTION -->
     <div id="result-section">
       <p id="result-message"></p>
+      <button id="roulette-btn">Roulette</button>
       <button id="next-round-btn">Next Round</button>
     </div>
 
@@ -674,6 +688,7 @@
 
     numBulletsSlider.addEventListener('input', () => {
       bulletCountDisplay.textContent = numBulletsSlider.value;
+      updateChanceDisplay();
     });
 
     function updateSoundButtonUI() {
@@ -729,10 +744,14 @@
     const resultMessage   = document.getElementById('result-message');
     const nextRoundBtn    = document.getElementById('next-round-btn');
 
+    // Chance display
+    const chanceDisplay   = document.getElementById('chance-display');
+
     // Russian Roulette elements
     const rouletteVisual   = document.getElementById('roulette-visual');
     const rouletteSpin     = document.getElementById('roulette-spin');
     const rouletteOutcome  = document.getElementById('roulette-outcome');
+    const rouletteBtn      = document.getElementById('roulette-btn'); // new button
 
     // Selections
     let playerLeftHand         = null;
@@ -747,11 +766,12 @@
     let phase      = 1;
 
     // Roulette
-    let rouletteMode     = 'reset';
-    let bulletsInChamber = 1;
-    let chamberPositions = [false, false, false, false, false, false];
-    let currentChamberIndex = 0;
-    let gameOver         = false;
+    let rouletteMode       = 'reset';
+    let bulletsInChamber   = 1;
+    let chamberPositions   = [false, false, false, false, false, false];
+    let currentChamberIndex= 0;
+    let gameOver           = false;
+    let rouletteTarget     = null; // store who gets shot this round ("user" or "ai")
 
     function getSelectedRouletteMode() {
       let selected = 'reset';
@@ -788,11 +808,12 @@
         currentChamberIndex = 0;
       }
 
+      updateChanceDisplay();
       startRound();
     });
 
     /****************************************************
-     * NEXT ROUND BUTTON
+     * NEXT ROUND & ROULETTE BUTTONS
      ****************************************************/
     nextRoundBtn.addEventListener('click', () => {
       if (gameOver) {
@@ -802,6 +823,13 @@
       }
     });
 
+    // Click to actually do Russian Roulette
+    rouletteBtn.addEventListener('click', () => {
+      if (!rouletteTarget) return; // if draw, or no target set
+      rouletteBtn.style.display = 'none'; // hide the button once clicked
+      performRussianRoulette(rouletteTarget);
+    });
+
     /****************************************************
      * ROUND LOGIC
      ****************************************************/
@@ -809,11 +837,13 @@
       stopAllAudio();
       nextRoundBtn.textContent = 'Next Round';
       nextRoundBtn.style.display = 'none';
+      rouletteBtn.style.display   = 'none'; // hide the roulette button at round start
 
       // Clear winner highlights
       document.querySelectorAll('.winner').forEach(btn => btn.classList.remove('winner'));
 
       playerFinalChoiceSide = null;
+      rouletteTarget        = null;
       rouletteVisual.style.display = 'none';
       rouletteOutcome.textContent   = '';
       rouletteSpin.style.display    = 'inline-block';
@@ -860,7 +890,7 @@
       phase = 2;
       timeLeft = 5;
       timerDisplay.textContent = `Timer: ${timeLeft}s`;
-      statusMessage.textContent = 'Pick one final hand (5s)!';
+      statusMessage.textContent = 'Remove the unwanted hand (5s)!';
 
       if (intervalId) clearInterval(intervalId);
       intervalId = setInterval(() => {
@@ -878,6 +908,7 @@
       phase = 0;
       statusMessage.textContent = 'Round Over!';
       nextRoundBtn.style.display = 'none';
+      rouletteBtn.style.display   = 'none';
 
       resultSection.style.display = 'block';
       resultMessage.textContent = reason;
@@ -885,7 +916,10 @@
       aiScoreEl.textContent = aiScore;
 
       highlightAIHandsFinal();
-      performRussianRoulette('user');
+      // Instead of auto-roulette, we set the target to "user" and show the Roulette button:
+      rouletteTarget = 'user';
+      // If you want to automatically do it for the user, keep the logic below
+      rouletteBtn.style.display = 'block';
     }
 
     function concludeRound(playerFinalHand, side) {
@@ -904,6 +938,7 @@
       const winner = getWinner(playerFinalHand, aiFinal);
       resultSection.style.display = 'block';
       nextRoundBtn.style.display  = 'none';
+      rouletteBtn.style.display   = 'none';
 
       if (winner === 'Player') {
         playerScore++;
@@ -911,7 +946,10 @@
         resultMessage.textContent = `You win!`;
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         playerFinalBtn?.classList.add('winner');
-        performRussianRoulette('ai');
+
+        // If Player wins, the AI faces the roulette
+        rouletteTarget = 'ai';
+        rouletteBtn.style.display = 'block';
       }
       else if (winner === 'AI') {
         aiScore++;
@@ -920,9 +958,13 @@
         const aiFinalSide = (aiFinal === aiLeftHand) ? 'left' : 'right';
         const aiFinalBtn  = findAIButton(aiFinal, aiFinalSide);
         aiFinalBtn?.classList.add('winner');
-        performRussianRoulette('user');
+
+        // If AI wins, the user faces the roulette
+        rouletteTarget = 'user';
+        rouletteBtn.style.display = 'block';
       }
       else {
+        // It's a draw => no roulette
         resultMessage.textContent = `It's a draw!`;
         const playerFinalBtn = findUserButton(playerFinalHand, side);
         const aiFinalSide    = (aiFinal === aiLeftHand) ? 'left' : 'right';
@@ -932,6 +974,8 @@
         playGreenSound();
         statusMessage.textContent = 'Round Over!';
         nextRoundBtn.style.display = 'block';
+        // For a draw, no one is shot => no roulette
+        rouletteTarget = null;
       }
     }
 
@@ -1005,15 +1049,12 @@
         } else {
           resultMessage.textContent += ' AI was shot. YOU win the match!';
         }
-      } else {
-        rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
-      }
-
-      nextRoundBtn.style.display = 'block';
-      if (gameOver) {
+        nextRoundBtn.style.display = 'block';
         nextRoundBtn.textContent = 'Restart Game';
       } else {
-        nextRoundBtn.textContent = 'Next Round';
+        rouletteOutcome.textContent = `CLICK! ${target.toUpperCase()} survives.`;
+        // Round truly over, proceed to next round
+        nextRoundBtn.style.display = 'block';
       }
     }
 
@@ -1031,6 +1072,19 @@
           count--;
         }
       }
+    }
+
+    /****************************************************
+     * CHANCE DISPLAY
+     ****************************************************/
+    function updateChanceDisplay() {
+      // For simplicity: "Shots Loaded: X" => Probability of bullet = X/6
+      // Probability of survival = (6 - X)/6
+      bulletsInChamber = parseInt(numBulletsSlider.value, 10) || 1;
+      const pDeath = (bulletsInChamber / 6).toFixed(2);
+      const pLive  = ((6 - bulletsInChamber) / 6).toFixed(2);
+      chanceDisplay.textContent = 
+        `Shots Loaded: ${bulletsInChamber} of 6 — Chance of Death: ${pDeath}, Chance of Survival: ${pLive}`;
     }
 
     /****************************************************
@@ -1076,6 +1130,7 @@
       const hand = e.currentTarget.dataset.hand;
 
       if (phase === 1) {
+        // Phase 1 logic (pick two hands)
         if (side === 'left') {
           playerLeftHand = (playerLeftHand === hand) ? null : hand;
         } else {
@@ -1089,20 +1144,19 @@
         }
       }
       else if (phase === 2) {
+        // Phase 2 logic (REMOVE the unwanted hand)
         if (!playerLeftHand || !playerRightHand) return;
-        const finalChoice = (side === 'left') ? playerLeftHand : playerRightHand;
-        playerFinalChoiceSide = side;
 
-        if (playerLeftHand === playerRightHand) {
-          highlightSelectedUserHand(side);
-        } else {
-          if (finalChoice === playerLeftHand) {
-            unhighlightUserHand('right');
-          } else {
-            unhighlightUserHand('left');
-          }
-        }
-        concludeRound(finalChoice, side);
+        const finalChoice = (side === 'left') ? playerRightHand : playerLeftHand;
+        const finalChoiceSide = (side === 'left') ? 'right' : 'left';
+
+        // Visually unselect the removed side
+        unhighlightUserHand(side);
+
+        // Mark the final side as "selected"
+        highlightSelectedUserHand(finalChoiceSide);
+
+        concludeRound(finalChoice, finalChoiceSide);
       }
     }
 
@@ -1264,6 +1318,10 @@
       statusMessage.textContent    = '';
       timerDisplay.textContent     = 'Timer: 5s';
       nextRoundBtn.style.display   = 'none';
+      rouletteBtn.style.display    = 'none';
+
+      // Reset the chance display text
+      updateChanceDisplay();
     }
   </script>
 </body>
