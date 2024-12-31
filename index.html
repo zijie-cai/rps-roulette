@@ -435,13 +435,17 @@
         max-width: 100px;
       }
       #roulette-visual {
-        max-width: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Ensure it takes full width */
       }
       #chance-display {
         font-size: 0.75rem;
         max-width: 220px;
         padding: 0.5rem;
       }
+      
     }
 
     @media (max-width: 360px) {
@@ -489,7 +493,6 @@
   margin: 0.5rem auto; /* Center horizontally with auto margins */
   border: 1px dashed #f44786; /* Adjusted border thickness */
   border-radius: 8px;
-  left: 20px;
   /* Keep it hidden until we actually show the spinning chamber */
   display: none;
 }
